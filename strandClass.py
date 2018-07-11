@@ -22,5 +22,3 @@ class strand:
     
     def set_component(self):
         return(self.component)
-
-arc1 = arc("Matt","Trefoil","Succ")
