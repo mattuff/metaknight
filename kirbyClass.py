@@ -21,7 +21,7 @@ class kirby:
         for j in self.joins:
             if(strand in j):
                 l.append(j)
-        return(l)
+        return(str(l))
   
       def add_r1(strand):
         count=0
