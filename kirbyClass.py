@@ -22,8 +22,8 @@ class kirby:
             if(strand in j):
                 l.append(j)
         return(l)
-
-       def add_r1(self, strand, orientation):
+  
+      def add_r1(strand):
         count=0
         for i in self.crossings:
             for j in range (4):
@@ -35,3 +35,5 @@ class kirby:
                     count=count+1
         c=crossing(arc,arc,arc+"a", arc+"b")
         crossings.append(c)
+        f=strand.get_knot.getFraming()
+        strand.get_knot.changeFraming(f+1)
