@@ -12,6 +12,9 @@ class Kirby:
             for i in range(2):
                 if(j[i] not in strands):
                     strands.append(j[i])
+                  
+    def __str__(self): #check if this helps return the str instead of the memory location
+        return('crossings: ' + str(self.crossings) + ', joins: ' + str(self.joins))
 
     def strandLookup(self,strand): #gives a weird output? #returns list of crossings/joins that a specific strand shows up in
         l=[]
