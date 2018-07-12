@@ -3,7 +3,7 @@ class Kirby:
    def __init__(self,crossings,joins):
         self.crossings=crossings
         self.joins=joins
-        strands=[]
+        strands=[] #makes list of strands
         for c in crossings:
             for i in range(4):
                 if(c[i] not in strands):
@@ -13,7 +13,7 @@ class Kirby:
                 if(j[i] not in strands):
                     strands.append(j[i])
 
-    def strandLookup(self,strand): #gives a weird output?
+    def strandLookup(self,strand): #gives a weird output? #returns list of crossings/joins that a specific strand shows up in
         l=[]
         for c in self.crossings:
             if(strand in c):
@@ -24,11 +24,11 @@ class Kirby:
         return(str(l))
   
      
-     def add_join(self, x):
-          y=strand(x.get_component(), x.get_succ(), x)
-          x.set_succ(y)
-          jx=join(x,y)
-          self.joins(x,y)
+     def add_join(self, x): #adds a join to a strand (splitting it into two different strands)
+          y=strand(x.get_component(), x.get_succ(), x) #adds strand after x
+          x.set_succ(y) #sets x's successor to y
+          jx=join(x,y) #creates join of [x,y]
+          self.joins.append(jx) #adds new join to join list
 
 
 
