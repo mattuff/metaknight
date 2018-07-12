@@ -22,3 +22,16 @@ class kirby:
             if(strand in j):
                 l.append(j)
         return(l)
+
+       def add_r1(strand):
+        count=0
+        for i in self.crossings:
+            for j in range (4):
+                if (i[j]==strand and count<1):
+                    i[j]=(arc+"a")
+                    count=count+1
+                elif (i[j]==strand and count<2):
+                    i[j]=(arc+"b")
+                    count=count+1
+        c=crossing(arc,arc,arc+"a", arc+"b")
+        crossings.append(c)
