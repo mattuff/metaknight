@@ -3,14 +3,14 @@ class crossing:
     def __init__(self,strand0,strand1,strand2,strand3):
         self.strands=[strand0,strand1,strand2,strand3]
 
-    def __getitem__(self,key):
+    def __getitem__(self,key): #key is 0-3 (int), returns strand
         return(self.strands[key])
 
-    def __contains__(self,item):
+    def __contains__(self,item): #returns boolean- True if 'item' is in the crossing
         return(item in self.strands)
 
-    def setStrands(self,strand0,strand1,strand2,strand3):
-        self.strands=[strand0,strand1,strand2,strand3]
+    def setStrands(self,strand0,strand1,strand2,strand3): #define new strands that come out of crossing
+        self.strands=[strand0,strand1,strand2,strand3] 
 
-    def getStrands(self):
+    def getStrands(self): #returns the strands
         return(self.strands)
