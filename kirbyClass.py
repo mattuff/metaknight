@@ -24,8 +24,13 @@ class kirby:
         return(str(l))
   
       def add_r1(strand):
-        newStrand1 = strand(newStrand1) #initialize 2 new strands (fix these lines)
+        newStrand1 = strand(newStrand1) #initialize 2 new strands, no succ or pred yet (fix these lines - maybe do this later with suc and pred)
         newStrand2 = strand(newStrand2)
+         
+        for i in self.crossings: #go through all the nodes
+           for j in range(4):    #for each node, go through the 4 edges coming out of it
+               
+      
         count=0
         for i in self.crossings:
             for j in range (4):
