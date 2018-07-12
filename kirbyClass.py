@@ -12,8 +12,6 @@ class kirby:
             for i in range(2):
                 if(j[i] not in strands):
                     strands.append(j[i])
-                  
- #   def__str__(self):
 
     def strandLookup(self,strand): #gives a weird output?
         l=[]
@@ -25,6 +23,17 @@ class kirby:
                 l.append(j)
         return(str(l))
   
+     
+     def add_joins(self, x):
+          y=strand(x.get_component(), x.get_succ(), x)
+          x.set_succ(y)
+          jx=join(x,y)
+          self.joins(x,y)
+
+
+
+
+
       def add_r1(strand):
       
         #initialize 2 new strands, no succ or pred yet (fix these lines - maybe do this later with suc and pred)
