@@ -24,7 +24,7 @@ class kirby:
         return(str(l))
   
      
-     def add_joins(self, x):
+     def add_join(self, x):
           y=strand(x.get_component(), x.get_succ(), x)
           x.set_succ(y)
           jx=join(x,y)
@@ -35,7 +35,7 @@ class kirby:
 
 
       def add_r1(strand):
-      
+      """
         #initialize 2 new strands, no succ or pred yet (fix these lines - maybe do this later with suc and pred)
          newStrand1 = strand(newStrand1)
          newStrand2 = strand(newStrand2)
@@ -58,7 +58,10 @@ class kirby:
         c=crossing(arc,arc,arc+"a", arc+"b")
         crossings.append(c)
         f=strand.get_knot.getFraming()
-        strand.get_knot.changeFraming(f+1)
+        strand.get_knot.changeFraming(f+1)"""
+      #add two joins to strand using add_join method
+      #add crossing
+      #remove joins added from join list but not using the remove join function
          
          
          
