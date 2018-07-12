@@ -2,7 +2,7 @@ class strand:
     
     def __init__(self,name,component,succ,pred):
         self.name=name
-        self.knot=knot
+        self.component=component
         self.succ=succ
         
     def set_succ(self,succ):
