@@ -59,3 +59,10 @@ class kirby:
         crossings.append(c)
         f=strand.get_knot.getFraming()
         strand.get_knot.changeFraming(f+1)
+         
+         
+         
+       def remove_join(j1):
+         #remove j1 from join list
+         #if j1=[x,y]: x.set_succ(y.get_succ()), y.get_succ().set_pred(x)
+         #search crossings for y, replace w x
