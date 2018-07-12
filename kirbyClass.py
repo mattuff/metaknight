@@ -69,6 +69,7 @@ class Kirby:
          
          
        def remove_join(j1):
-         #remove j1 from join list
-         #if j1=[x,y]: x.set_succ(y.get_succ()), y.get_succ().set_pred(x)
+         self.joins.remove(j1)
+         getitem(j1,0).set_succ(getitem(j1,1).get_succ())) #set's x's succ to be y's succ
+         getitem(j1,1).get_succ().set_pred(getitem(j1,0)) #set's y succ's pred to be x
          #search crossings for y, replace w x
