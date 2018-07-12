@@ -24,6 +24,8 @@ class kirby:
         return(str(l))
   
       def add_r1(strand):
+        newStrand1 = strand(newStrand1) #initialize 2 new strands (fix these lines)
+        newStrand2 = strand(newStrand2)
         count=0
         for i in self.crossings:
             for j in range (4):
