@@ -12,6 +12,8 @@ class kirby:
             for i in range(2):
                 if(j[i] not in strands):
                     strands.append(j[i])
+                  
+ #   def__str__(self):
 
     def strandLookup(self,strand): #gives a weird output?
         l=[]
