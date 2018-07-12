@@ -10,4 +10,3 @@ class arc:
     def get_knot(self):
         return(self.knot)
 
-arc1 = arc("Matt","Trefoil","Succ")
