@@ -5,10 +5,10 @@ class component:
         self.framing = framing
 
     def gethandle(self):
-        return handle
+        return self.handle
 
     def getframing(self):
-        return framing
+        return self.framing
 
     def changeframing(self, f):
         framing=f

@@ -1,6 +1,6 @@
 class kirby:
 
-    __init__(self,crossings,joins):
+   def __init__(self,crossings,joins):
         self.crossings=crossings
         self.joins=joins
         strands=[]
@@ -13,12 +13,12 @@ class kirby:
                 if(j[i] not in strands):
                     strands.append(j[i])
 
-    strandLookup(self,strand):
+    def strandLookup(self,strand): #gives a weird output?
         l=[]
         for c in self.crossings:
             if(strand in c):
-                l.append(c):
+                l.append(c)
         for j in self.joins:
             if(strand in j):
-                l.append(j):
+                l.append(j)
         return(l)
