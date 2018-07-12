@@ -17,8 +17,8 @@ class kirby:
         l=[]
         for c in self.crossings:
             if(strand in c):
-                l.append(c):
+                l.append(c)
         for j in self.joins:
             if(strand in j):
-                l.append(j):
+                l.append(j)
         return(l)
