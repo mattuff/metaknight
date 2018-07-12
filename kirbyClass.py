@@ -1,4 +1,4 @@
-class kirby:
+class Kirby:
 
    def __init__(self,crossings,joins):
         self.crossings=crossings
