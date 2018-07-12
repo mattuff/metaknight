@@ -4,11 +4,11 @@ class component:
         self.handle = handle
         self.framing = framing
 
-    def gethandle(self):
+    def getHandle(self):
         return self.handle
 
-    def getframing(self):
+    def getFraming(self):
         return self.framing
 
-    def changeframing(self, f):
+    def changeFraming(self, f):
         framing=f
