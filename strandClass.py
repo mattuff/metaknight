@@ -1,6 +1,7 @@
 class strand:
     
-    def __init__(self,comp,succ=None,pred=None):
+    def __init__(self,comp,succ=None,pred=None,name="strand"):
+        self.name=name
         self.comp=comp
         self.succ=succ
         self.pred=pred
