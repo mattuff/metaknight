@@ -13,7 +13,7 @@ class kirby:
                 if(j[i] not in strands):
                     strands.append(j[i])
 
-    def strandLookup(self,strand):
+    def strandLookup(self,strand): #gives a weird output?
         l=[]
         for c in self.crossings:
             if(strand in c):
