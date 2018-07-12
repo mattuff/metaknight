@@ -23,7 +23,7 @@ class kirby:
                 l.append(j)
         return(l)
 
-       def add_r1(strand):
+       def add_r1(self, strand, orientation):
         count=0
         for i in self.crossings:
             for j in range (4):
