@@ -3,6 +3,7 @@ class strand:
     def __init__(self,component,succ=None,pred=None):
         self.component=component
         self.succ=succ
+        self.pred=pred
         
     def set_succ(self,succ):
         self.succ=succ
