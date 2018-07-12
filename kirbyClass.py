@@ -24,11 +24,15 @@ class kirby:
         return(str(l))
   
       def add_r1(strand):
-        newStrand1 = strand(newStrand1) #initialize 2 new strands, no succ or pred yet (fix these lines - maybe do this later with suc and pred)
-        newStrand2 = strand(newStrand2)
+      
+        #initialize 2 new strands, no succ or pred yet (fix these lines - maybe do this later with suc and pred)
+         newStrand1 = strand(newStrand1)
+         newStrand2 = strand(newStrand2)
          
         for i in self.crossings: #go through all the nodes
            for j in range(4):    #for each node, go through the 4 edges coming out of it
+               if i[j] == strand: #we reached the strand we wish to twist
+                  #we have 2 crossings: the crossing with strand.succ and the crossing with strand.prec. 
                
       
         count=0
