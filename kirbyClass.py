@@ -41,31 +41,7 @@ class Kirby:
          #search crossings for y, replace w x
 
 
-      def add_r1(strand, sign):
-      """
-        #initialize 2 new strands, no succ or pred yet (fix these lines - maybe do this later with suc and pred)
-         newStrand1 = strand(newStrand1)
-         newStrand2 = strand(newStrand2)
-         
-        for i in self.crossings: #go through all the nodes
-           for j in range(4):    #for each node, go through the 4 edges coming out of it
-               if i[j] == strand: #we reached the strand we wish to twist
-                  #we have 2 crossings: the crossing with strand.succ and the crossing with strand.prec. 
-               
-      
-        count=0
-        for i in self.crossings:
-            for j in range (4):
-                if (i[j]==strand and count<1):
-                    i[j]=(arc+"a")
-                    count=count+1
-                elif (i[j]==strand and count<2):
-                    i[j]=(arc+"b")
-                    count=count+1
-        c=crossing(arc,arc,arc+"a", arc+"b")
-        crossings.append(c)
-        f=strand.get_knot.getFraming()
-        strand.get_knot.changeFraming(f+1)"""
+   def add_r1(strand, sign):
       #add two joins to strand using add_join method
       self.add_join(strand) #strand.get_succ().get_succ() (strand1)
       self.add_join(strand) #strand.get_succ() (strand2)
