@@ -67,15 +67,17 @@ class Kirby:
         f=strand.get_knot.getFraming()
         strand.get_knot.changeFraming(f+1)"""
       #add two joins to strand using add_join method
-      self.add_join(strand) #strand1
-      self.add_join(strand) #strand2
+      self.add_join(strand) #strand.get_succ().get_succ() (strand1)
+      self.add_join(strand) #strand.get_succ() (strand2)
       if (sign==1):
-         #add crossing [strand2, strand, strand1, strand2]
-         #strand.get_component().change_framing(strand.get_component().get_framing()+1)
+         self.crossings.append([strand.get_succ(), strand, strand.get_succ().get_succ(), strand.get_succ()])
+         strand.get_component().change_framing(strand.get_component().get_framing()+1)
       elif (sign==-1):
-         #add crossing [strand, strand1, strand2, strand2]
-         #strand.get_component().change_framing(strand.get_component().get_framing()-1)
+         self.crossings.append([strand, strand.get_succ().get_succ(), strand.get_succ(), strand.get_succ()])
+         strand.get_component().change_framing(strand.get_component().get_framing()-1)
       #remove joins added from join list but not using the remove join function
+      self.joins.remove([strand, strand.get_succ()])
+      self.joins.remove([strand.get_succ(), strand.get_succ().get_succ()])
       #replace other crossing that strand shows up in w strand1   
 
    def remove_r1(crossing)
