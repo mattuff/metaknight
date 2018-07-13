@@ -67,8 +67,9 @@ class Kirby:
              c.set_strands(getitem(c,0), getitem(c,1), getitem(c,2), strand.get_succ().get_succ())
       self.crossings.append(c)
 
-   def remove_r1(crossing)
+   def remove_r1(c)
       #remove crossing
+      self.crossings.remove(c)
       #remove two joins
       #change framing: add/subtract 1
 
