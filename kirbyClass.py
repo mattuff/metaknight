@@ -32,12 +32,16 @@ class Kirby:
           x.set_succ(y) #sets x's successor to y
           jx=join(x,y) #creates join of [x,y]
           self.joins.append(jx) #adds new join to join list
+          #return new strand?
+
+       def remove_join(j1):
+         self.joins.remove(j1)
+         getitem(j1,0).set_succ(getitem(j1,1).get_succ())) #set's x's succ to be y's succ
+         getitem(j1,1).get_succ().set_pred(getitem(j1,0)) #set's y succ's pred to be x
+         #search crossings for y, replace w x
 
 
-
-
-
-      def add_r1(strand):
+      def add_r1(strand, sign):
       """
         #initialize 2 new strands, no succ or pred yet (fix these lines - maybe do this later with suc and pred)
          newStrand1 = strand(newStrand1)
@@ -63,13 +67,31 @@ class Kirby:
         f=strand.get_knot.getFraming()
         strand.get_knot.changeFraming(f+1)"""
       #add two joins to strand using add_join method
-      #add crossing
+      self.add_join(strand) #strand1
+      self.add_join(strand) #strand2
+      if (sign==1):
+         #add crossing [strand2, strand, strand1, strand2]
+         #strand.get_component().change_framing(strand.get_component().get_framing()+1)
+      elif (sign==-1):
+         #add crossing [strand, strand1, strand2, strand2]
+         #strand.get_component().change_framing(strand.get_component().get_framing()-1)
       #remove joins added from join list but not using the remove join function
+      #replace other crossing that strand shows up in w strand1   
+
+   def remove_r1(crossing)
+      #remove crossing
+      #remove two joins
+      #change framing: add/subtract 1
+
+   def add_r2(strand1, strand2)
+      #add two joins to each strand
+      #add two crossings
+      #remove joins
+
+   def remove_r2 (crossing1, crossing2)
+      #remove two crossings
+      #remove joins
+
+   def r3(strand, crossing)
          
-         
-         
-       def remove_join(j1):
-         self.joins.remove(j1)
-         getitem(j1,0).set_succ(getitem(j1,1).get_succ())) #set's x's succ to be y's succ
-         getitem(j1,1).get_succ().set_pred(getitem(j1,0)) #set's y succ's pred to be x
-         #search crossings for y, replace w x
+   
