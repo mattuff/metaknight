@@ -16,7 +16,7 @@ class Kirby:
     def __str__(self): #check if this helps return the str instead of the memory location
         return('crossings: ' + str(self.crossings) + ', joins: ' + str(self.joins))
 
-    def strandLookup(self,strand): #gives a weird output? #returns list of crossings/joins that a specific strand shows up in
+    def strand_lookup(self,strand): #gives a weird output? #returns list of crossings/joins that a specific strand shows up in
         l=[]
         for c in self.crossings:
             if(strand in c):
@@ -24,7 +24,7 @@ class Kirby:
         for j in self.joins:
             if(strand in j):
                 l.append(j)
-        return(str(l))
+        return l
   
      
      def add_join(self, x): #adds a join to a strand (splitting it into two different strands)
@@ -78,7 +78,18 @@ class Kirby:
       #remove joins added from join list but not using the remove join function
       self.joins.remove([strand, strand.get_succ()])
       self.joins.remove([strand.get_succ(), strand.get_succ().get_succ()])
-      #replace other crossing that strand shows up in w strand1   
+      #replace other crossing that strand shows up in w strand1
+      c=list(set(strand_lookup(strand)), set(strand_lookup(strand.get_succ().get_succ().get_succ()))[0]
+      self.crossings.remove(c) 
+      if getitem(c,0)==strand:
+             c.set_strands(strand.get_succ().get_succ(), getitem(c,1), getitem(c,2), getitem(c,3))
+      elif getitem(c,1)==strand:
+             c.set_strands(getitem(c,0), strand.get_succ().get_succ(), getitem(c,2), getitem(c,3))
+      elif getitem(c,2)==strand:
+             c.set_strands(getitem(c,0), getitem(c,1), strand.get_succ().get_succ(), getitem(c,3))
+      elif getitem(c,3)==strand:
+             c.set_strands(getitem(c,0), getitem(c,1), getitem(c,2), strand.get_succ().get_succ())
+      self.crossings.append(c)
 
    def remove_r1(crossing)
       #remove crossing
