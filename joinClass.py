@@ -14,4 +14,3 @@ class join:
 
     def getStrands(self): #returns strands for join as a list
         return(self.strands)
-#trialtoseeifchange
