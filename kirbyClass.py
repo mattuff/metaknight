@@ -89,5 +89,6 @@ class Kirby:
       #remove joins
 
    def r3(strand, crossing)
-         
+
+   def handle_slide(comp1, comp2)
    
