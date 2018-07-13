@@ -41,12 +41,12 @@ class Kirby:
          #search crossings for y, replace w x
 
 
-   def add_r1(strand, sign):
+   def add_r1(strand, sign): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, -1 will subtract 1 from framing)
       #add two joins to strand using add_join method
       self.add_join(strand) #strand.get_succ().get_succ() (strand1)
       self.add_join(strand) #strand.get_succ() (strand2)
       if (sign==1):
-         self.crossings.append([strand.get_succ(), strand, strand.get_succ().get_succ(), strand.get_succ()])
+         self.crossings.append([strand.get_succ(), strand, strand.get_succ().get_succ(), strand.get_succ()]) #adds crossing
          strand.get_component().change_framing(strand.get_component().get_framing()+1)
       elif (sign==-1):
          self.crossings.append([strand, strand.get_succ().get_succ(), strand.get_succ(), strand.get_succ()])
@@ -55,10 +55,10 @@ class Kirby:
       self.joins.remove([strand, strand.get_succ()])
       self.joins.remove([strand.get_succ(), strand.get_succ().get_succ()])
       #replace other crossing that strand shows up in w strand1
-      c=list(set(strand_lookup(strand)), set(strand_lookup(strand.get_succ().get_succ().get_succ()))[0]
+      c=list(set(strand_lookup(strand)), set(strand_lookup(strand.get_succ().get_succ().get_succ()))[0] #finds crossing containing strand and strand's old succ
       self.crossings.remove(c) 
-      if getitem(c,0)==strand:
-             c.set_strands(strand.get_succ().get_succ(), getitem(c,1), getitem(c,2), getitem(c,3))
+      if getitem(c,0)==strand: #if strand is the ith strand in the crossing
+             c.set_strands(strand.get_succ().get_succ(), getitem(c,1), getitem(c,2), getitem(c,3)) #then replace strand w strand.get_succ().get_succ()
       elif getitem(c,1)==strand:
              c.set_strands(getitem(c,0), strand.get_succ().get_succ(), getitem(c,2), getitem(c,3))
       elif getitem(c,2)==strand:
@@ -67,11 +67,17 @@ class Kirby:
              c.set_strands(getitem(c,0), getitem(c,1), getitem(c,2), strand.get_succ().get_succ())
       self.crossings.append(c)
 
-   def remove_r1(c)
-      #remove crossing
+   def remove_r1(c, sign) #c: crossing for r1, sign=if the r1 added or subtracted 1 from framing
+      #remove crossing: [a, b, b, c] or something
       self.crossings.remove(c)
-      #remove two joins
+      s=getitem(c,0).get_component()
+      #add joins [a,b] and [b,c] (not using add joins method)
+      #remove joins [a,b] and [b,c] using remove joins method --> takes care of relabling 
       #change framing: add/subtract 1
+      if (sign==1):
+             s.change_framing(s.get_framing()-1)
+      elif (sign==-1):
+             s.change_framing(s.get_framing()+1)
 
    def add_r2(strand1, strand2)
       #add two joins to each strand
