@@ -135,22 +135,22 @@ def remove_r1(self,s) #s: crossed strand for r1
 
    def r3(self,strand, crossing)
          
-   def handle_annihilation(self,1h, 2h)
+   def handle_annihilation(self,h1, h2)
        #checks to make sure each handle only has 2 strands (all joins must be removed)
-       if (len(self.get_strands(1h))!==2 or len(self.get_strands(2h))!==2): 
+       if (len(self.get_strands(h1))!==2 or len(self.get_strands(h2))!==2): 
           print ("Handles can't be cancelled.")
-       #makes sure 1h and 2h only have crossings with each other
-       elif (self.strand_lookup(self.getstrands(1h)[0])[0] not in self.strand_lookup(self.getstrands(2h)[0])):
+       #makes sure h1 and h2 only have crossings with each other
+       elif (self.strand_lookup(self.getstrands(h1)[0])[0] not in self.strand_lookup(self.getstrands(h2)[0])):
           print ("Handles can't be cancelled.")
-       elif (self.strand_lookup(self.getstrands(1h)[0])[0] not in self.strand_lookup(self.getstrands(2h)[1])):
+       elif (self.strand_lookup(self.getstrands(h1)[0])[0] not in self.strand_lookup(self.getstrands(h2)[1])):
           print ("Handles can't be cancelled.")
-       elif (self.strand_lookup(self.getstrands(1h)[0])[1] not in self.strand_lookup(self.getstrands(2h)[0])):
+       elif (self.strand_lookup(self.getstrands(h1)[0])[1] not in self.strand_lookup(self.getstrands(h2)[0])):
           print ("Handles can't be cancelled.")
-       elif (self.strand_lookup(self.getstrands(1h)[0])[1] not in self.strand_lookup(self.getstrands(2h)[1])):
+       elif (self.strand_lookup(self.getstrands(h1)[0])[1] not in self.strand_lookup(self.getstrands(h2)[1])):
           print ("Handles can't be cancelled.")
        #delete crossings
-       self.crossings.remove(self.strand_lookup(self.getstrands(1h)[0])[0])
-       self.crossings.remove(self.strand_lookup(self.getstrands(1h)[0])[1])
+       self.crossings.remove(self.strand_lookup(self.getstrands(h1)[0])[0])
+       self.crossings.remove(self.strand_lookup(self.getstrands(h1)[0])[1])
        #deletes components
-       self.components.remove(1h)
-       self.components.remove(2h)
+       self.components.remove(h1)
+       self.components.remove(h2)
