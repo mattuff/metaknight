@@ -16,7 +16,7 @@ class Kirby:
     def __str__(self): #check if this helps return the str instead of the memory location
         return('crossings: ' + str(self.crossings) + ', joins: ' + str(self.joins))
 
-    def get_strands(comp):
+    def get_strands(self,comp):
        s=[]
        for i in self.crossings:
           for j in range (4):
@@ -46,14 +46,14 @@ class Kirby:
           self.joins.append(jx) #adds new join to join list
           #return new strand?
 
-     def remove_join(j1):
+     def remove_join(self,j1):
          self.joins.remove(j1)
          getitem(j1,0).set_succ(getitem(j1,1).get_succ())) #set's x's succ to be y's succ
          getitem(j1,1).get_succ().set_pred(getitem(j1,0)) #set's y succ's pred to be x
          #search crossings for y, replace w x
 
 
-def add_r1(strand, sign): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, -1 will subtract 1 from framing)
+def add_r1(self,strand, sign): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, -1 will subtract 1 from framing)
    #add two joins to strand using add_join method
    self.add_join(strand) #strand.get_succ().get_succ() (strand1)
    self.add_join(strand) #strand.get_succ() (strand2)
@@ -69,26 +69,26 @@ def add_r1(strand, sign): #strand=strand to twist, sign=clockwise or countercloc
    #replace other crossing that strand shows up in w strand1
    c=list(set(strand_lookup(strand)), set(strand_lookup(strand.get_succ().get_succ().get_succ()))[0] #finds crossing containing strand and strand's old succ
    self.crossings.remove(c) 
-   if getitem(c,0)==strand: #if strand is the ith strand in the crossing
-          c.set_strands(strand.get_succ().get_succ(), getitem(c,1), getitem(c,2), getitem(c,3)) #then replace strand w strand.get_succ().get_succ()
-   elif getitem(c,1)==strand:
-          c.set_strands(getitem(c,0), strand.get_succ().get_succ(), getitem(c,2), getitem(c,3))
-   elif getitem(c,2)==strand:
-          c.set_strands(getitem(c,0), getitem(c,1), strand.get_succ().get_succ(), getitem(c,3))
-   elif getitem(c,3)==strand:
-          c.set_strands(getitem(c,0), getitem(c,1), getitem(c,2), strand.get_succ().get_succ())
+   if c.getitem(0)==strand: #if strand is the ith strand in the crossing
+          c.set_strands(strand.get_succ().get_succ(), c.getitem(1), c.getitem(2), c.getitem(3)) #then replace strand w strand.get_succ().get_succ()
+   elif c.getitem(1)==strand:
+          c.set_strands(c.getitem(0), strand.get_succ().get_succ(), c.getitem(2), c.getitem(3))
+   elif c.getitem(2)==strand:
+          c.set_strands(c.getitem(0), c.getitem(1), strand.get_succ().get_succ(), c.getitem(3))
+   elif c.getitem(3)==strand:
+          c.set_strands(c.getitem(0), c.getitem(1), c.getitem(2), strand.get_succ().get_succ())
    self.crossings.append(c)
 
-def remove_r1(s) #s: crossed strand for r1
+def remove_r1(self,s) #s: crossed strand for r1
    c=self.strand_lookup(s)[0]
-   if (getitem(c,2)==getitem(c,3) or (getitem(c,0)==getitem(c,1)):
+   if (c.getitem(2)==c.getitem(3) or (c.getitem(0)==c.getitem(1)):
           self.crossings.remove(c) #remove crossing
           self.joins.append([s.get_prec(), s]) #adds join
           self.joins.append([s, s.get_succ()]) #adds join
           remove_join([s.get_prec(), s]) #removes join; does relabling
           remove_join([s, s.get_succ()]) #removes join; does relabling
           s.get_component().change_framing(s.get_component().get_framing()+1) #add 1 to framing
-   elif (getitem(c,0)==getitem(c,3) or getitem(c,1)==getitem(c,2)):
+   elif (c.getitem(0)==c.getitem(3) or c.getitem(1)==c.getitem(2)):
          self.crossings.remove(c) #remove crossing
           self.joins.append([s.get_prec(), s]) #adds join
           self.joins.append([s, s.get_succ()]) #adds join
@@ -97,7 +97,7 @@ def remove_r1(s) #s: crossed strand for r1
           s.get_component().change_framing(s.get_component().get_framing()-1) #subracts 1 from framing
 
 
-   def add_r2(strand1,strand2,orientation) #orientation is a boolean which is true if the strands are oriented the same way, and false otherwise
+   def add_r2(self,strand1,strand2,orientation) #orientation is a boolean which is true if the strands are oriented the same way, and false otherwise
       #add two joins to each strand
       #add two crossings
       #remove joins
@@ -116,13 +116,13 @@ def remove_r1(s) #s: crossed strand for r1
       for s in l:
          self.joins.remove(s)
 
-   def remove_r2 (crossing1, crossing2)
+   def remove_r2 (self,crossing1, crossing2)
       #remove two crossings
       #remove joins
 
-   def r3(strand, crossing)
+   def r3(self,strand, crossing)
          
-   def handle_annihilation(1h, 2h)
+   def handle_annihilation(self,1h, 2h)
        #checks to make sure each handle only has 2 strands (all joins must be removed)
        if (len(self.get_strands(1h))!==2 or len(self.get_strands(2h))!==2): 
           print ("Handles can't be cancelled.")
