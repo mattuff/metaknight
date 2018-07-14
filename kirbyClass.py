@@ -44,14 +44,26 @@ class Kirby:
           x.set_succ(y) #sets x's successor to y
           jx=join(x,y) #creates join of [x,y]
           self.joins.append(jx) #adds new join to join list
+          #search for crossings containing both x and y.get_succ(), replaces x w/ y
+
+         c=list(set(strand_lookup(x)), set(strand_lookup(y.get_succ())[0] #finds crossing containing x and y.get_succ()
+         self.crossings.remove(c) 
+         if c.getitem(0)==strand: #if strand is the ith strand in the crossing
+              c.set_strands(strand.get_succ().get_succ(), c.getitem(1), c.getitem(2), c.getitem(3)) #then replace strand w strand.get_succ().get_succ()
+         elif c.getitem(1)==strand:
+             c.set_strands(c.getitem(0), strand.get_succ().get_succ(), c.getitem(2), c.getitem(3))
+         elif c.getitem(2)==strand:
+             c.set_strands(c.getitem(0), c.getitem(1), strand.get_succ().get_succ(), c.getitem(3))
+         elif c.getitem(3)==strand:
+             c.set_strands(c.getitem(0), c.getitem(1), c.getitem(2), strand.get_succ().get_succ())
+         self.crossings.append(c)
           #return new strand?
 
      def remove_join(self,j1):
          self.joins.remove(j1)
          getitem(j1,0).set_succ(getitem(j1,1).get_succ())) #set's x's succ to be y's succ
          getitem(j1,1).get_succ().set_pred(getitem(j1,0)) #set's y succ's pred to be x
-         #search crossings for y, replace w x
-
+        #search crossings for y, replace w x
 
 def add_r1(self,strand, sign): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, -1 will subtract 1 from framing)
    #add two joins to strand using add_join method
@@ -66,18 +78,6 @@ def add_r1(self,strand, sign): #strand=strand to twist, sign=clockwise or counte
    #remove joins added from join list but not using the remove join function
    self.joins.remove([strand, strand.get_succ()])
    self.joins.remove([strand.get_succ(), strand.get_succ().get_succ()])
-   #replace other crossing that strand shows up in w strand1
-   c=list(set(strand_lookup(strand)), set(strand_lookup(strand.get_succ().get_succ().get_succ()))[0] #finds crossing containing strand and strand's old succ
-   self.crossings.remove(c) 
-   if c.getitem(0)==strand: #if strand is the ith strand in the crossing
-          c.set_strands(strand.get_succ().get_succ(), c.getitem(1), c.getitem(2), c.getitem(3)) #then replace strand w strand.get_succ().get_succ()
-   elif c.getitem(1)==strand:
-          c.set_strands(c.getitem(0), strand.get_succ().get_succ(), c.getitem(2), c.getitem(3))
-   elif c.getitem(2)==strand:
-          c.set_strands(c.getitem(0), c.getitem(1), strand.get_succ().get_succ(), c.getitem(3))
-   elif c.getitem(3)==strand:
-          c.set_strands(c.getitem(0), c.getitem(1), c.getitem(2), strand.get_succ().get_succ())
-   self.crossings.append(c)
 
 def remove_r1(self,s) #s: crossed strand for r1
    c=self.strand_lookup(s)[0]
