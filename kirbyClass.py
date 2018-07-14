@@ -16,6 +16,18 @@ class Kirby:
     def __str__(self): #check if this helps return the str instead of the memory location
         return('crossings: ' + str(self.crossings) + ', joins: ' + str(self.joins))
 
+    def get_strands(comp):
+       s=[]
+       for i in self.crossings:
+          for j in range (4):
+             if (i[j].get_component()==comp and i[j] not in s):
+                s.append(i[j])
+       for k in self.joins:
+          for l in range (2):
+             if (k[l].get_component()==comp and k[l] not in s):
+                s.append(k[l])
+      return s
+
     def strandLookup(self,strand): #gives a weird output? #returns list of crossings/joins that a specific strand shows up in
         l=[]
         for c in self.crossings:
@@ -34,7 +46,7 @@ class Kirby:
           self.joins.append(jx) #adds new join to join list
           #return new strand?
 
-       def remove_join(j1):
+     def remove_join(j1):
          self.joins.remove(j1)
          getitem(j1,0).set_succ(getitem(j1,1).get_succ())) #set's x's succ to be y's succ
          getitem(j1,1).get_succ().set_pred(getitem(j1,0)) #set's y succ's pred to be x
