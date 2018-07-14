@@ -1,6 +1,6 @@
 class component:
 
-    def __init__(self, handle, framing): #for 1-handles, framing=infinity
+    def __init__(self, handle, framing=None): #for 1-handles, framing=infinity
         self.handle = handle
         self.framing = framing
 
