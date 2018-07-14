@@ -67,17 +67,22 @@ def add_r1(strand, sign): #strand=strand to twist, sign=clockwise or countercloc
           c.set_strands(getitem(c,0), getitem(c,1), getitem(c,2), strand.get_succ().get_succ())
    self.crossings.append(c)
 
-def remove_r1(c, sign) #c: crossing for r1, sign=if the r1 added or subtracted 1 from framing
-   #remove crossing: [a, b, b, c] or something
-   self.crossings.remove(c)
-   s=getitem(c,0).get_component()
-   #add joins [a,b] and [b,c] (not using add joins method)
-   #remove joins [a,b] and [b,c] using remove joins method --> takes care of relabling 
-   #change framing: add/subtract 1
-   if (sign==1):
-          s.change_framing(s.get_framing()-1)
-   elif (sign==-1):
-          s.change_framing(s.get_framing()+1)
+def remove_r1(s) #s: crossed strand for r1
+   c=self.strand_lookup(s)[0]
+   if (getitem(c,2)==getitem(c,3) or (getitem(c,0)==getitem(c,1)):
+          self.crossings.remove(c) #remove crossing
+          self.joins.append([s.get_prec(), s]) #adds join
+          self.joins.append([s, s.get_succ()]) #adds join
+          remove_join([s.get_prec(), s]) #removes join; does relabling
+          remove_join([s, s.get_succ()]) #removes join; does relabling
+          s.get_component().change_framing(s.get_component().get_framing()+1) #add 1 to framing
+   elif (getitem(c,0)==getitem(c,3) or getitem(c,1)==getitem(c,2)):
+         self.crossings.remove(c) #remove crossing
+          self.joins.append([s.get_prec(), s]) #adds join
+          self.joins.append([s, s.get_succ()]) #adds join
+          remove_join([s.get_prec(), s]) #removes join; does relabling
+          remove_join([s, s.get_succ()]) #removes join; does relabling
+          s.get_component().change_framing(s.get_component().get_framing()-1) #subracts 1 from framing
 
 
    def add_r2(strand1,strand2,orientation) #orientation is a boolean which is true if the strands are oriented the same way, and false otherwise
@@ -105,4 +110,4 @@ def remove_r1(c, sign) #c: crossing for r1, sign=if the r1 added or subtracted 1
 
    def r3(strand, crossing)
          
-   
+   def handle_annihilation(1h, 2h)
