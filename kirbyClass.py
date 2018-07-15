@@ -48,7 +48,7 @@ class Kirby:
       for j in self.joins:
          if(strand in j):
             l.append(j)
-      return(str(l))
+      return l
   
      
    def add_join(self, x): #adds a join to a strand (splitting it into two different strands)
@@ -58,7 +58,7 @@ class Kirby:
       jx=join(x,y) #creates join of [x,y]
       self.joins.append(jx) #adds new join to join list
       #search for crossings containing both x and y.get_succ(), replaces x w/ y
-      c=list(set(strand_lookup(x))&set(strand_lookup(y.get_succ()))[0] #finds crossing containing x and y.get_succ()
+      c=list(set(strand_lookup(x))&set(strand_lookup(y.get_succ())))[0] #finds crossing containing x and y.get_succ()
       self.crossings.remove(c) 
       if c.getitem(0)==x: #if x is the ith strand in the crossing
          c.set_strands(y, c.getitem(1), c.getitem(2), c.getitem(3)) #then replace strand w strand.get_succ().get_succ()
@@ -75,7 +75,7 @@ class Kirby:
       self.joins.remove(j1)
       x=j1[0]
       y=j1[1]
-      getitem(j1,0).set_succ(getitem(j1,1).get_succ())) #set's x's succ to be y's succ
+      getitem(j1,0).set_succ(getitem(j1,1).get_succ()) #set's x's succ to be y's succ
       getitem(j1,1).get_succ().set_pred(getitem(j1,0)) #set's y succ's pred to be x
       #search crossings for y, replace w x
       c=strand_lookup(y)[0]
@@ -104,9 +104,9 @@ class Kirby:
       self.joins.remove([strand, strand.get_succ()])
       self.joins.remove([strand.get_succ(), strand.get_succ().get_succ()])
 
-   def remove_r1(self,s) #s: crossed strand for r1
+   def remove_r1(self,s): #s: crossed strand for r1
       c=self.strand_lookup(s)[0]
-      if (c.getitem(2)==c.getitem(3) or (c.getitem(0)==c.getitem(1)):
+      if (c.getitem(2)==c.getitem(3) or (c.getitem(0)==c.getitem(1))):
          self.crossings.remove(c) #remove crossing
          self.joins.append([s.get_prec(), s]) #adds join
          self.joins.append([s, s.get_succ()]) #adds join
@@ -122,7 +122,7 @@ class Kirby:
          s.get_component().change_framing(s.get_component().get_framing()-1) #subracts 1 from framing
 
 
-   def add_r2(self,strand1,strand2,orientation) #orientation is a boolean which is true if the strands are oriented the same way, and false otherwise
+   def add_r2(self,strand1,strand2,orientation): #orientation is a boolean which is true if the strands are oriented the same way, and false otherwise
       #add two joins to each strand
       #add two crossings
       #remove joins
@@ -141,28 +141,28 @@ class Kirby:
       for s in l:
          self.joins.remove(s)
 
-   def remove_r2 (self,crossing1, crossing2)
+   #def remove_r2 (self,crossing1, crossing2):
       #remove two crossings
       #remove joins
 
-   def r3(self,strand, crossing)
+   #def r3(self,strand, crossing):
          
-   def handle_annihilation(self,h1,h2)
-       #checks to make sure each handle only has 2 strands (all joins must be removed)
-       if (len(self.get_strands(h1))!==2 or len(self.get_strands(h2))!==2): 
-          print ("Handles can't be cancelled.")
-       #makes sure h1 and h2 only have crossings with each other
-       elif (self.strand_lookup(self.getstrands(h1)[0])[0] not in self.strand_lookup(self.getstrands(h2)[0])):
-          print ("Handles can't be cancelled.")
-       elif (self.strand_lookup(self.getstrands(h1)[0])[0] not in self.strand_lookup(self.getstrands(h2)[1])):
-          print ("Handles can't be cancelled.")
-       elif (self.strand_lookup(self.getstrands(h1)[0])[1] not in self.strand_lookup(self.getstrands(h2)[0])):
-          print ("Handles can't be cancelled.")
-       elif (self.strand_lookup(self.getstrands(h1)[0])[1] not in self.strand_lookup(self.getstrands(h2)[1])):
-          print ("Handles can't be cancelled.")
-       #delete crossings
-       self.crossings.remove(self.strand_lookup(self.getstrands(h1)[0])[0])
-       self.crossings.remove(self.strand_lookup(self.getstrands(h1)[0])[1])
-       #deletes components
-       self.components.remove(h1)
-       self.components.remove(h2)
+   def handle_annihilation(self,h1,h2):
+      #checks to make sure each handle only has 2 strands (all joins must be removed)
+      if (len(self.get_strands(h1))!=2 or len(self.get_strands(h2))!=2): 
+         print ("Handles can't be cancelled.")
+      #makes sure h1 and h2 only have crossings with each other
+      elif (self.strand_lookup(self.getstrands(h1)[0])[0] not in self.strand_lookup(self.getstrands(h2)[0])):
+         print ("Handles can't be cancelled.")
+      elif (self.strand_lookup(self.getstrands(h1)[0])[0] not in self.strand_lookup(self.getstrands(h2)[1])):
+         print ("Handles can't be cancelled.")
+      elif (self.strand_lookup(self.getstrands(h1)[0])[1] not in self.strand_lookup(self.getstrands(h2)[0])):
+         print ("Handles can't be cancelled.")
+      elif (self.strand_lookup(self.getstrands(h1)[0])[1] not in self.strand_lookup(self.getstrands(h2)[1])):
+         print ("Handles can't be cancelled.")
+      #delete crossings
+      self.crossings.remove(self.strand_lookup(self.getstrands(h1)[0])[0])
+      self.crossings.remove(self.strand_lookup(self.getstrands(h1)[0])[1])
+      #deletes components
+      self.components.remove(h1)
+      self.components.remove(h2)
