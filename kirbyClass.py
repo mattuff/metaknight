@@ -13,14 +13,14 @@ class Kirby:
                 if(j[i] not in strands):
                     strands.append(j[i])
                   
-    def __str__(self): #check if this helps return the str instead of the memory location
+   def __str__(self): #check if this helps return the str instead of the memory location
        return('crossings: ' + str(self.crossings) + ', joins: ' + str(self.joins))
 
    def print_pd(self):
       for c in self.crossings:
          print ("[")
          for i in range (4):
-            print (c[i])
+            print (c[i], ", ")
          print ("]")
       for j in self.joins:
          print ("[")
@@ -90,36 +90,36 @@ class Kirby:
              c.set_strands(c.getitem(0), c.getitem(1), c.getitem(2), x)
          self.crossings.append(c)                
 
-def add_r1(self,strand, sign): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, -1 will subtract 1 from framing)
-   #add two joins to strand using add_join method
-   self.add_join(strand) #strand.get_succ().get_succ() (strand1)
-   self.add_join(strand) #strand.get_succ() (strand2)
-   if (sign==1):
-      self.crossings.append([strand.get_succ(), strand, strand.get_succ().get_succ(), strand.get_succ()]) #adds crossing
-      strand.get_component().change_framing(strand.get_component().get_framing()+1)
-   elif (sign==-1):
-      self.crossings.append([strand, strand.get_succ().get_succ(), strand.get_succ(), strand.get_succ()])
-      strand.get_component().change_framing(strand.get_component().get_framing()-1)
-   #remove joins added from join list but not using the remove join function
-   self.joins.remove([strand, strand.get_succ()])
-   self.joins.remove([strand.get_succ(), strand.get_succ().get_succ()])
+   def add_r1(self,strand, sign): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, -1 will subtract 1 from framing)
+      #add two joins to strand using add_join method
+      self.add_join(strand) #strand.get_succ().get_succ() (strand1)
+      self.add_join(strand) #strand.get_succ() (strand2)
+      if (sign==1):
+         self.crossings.append([strand.get_succ(), strand, strand.get_succ().get_succ(), strand.get_succ()]) #adds crossing
+         strand.get_component().change_framing(strand.get_component().get_framing()+1)
+      elif (sign==-1):
+         self.crossings.append([strand, strand.get_succ().get_succ(), strand.get_succ(), strand.get_succ()])
+         strand.get_component().change_framing(strand.get_component().get_framing()-1)
+      #remove joins added from join list but not using the remove join function
+      self.joins.remove([strand, strand.get_succ()])
+      self.joins.remove([strand.get_succ(), strand.get_succ().get_succ()])
 
-def remove_r1(self,s) #s: crossed strand for r1
-   c=self.strand_lookup(s)[0]
-   if (c.getitem(2)==c.getitem(3) or (c.getitem(0)==c.getitem(1)):
-          self.crossings.remove(c) #remove crossing
-          self.joins.append([s.get_prec(), s]) #adds join
-          self.joins.append([s, s.get_succ()]) #adds join
-          remove_join([s.get_prec(), s]) #removes join; does relabling
-          remove_join([s, s.get_succ()]) #removes join; does relabling
-          s.get_component().change_framing(s.get_component().get_framing()+1) #add 1 to framing
-   elif (c.getitem(0)==c.getitem(3) or c.getitem(1)==c.getitem(2)):
+   def remove_r1(self,s) #s: crossed strand for r1
+      c=self.strand_lookup(s)[0]
+      if (c.getitem(2)==c.getitem(3) or (c.getitem(0)==c.getitem(1)):
          self.crossings.remove(c) #remove crossing
-          self.joins.append([s.get_prec(), s]) #adds join
-          self.joins.append([s, s.get_succ()]) #adds join
-          remove_join([s.get_prec(), s]) #removes join; does relabling
-          remove_join([s, s.get_succ()]) #removes join; does relabling
-          s.get_component().change_framing(s.get_component().get_framing()-1) #subracts 1 from framing
+         self.joins.append([s.get_prec(), s]) #adds join
+         self.joins.append([s, s.get_succ()]) #adds join
+         remove_join([s.get_prec(), s]) #removes join; does relabling
+         remove_join([s, s.get_succ()]) #removes join; does relabling
+         s.get_component().change_framing(s.get_component().get_framing()+1) #add 1 to framing
+      elif (c.getitem(0)==c.getitem(3) or c.getitem(1)==c.getitem(2)):
+         self.crossings.remove(c) #remove crossing
+         self.joins.append([s.get_prec(), s]) #adds join
+         self.joins.append([s, s.get_succ()]) #adds join
+         remove_join([s.get_prec(), s]) #removes join; does relabling
+         remove_join([s, s.get_succ()]) #removes join; does relabling
+         s.get_component().change_framing(s.get_component().get_framing()-1) #subracts 1 from framing
 
 
    def add_r2(self,strand1,strand2,orientation) #orientation is a boolean which is true if the strands are oriented the same way, and false otherwise
