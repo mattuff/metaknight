@@ -147,7 +147,7 @@ class Kirby:
 
    def r3(self,strand, crossing)
          
-   def handle_annihilation(self,h1, h2)
+   def handle_annihilation(self,h1,h2)
        #checks to make sure each handle only has 2 strands (all joins must be removed)
        if (len(self.get_strands(h1))!==2 or len(self.get_strands(h2))!==2): 
           print ("Handles can't be cancelled.")
