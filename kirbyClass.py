@@ -66,14 +66,14 @@ class Kirby:
       #search for crossings containing both x and y.get_succ(), replaces x w/ y
       c=list(set(self.strand_lookup(x))&set(self.strand_lookup(y.get_succ())))[0] #finds crossing containing x and y.get_succ()
       self.crossings.remove(c) 
-      if c.getitem(0)==x: #if x is the ith strand in the crossing
-         c.set_strands(y, c.getitem(1), c.getitem(2), c.getitem(3)) #then replace strand w strand.get_succ().get_succ()
-      elif c.getitem(1)==x:
-         c.set_strands(c.getitem(0), y, c.getitem(2), c.getitem(3))
-      elif c.getitem(2)==x:
-         c.set_strands(c.getitem(0), c.getitem(1), y, c.getitem(3))
-      elif c.getitem(3)==x:
-         c.set_strands(c.getitem(0), c.getitem(1), c.getitem(2), y)
+      if c[0]==x: #if x is the ith strand in the crossing
+         c.set_strands(y, c[1], c[2], c[3]) #then replace strand w strand.get_succ().get_succ()
+      elif c[1]==x:
+         c.set_strands(c[0], y, c[2], c[3])
+      elif c[2]==x:
+         c.set_strands(c[0], c[1], y, c[3])
+      elif c[3]==x:
+         c.set_strands(c[0], c[1], c[2], y)
       self.crossings.append(c)
       #return new strand?
 
@@ -81,19 +81,19 @@ class Kirby:
       self.joins.remove(j1)
       x=j1[0]
       y=j1[1]
-      getitem(j1,0).set_succ(getitem(j1,1).get_succ()) #set's x's succ to be y's succ
-      getitem(j1,1).get_succ().set_pred(getitem(j1,0)) #set's y succ's pred to be x
+      j1[0].set_succ(j1[1].get_succ()) #set's x's succ to be y's succ
+      j1[1].get_succ().set_pred(j1[0]) #set's y succ's pred to be x
       #search crossings for y, replace w x
       c=self.strand_lookup(y)[0]
       self.crossings.remove(c) 
-      if c.getitem(0)==y: #if x is the ith strand in the crossing
-         c.set_strands(x, c.getitem(1), c.getitem(2), c.getitem(3)) #then replace strand w strand.get_succ().get_succ()
-      elif c.getitem(1)==y:
-         c.set_strands(c.getitem(0), x, c.getitem(2), c.getitem(3))
-      elif c.getitem(2)==y:
-         c.set_strands(c.getitem(0), c.getitem(1), x, c.getitem(3))
-      elif c.getitem(3)==y:
-         c.set_strands(c.getitem(0), c.getitem(1), c.getitem(2), x)
+      if c[0]==y: #if x is the ith strand in the crossing
+         c.set_strands(x, c[1], c[2], c[3]) #then replace strand w strand.get_succ().get_succ()
+      elif c[1]==y:
+         c.set_strands(c[0], x, c[2], c[3])
+      elif c[2]==y:
+         c.set_strands(c[0], c[1], x, c[3])
+      elif c[3]==y:
+         c.set_strands(c[0], c[1], c[2], x)
       self.crossings.append(c)                
 
    def add_r1(self,strand, sign): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, -1 will subtract 1 from framing)
@@ -112,14 +112,14 @@ class Kirby:
 
    def remove_r1(self,s): #s: crossed strand for r1
       c=self.strand_lookup(s)[0]
-      if (c.getitem(2)==c.getitem(3) or (c.getitem(0)==c.getitem(1))):
+      if (c[2]==c[3] or (c[0]==c[1])):
          self.crossings.remove(c) #remove crossing
          self.joins.append([s.get_prec(), s]) #adds join
          self.joins.append([s, s.get_succ()]) #adds join
          remove_join([s.get_prec(), s]) #removes join; does relabling
          remove_join([s, s.get_succ()]) #removes join; does relabling
          s.get_component().change_framing(s.get_component().get_framing()+1) #add 1 to framing
-      elif (c.getitem(0)==c.getitem(3) or c.getitem(1)==c.getitem(2)):
+      elif (c[0]==c[3] or c[1]==c[2]):
          self.crossings.remove(c) #remove crossing
          self.joins.append([s.get_prec(), s]) #adds join
          self.joins.append([s, s.get_succ()]) #adds join
@@ -166,3 +166,5 @@ class Kirby:
       #deletes components
       #self.components.remove(h1)
       #self.components.remove(h2)
+
+   def handle_creation(self) 
