@@ -38,11 +38,11 @@ class Kirby:
       s=[]
       for i in self.crossings:
          for j in range (4):
-            if (i[j].get_component()==comp and i[j] not in s):
+            if (i[j].component==comp and i[j] not in s):
                s.append(i[j])
       for k in self.joins:
          for l in range (2):
-            if (k[l].get_component()==comp and k[l] not in s):
+            if (k[l].component==comp and k[l] not in s):
                s.append(k[l])
       return s
 
@@ -58,7 +58,7 @@ class Kirby:
   
      
    def add_join(self, x): #adds a join to a strand (splitting it into two different strands)
-      y=strand(x.get_component(), x.succ, x) #adds strand w pred x and succ x's succ
+      y=strand(x.component, x.succ, x) #adds strand w pred x and succ x's succ
       x.succ.set_pred(y) #sets x's old successor's pred to be y
       x.set_succ(y) #sets x's successor to y
       jx=join(x,y) #creates join of [x,y]
@@ -101,14 +101,14 @@ class Kirby:
       self.add_join(strand) #strand.get_succ().get_succ() (strand1)
       self.add_join(strand) #strand.get_succ() (strand2)
       if (sign==1):
-         self.crossings.append([strand.get_succ(), strand, strand.get_succ().get_succ(), strand.get_succ()]) #adds crossing
-         strand.get_component().change_framing(strand.get_component().get_framing()+1)
+         self.crossings.append([strand.succ, strand, strand.succ.succ, strand.succ]) #adds crossing
+         strand.component.change_framing(strand.component.framing+1)
       elif (sign==-1):
-         self.crossings.append([strand, strand.get_succ().get_succ(), strand.get_succ(), strand.get_succ()])
-         strand.get_component().change_framing(strand.get_component().get_framing()-1)
+         self.crossings.append([strand, strand.succ.succ, strand.succ, strand.succ])
+         strand.component.change_framing(strand.component.framing-1)
       #remove joins added from join list but not using the remove join function
-      self.joins.remove([strand, strand.get_succ()])
-      self.joins.remove([strand.get_succ(), strand.get_succ().get_succ()])
+      self.joins.remove([strand, strand.succ])
+      self.joins.remove([strand.succ, strand.succ.succ])
 
    def remove_r1(self,s): #s: crossed strand for r1
       c=self.strand_lookup(s)[0]
@@ -118,14 +118,14 @@ class Kirby:
          self.joins.append([s, s.succ]) #adds join
          remove_join([s.pred, s]) #removes join; does relabling
          remove_join([s, s.succ]) #removes join; does relabling
-         s.get_component().change_framing(s.get_component().get_framing()+1) #add 1 to framing
+         s.component.change_framing(s.component.framing+1) #add 1 to framing
       elif (c[0]==c[3] or c[1]==c[2]):
          self.crossings.remove(c) #remove crossing
          self.joins.append([s.pred, s]) #adds join
          self.joins.append([s, s.succ]) #adds join
          remove_join([s.pred, s]) #removes join; does relabling
          remove_join([s, s.succ]) #removes join; does relabling
-         s.get_component().change_framing(s.get_component().get_framing()-1) #subracts 1 from framing
+         s.component.change_framing(s.component.framing-1) #subracts 1 from framing
 
 
    def add_r2(self,strand1,strand2,orientation): #orientation is a boolean which is true if the strands are oriented the same way, and false otherwise
