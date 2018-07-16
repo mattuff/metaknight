@@ -155,9 +155,10 @@ class Kirby:
          
    def handle_annihilation(self,h1,h2):
       #checks to make sure each handle only has 2 strands (all joins must be removed)
-      if (len(self.get_strands(h1))!=2 or len(self.get_strands(h2))!=2): 
+      if (len(self.get_strands(h1))!=2 or len(self.get_strands(h2))!=2): #checks that each handle only has two strands
          print ("Handles can't be cancelled.")
       elif (len(list(set(self.strand_lookup(self.get_strands(h1)[0]))&set(self.strand_lookup(self.get_strands(h2)[0])))))!=2):
+      #intersection of crossings containing both handles != 2 
          print ("Handles can't be cancelled.")
       #delete crossings
       self.crossings.remove(self.strand_lookup(self.get_strands(h1)[0])[0])
