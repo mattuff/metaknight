@@ -9,8 +9,8 @@ class join:
     def __contains__(self,item): #returns true/false if strand is in join
         return(item in self.strands)
 
-    def setStrands(self,strand0,strand1): #sets strands for join
+    def set__Strands(self,strand0,strand1): #sets strands for join
         self.strands=[strand0,strand1]
 
-    def getStrands(self): #returns strands for join as a list
+    def get__Strands(self): #returns strands for join as a list
         return(self.strands)
