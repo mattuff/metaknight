@@ -18,20 +18,20 @@ class Kirby:
 
    def print_pd(self):
       for c in self.crossings:
-         print ("[")
+         print ("[", end =" ")
          for i in range (4):
             if (i<3):
-               print (c[i], ", ")
+               print (c[i], ", ", end =" ")
             else:
-               print (c[i])
+               print (c[i], end =" ")
          print ("]")
       for j in self.joins:
-         print ("[")
+         print ("[", end =" ")
          for k in range (2):
             if (k<1):
-               print (j[k], ", ")
+               print (j[k], ", ", end =" ")
             else:
-               print(j[k])
+               print(j[k], end =" ")
          print ("]")
 
    def get_strands(self,comp):
