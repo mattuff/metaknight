@@ -105,7 +105,12 @@ class Kirby:
          c.set_strands(c[0], c[1], x, c[3])
       elif c[3]==y:
          c.set_strands(c[0], c[1], c[2], x)
-      self.crossings.append(c)                
+      self.crossings.append(c)
+
+   def remove_joins(self):
+      for j in self.joins:
+         if ([j[1],j[0]] not in self.joins):
+            remove_join(j)
 
    def add_r1(self,strand, sign): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, -1 will subtract 1 from framing)
       #add two joins to strand using add_join method
