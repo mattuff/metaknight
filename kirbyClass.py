@@ -151,14 +151,7 @@ class Kirby:
       #checks to make sure each handle only has 2 strands (all joins must be removed)
       if (len(self.get_strands(h1))!=2 or len(self.get_strands(h2))!=2): 
          print ("Handles can't be cancelled.")
-      #makes sure h1 and h2 only have crossings with each other
-      elif (self.strand_lookup(self.get_strands(h1)[0])[0] not in self.strand_lookup(self.get_strands(h2)[0])):
-         print ("Handles can't be cancelled.")
-      elif (self.strand_lookup(self.get_strands(h1)[0])[0] not in self.strand_lookup(self.get_strands(h2)[1])):
-         print ("Handles can't be cancelled.")
-      elif (self.strand_lookup(self.get_strands(h1)[0])[1] not in self.strand_lookup(self.get_strands(h2)[0])):
-         print ("Handles can't be cancelled.")
-      elif (self.strand_lookup(self.get_strands(h1)[0])[1] not in self.strand_lookup(self.get_strands(h2)[1])):
+      elif (len(list(set(self.strand_lookup(self.get_strands(h1)[0]))&set(self.strand_lookup(self.get_strands(h2)[0])))))!=2):
          print ("Handles can't be cancelled.")
       #delete crossings
       self.crossings.remove(self.strand_lookup(self.get_strands(h1)[0])[0])
