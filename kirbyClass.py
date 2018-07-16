@@ -20,12 +20,18 @@ class Kirby:
       for c in self.crossings:
          print ("[")
          for i in range (4):
-            print (c[i], ", ")
+            if (i<3):
+               print (c[i], ", ")
+            else:
+               print (c[i])
          print ("]")
       for j in self.joins:
          print ("[")
          for k in range (2):
-            print(j[k])
+            if (k<1):
+               print (j[k], ", ")
+            else:
+               print(j[k])
          print ("]")
 
    def get_strands(self,comp):
@@ -130,18 +136,18 @@ class Kirby:
       self.add_join(strand1)
       self.add_join(strand2)
       self.add_join(strand2)
-      l=(self.strand_lookup(strand1.succ))+(self.strand_lookup(strand2.succ))
+      l=(self.strand_lookup(strand1.get_succ()))+(self.strand_lookup(strand2.get_succ()))
       if(orientation):
-         c1=crossing(strand1,strand2.succ,strand1.succ,strand2)
-         c2=crossing(strand1.succ,strand2.succ,strand1.succ.succ,strand2.succ.succ)
+         c1=crossing(strand1,strand2.get_succ(),strand1.get_succ(),strand2)
+         c2=crossing(strand1.get_succ(),strand2.get_succ(),strand1.get_succ().get_succ(),strand2.get_succ().get_succ())
       else:
-         c1=crossing(strand1,strand2.succ.succ,strand1.succ,strand2.succ)
-         c2=crossing(strand1.succ,strand2,strand1.succ.succ,strand2.succ)
+         c1=crossing(strand1,strand2.get_succ().get_succ(),strand1.get_succ(),strand2.get_succ())
+         c2=crossing(strand1.get_succ(),strand2,strand1.get_succ().get_succ(),strand2.get_succ())
       self.crossings+=[c1,c2]
       for s in l:
          self.joins.remove(s)
 
-   #def remove_r2 (self,strand1, crossing2):
+   #def remove_r2 (self,crossing1, crossing2):
       #remove two crossings
       #remove joins
 
