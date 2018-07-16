@@ -13,10 +13,10 @@ class Kirby:
             if(j[i] not in strands):
                strands.append(j[i])
                   
-   def __str__(self): #check if this helps return the str instead of the memory location
+   def __str__(self): #this should print pd diagram
        return('crossings: ' + str(self.crossings) + ', joins: ' + str(self.joins))
 
-   def print_pd(self):
+   def print_pd(self): #change this to __str__
       for c in self.crossings:
          print ("[", end =" ")
          for i in range (4):
