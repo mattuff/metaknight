@@ -58,7 +58,7 @@ class Kirby:
       jx=join(x,y) #creates join of [x,y]
       self.joins.append(jx) #adds new join to join list
       #search for crossings containing both x and y.get_succ(), replaces x w/ y
-      c=list(set(strand_lookup(x))&set(strand_lookup(y.get_succ())))[0] #finds crossing containing x and y.get_succ()
+      c=list(set(self.strand_lookup(x))&set(self.strand_lookup(y.get_succ())))[0] #finds crossing containing x and y.get_succ()
       self.crossings.remove(c) 
       if c.getitem(0)==x: #if x is the ith strand in the crossing
          c.set_strands(y, c.getitem(1), c.getitem(2), c.getitem(3)) #then replace strand w strand.get_succ().get_succ()
@@ -164,5 +164,5 @@ class Kirby:
       self.crossings.remove(self.strand_lookup(self.get_strands(h1)[0])[0])
       self.crossings.remove(self.strand_lookup(self.get_strands(h1)[0])[0])
       #deletes components
-      self.components.remove(h1)
-      self.components.remove(h2)
+      #self.components.remove(h1)
+      #self.components.remove(h2)
