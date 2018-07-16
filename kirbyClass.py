@@ -56,7 +56,18 @@ class Kirby:
             l.append(j)
       return l
   
-     
+   def comp_list(self):
+      l=[]
+      for c in crossings:
+         for i in range (4):
+            if (c[i].component not in l):
+               l.append(c[i].component)
+      for j in joins:
+         for k in range (2):
+            if (k[j].component not in l):
+               l.append(k[j].component)
+      return l
+   
    def add_join(self, x): #adds a join to a strand (splitting it into two different strands)
       y=strand(x.component, x.succ, x) #adds strand w pred x and succ x's succ
       x.succ.set_pred(y) #sets x's old successor's pred to be y
