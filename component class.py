@@ -11,4 +11,4 @@ class component:
         return self.framing
 
     def change_framing(self, f): #changes framing of 2-handles
-        framing=f
+        self.framing=f
