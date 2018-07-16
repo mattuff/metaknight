@@ -152,17 +152,17 @@ class Kirby:
       if (len(self.get_strands(h1))!=2 or len(self.get_strands(h2))!=2): 
          print ("Handles can't be cancelled.")
       #makes sure h1 and h2 only have crossings with each other
-      elif (self.strand_lookup(self.getstrands(h1)[0])[0] not in self.strand_lookup(self.getstrands(h2)[0])):
+      elif (self.strand_lookup(self.get_strands(h1)[0])[0] not in self.strand_lookup(self.get_strands(h2)[0])):
          print ("Handles can't be cancelled.")
-      elif (self.strand_lookup(self.getstrands(h1)[0])[0] not in self.strand_lookup(self.getstrands(h2)[1])):
+      elif (self.strand_lookup(self.get_strands(h1)[0])[0] not in self.strand_lookup(self.get_strands(h2)[1])):
          print ("Handles can't be cancelled.")
-      elif (self.strand_lookup(self.getstrands(h1)[0])[1] not in self.strand_lookup(self.getstrands(h2)[0])):
+      elif (self.strand_lookup(self.get_strands(h1)[0])[1] not in self.strand_lookup(self.get_strands(h2)[0])):
          print ("Handles can't be cancelled.")
-      elif (self.strand_lookup(self.getstrands(h1)[0])[1] not in self.strand_lookup(self.getstrands(h2)[1])):
+      elif (self.strand_lookup(self.get_strands(h1)[0])[1] not in self.strand_lookup(self.get_strands(h2)[1])):
          print ("Handles can't be cancelled.")
       #delete crossings
-      self.crossings.remove(self.strand_lookup(self.getstrands(h1)[0])[0])
-      self.crossings.remove(self.strand_lookup(self.getstrands(h1)[0])[1])
+      self.crossings.remove(self.strand_lookup(self.get_strands(h1)[0])[0])
+      self.crossings.remove(self.strand_lookup(self.get_strands(h1)[0])[0])
       #deletes components
       self.components.remove(h1)
       self.components.remove(h2)
