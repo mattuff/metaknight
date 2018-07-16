@@ -130,18 +130,18 @@ class Kirby:
       self.add_join(strand1)
       self.add_join(strand2)
       self.add_join(strand2)
-      l=(self.strand_lookup(strand1.get_succ()))+(self.strand_lookup(strand2.get_succ()))
+      l=(self.strand_lookup(strand1.succ))+(self.strand_lookup(strand2.succ))
       if(orientation):
-         c1=crossing(strand1,strand2.get_succ(),strand1.get_succ(),strand2)
-         c2=crossing(strand1.get_succ(),strand2.get_succ(),strand1.get_succ().get_succ(),strand2.get_succ().get_succ())
+         c1=crossing(strand1,strand2.succ,strand1.succ,strand2)
+         c2=crossing(strand1.succ,strand2.succ,strand1.succ.succ,strand2.succ.succ)
       else:
-         c1=crossing(strand1,strand2.get_succ().get_succ(),strand1.get_succ(),strand2.get_succ())
-         c2=crossing(strand1.get_succ(),strand2,strand1.get_succ().get_succ(),strand2.get_succ())
+         c1=crossing(strand1,strand2.succ.succ,strand1.succ,strand2.succ)
+         c2=crossing(strand1.succ,strand2,strand1.succ.succ,strand2.succ)
       self.crossings+=[c1,c2]
       for s in l:
          self.joins.remove(s)
 
-   #def remove_r2 (self,crossing1, crossing2):
+   #def remove_r2 (self,strand1, crossing2):
       #remove two crossings
       #remove joins
 
