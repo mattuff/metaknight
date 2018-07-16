@@ -147,9 +147,23 @@ class Kirby:
       for s in l:
          self.joins.remove(s)
 
-   #def remove_r2 (self,crossing1, crossing2):
-      #remove two crossings
-      #remove joins
+   def remove_r2 (self,s1, s2): #strands s1 and s2
+      l=self.strand_lookup(s1)
+      if(s1.succ==s2.pred):
+         self.add_join(s1.succ)
+      if(s2.succ==s1.pred):
+         self.add_join(s2.succ)
+      s1.set_succ(s1.succ.succ)
+      s1.succ.set_pred(s1)
+      s1.set_pred(s1.pred.pred)
+      s1.pred.set_succ(s1)
+      s2.set_succ(s2.succ.succ)
+      s2.succ.set_pred(s2)
+      s2.set_pred(s2.pred.pred)
+      s2.pred.set_succ(s2)
+      for c in l:
+         if(c in self.crossings):
+            self.crossings.remove(c)
 
    #def r3(self,strand, crossing):
          
