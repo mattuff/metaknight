@@ -13,10 +13,10 @@ class Kirby:
             if(j[i] not in strands):
                strands.append(j[i])
                   
-   def __str__(self): #this should print pd diagram
+   def __str__(self): #check if this helps return the str instead of the memory location
        return('crossings: ' + str(self.crossings) + ', joins: ' + str(self.joins))
 
-   def print_pd(self): #change this to __str__
+   def print_pd(self):
       for c in self.crossings:
          print ("[", end =" ")
          for i in range (4):
@@ -58,13 +58,13 @@ class Kirby:
   
      
    def add_join(self, x): #adds a join to a strand (splitting it into two different strands)
-      y=strand(x.get_component(), x.get_succ(), x) #adds strand w pred x and succ x's succ
-      x.get_succ().set_pred(y) #sets x's old successor's pred to be y
+      y=strand(x.get_component(), x.succ, x) #adds strand w pred x and succ x's succ
+      x.succ.set_pred(y) #sets x's old successor's pred to be y
       x.set_succ(y) #sets x's successor to y
       jx=join(x,y) #creates join of [x,y]
       self.joins.append(jx) #adds new join to join list
       #search for crossings containing both x and y.get_succ(), replaces x w/ y
-      c=list(set(self.strand_lookup(x))&set(self.strand_lookup(y.get_succ())))[0] #finds crossing containing x and y.get_succ()
+      c=list(set(self.strand_lookup(x))&set(self.strand_lookup(y.succ)))[0] #finds crossing containing x and y.get_succ()
       self.crossings.remove(c) 
       if c[0]==x: #if x is the ith strand in the crossing
          c.set_strands(y, c[1], c[2], c[3]) #then replace strand w strand.get_succ().get_succ()
@@ -81,8 +81,8 @@ class Kirby:
       self.joins.remove(j1)
       x=j1[0]
       y=j1[1]
-      j1[0].set_succ(j1[1].get_succ()) #set's x's succ to be y's succ
-      j1[1].get_succ().set_pred(j1[0]) #set's y succ's pred to be x
+      j1[0].set_succ(j1[1].succ) #set's x's succ to be y's succ
+      j1[1].succ.set_pred(j1[0]) #set's y succ's pred to be x
       #search crossings for y, replace w x
       c=self.strand_lookup(y)[0]
       self.crossings.remove(c) 
@@ -114,17 +114,17 @@ class Kirby:
       c=self.strand_lookup(s)[0]
       if (c[2]==c[3] or (c[0]==c[1])):
          self.crossings.remove(c) #remove crossing
-         self.joins.append([s.get_prec(), s]) #adds join
-         self.joins.append([s, s.get_succ()]) #adds join
-         remove_join([s.get_prec(), s]) #removes join; does relabling
-         remove_join([s, s.get_succ()]) #removes join; does relabling
+         self.joins.append([s.pred, s]) #adds join
+         self.joins.append([s, s.succ]) #adds join
+         remove_join([s.pred, s]) #removes join; does relabling
+         remove_join([s, s.succ]) #removes join; does relabling
          s.get_component().change_framing(s.get_component().get_framing()+1) #add 1 to framing
       elif (c[0]==c[3] or c[1]==c[2]):
          self.crossings.remove(c) #remove crossing
-         self.joins.append([s.get_prec(), s]) #adds join
-         self.joins.append([s, s.get_succ()]) #adds join
-         remove_join([s.get_prec(), s]) #removes join; does relabling
-         remove_join([s, s.get_succ()]) #removes join; does relabling
+         self.joins.append([s.pred, s]) #adds join
+         self.joins.append([s, s.succ]) #adds join
+         remove_join([s.pred, s]) #removes join; does relabling
+         remove_join([s, s.succ]) #removes join; does relabling
          s.get_component().change_framing(s.get_component().get_framing()-1) #subracts 1 from framing
 
 
