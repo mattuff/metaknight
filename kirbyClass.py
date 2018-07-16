@@ -52,7 +52,7 @@ class Kirby:
   
      
    def add_join(self, x): #adds a join to a strand (splitting it into two different strands)
-      y=strand(x.get_component(), x.get_succ(), x) #adds strand after x
+      y=strand(x.get_component(), x.get_succ(), x) #adds strand w pred x and succ x's succ
       x.get_succ().set_pred(y) #sets x's old successor's pred to be y
       x.set_succ(y) #sets x's successor to y
       jx=join(x,y) #creates join of [x,y]
@@ -78,7 +78,7 @@ class Kirby:
       getitem(j1,0).set_succ(getitem(j1,1).get_succ()) #set's x's succ to be y's succ
       getitem(j1,1).get_succ().set_pred(getitem(j1,0)) #set's y succ's pred to be x
       #search crossings for y, replace w x
-      c=strand_lookup(y)[0]
+      c=self.strand_lookup(y)[0]
       self.crossings.remove(c) 
       if c.getitem(0)==y: #if x is the ith strand in the crossing
          c.set_strands(x, c.getitem(1), c.getitem(2), c.getitem(3)) #then replace strand w strand.get_succ().get_succ()
