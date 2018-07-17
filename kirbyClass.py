@@ -125,21 +125,21 @@ class Kirby:
          c.set_strands(c[0], c[1], c[2], x)
       self.crossings.append(c)
 
-   def remove_joins(self):
+   def remove_joins(self): #removes all joins except for joins in unknots
       for j in self.joins:
-         if ([j[1],j[0]] not in self.joins):
+         if ([j[1],j[0]] not in self.joins): #checks if join is in unknot
             remove_join(j)
 
    def add_r1(self,strand, sign): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, -1 will subtract 1 from framing)
       #add two joins to strand using add_join method
-      self.add_join(strand) #strand.get_succ().get_succ() (strand1)
-      self.add_join(strand) #strand.get_succ() (strand2)
+      self.add_join(strand) #strand.succ.succ (strand1)
+      self.add_join(strand) #strand.succ (strand2)
       if (sign==1):
          self.crossings.append([strand.succ, strand, strand.succ.succ, strand.succ]) #adds crossing
-         strand.component.change_framing(strand.component.framing+1)
+         strand.component.change_framing(strand.component.framing+1) #adds 1 to framing
       elif (sign==-1):
-         self.crossings.append([strand, strand.succ.succ, strand.succ, strand.succ])
-         strand.component.change_framing(strand.component.framing-1)
+         self.crossings.append([strand, strand.succ.succ, strand.succ, strand.succ]) #adds crossing
+         strand.component.change_framing(strand.component.framing-1) #subtracts one from framing
       #remove joins added from join list but not using the remove join function
       self.joins.remove([strand, strand.succ])
       self.joins.remove([strand.succ, strand.succ.succ])
