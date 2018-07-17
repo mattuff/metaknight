@@ -181,7 +181,21 @@ class Kirby:
          if(c in self.crossings):
             self.crossings.remove(c)
 
-   #def r3(self,strand, crossing):
+    #Pseudo code
+    def add_r3(self, strand1, strand2, strand3): #the input should be the 'heads' of the three crossings
+        c1 = self.returnCrossing(strand1,strand1.succ) #define returnCrossing which will give the crossing between a strand and its succ
+        c2 = self.returnCrossing(strand1.succ, strand1.succ.succ)
+        c3 = self.returnCrossing(strand2, strand2.succ)
+        if(c3 == c1 or c3 == c2):
+            c3 = returnCrosssing(strand2.succ, strand2.succ.succ)
+
+        #identify badStrand that will be moved over. 
+        #joins will be added on other strands, away from the crossings of badStrand. it will be on strandx or strandx.succ.succ
+        #turn joins into crossings- do reidmeister move, make sure to keep badStrand either above or below goodStrands
+        #make sure that if crossing with badStrand, goodStrand1 -> badStrand, goodStrand2 (don't flip strand)
+
+        #remove unnecessary joins
+
          
    def handle_annihilation(self,h1,h2):
       #checks to make sure each handle only has 2 strands (all joins must be removed)
