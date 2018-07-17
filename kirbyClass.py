@@ -22,17 +22,17 @@ class Kirby:
          print ("[", end =" ")
          for i in range (4):
             if (i<3):
-               print (c[i], ", ", end =" ")
+               print (c[i].name, ", ", end =" ")
             else:
-               print (c[i], end =" ")
+               print (c[i].name, end =" ")
          print ("]")
       for j in self.joins:
          print ("[", end =" ")
          for k in range (2):
             if (k<1):
-               print (j[k], ", ", end =" ")
+               print (j[k].name, ", ", end =" ")
             else:
-               print(j[k], end =" ")
+               print(j[k].name, end =" ")
          print ("]")
 
    def strand_lookup(self,strand): #gives a weird output? #returns list of crossings/joins that a specific strand shows up in
