@@ -1,10 +1,10 @@
 class strand:
     
-    def __init__(self,component,succ=None,pred=None,name="strand"):
+    def __init__(self,component,pred=None,succ=None,name="strand"):
         self.name=name
         self.component=component
-        self.succ=succ
         self.pred=pred
+        self.succ=succ
         
     def __str__(self): #check if this helps
         return('comp: ' + str(self.component))
