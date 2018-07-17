@@ -82,6 +82,10 @@ class Kirby:
          for i in range (4):
             if (c[i].name not in l):
                l.append(c[i].name)
+      for j in joins:
+         for k in range (2):
+            if (j[k].name not in l):
+               l.append(j[k].name)
       l.sort()
       k=l[-1]+1
       return k
