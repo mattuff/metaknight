@@ -9,6 +9,9 @@ class crossing:
     def __contains__(self,item): #returns boolean- True if 'item' is in the crossing
         return(item in self.strands)
 
+    def __str__(self):
+        return ("[", strand0, "," strand1, ",", strand2, "," strand3, "]")
+
     def set_strands(self,strand0,strand1,strand2,strand3): #define new strands that come out of crossing
         self.strands=[strand0,strand1,strand2,strand3] 
 
