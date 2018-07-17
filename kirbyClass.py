@@ -29,6 +29,7 @@ class Kirby:
             else:
                print (c[i].name, end =" ")
          print ("]")
+         
       for j in self.joins:
          print ("[", end =" ")
          for k in range (2):
