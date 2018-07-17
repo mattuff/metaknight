@@ -16,7 +16,8 @@ class Kirby:
    def __str__(self): #check if this helps return the str instead of the memory location
        return('crossings: ' + str(self.crossings) + ', joins: ' + str(self.joins))
 
-   def print_pd(self):
+   def print_pd(self): #main issue: need way to turn strands into strings
+   #will also need to print components (w/ handle types, framing, and orientation)
       for c in self.crossings:
          print ("[", end =" ")
          for i in range (4):
