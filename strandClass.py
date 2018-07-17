@@ -1,7 +1,7 @@
 class strand:
     
-    def __init__(self,component,pred=None,succ=None,name=i):
-        self.name=name
+    def __init__(self,i,component,pred=None,succ=None):
+        self.name=i
         self.component=component
         self.pred=pred
         self.succ=succ
