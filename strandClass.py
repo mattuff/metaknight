@@ -1,13 +1,13 @@
 class strand:
     
-    def __init__(self,component,pred=None,succ=None,name="strand"):
+    def __init__(self,component,pred=None,succ=None,name=i):
         self.name=name
         self.component=component
         self.pred=pred
         self.succ=succ
         
     def __str__(self): #check if this helps
-        return('comp: ' + str(self.component))
+        return(i)
         
     def set_succ(self,succ): #set the successor of this strand to be the strand succ
         self.succ=succ

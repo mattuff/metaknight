@@ -75,9 +75,19 @@ class Kirby:
                   l[i+1]=l[k]
                   l[k]=placeholder
       return l
+
+   def strand_name(self):
+      l=[]
+      for c in crossings:
+         for i in range (4):
+            if (c[i].name not in l):
+               l.append(c[i].name)
+      l.sort()
+      k=l[-1]+1
+      return k
    
    def add_join(self, x): #adds a join to a strand (splitting it into two different strands)
-      y=strand(x.component, x.succ, x) #adds strand w pred x and succ x's succ
+      y=strand(x.component, self.strand_name(), x.succ, x) #adds strand w pred x and succ x's succ
       x.succ.set_pred(y) #sets x's old successor's pred to be y
       x.set_succ(y) #sets x's successor to y
       jx=join(x,y) #creates join of [x,y]
@@ -221,12 +231,12 @@ class Kirby:
    def handle_creation(self, f): #f=framing for 2-handle to have
       h1=component(1)
       h2=component(2,f)
-      a=strand(h1)
-      b=strand(h1,a,a)
+      a=strand(h1, self.strand_name())
+      b=strand(h1,self.strand_name(),a,a)
       a.set_pred(b)
       a.set_succ(b)
-      c=strand(h2)
-      d=strand(h2,c,c)
+      c=strand(h2,self.strand_name())
+      d=strand(h2,self.strand_name(),c,c)
       c=set_pred(d)
       c=set_succ(d)
       c1=crossing(a,c,b,d)
