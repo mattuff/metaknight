@@ -14,28 +14,20 @@ class Kirby:
                strands.append(j[i])
                   
    def __str__(self): #check if this helps return the str instead of the memory location
-
-       return('crossings: ' + str(self.crossings) + ', joins: ' + str(self.joins))
-
-   def print_pd(self): #main issue: need way to turn strands into strings
-   #will also need to print components (w/ handle types, framing, and orientation)
-      for c in self.crossings:
-         print ("[", end =" ")
-         for i in range (4):
-            if (i<3):
-               print (c[i].name, ", ", end =" ")
-            else:
-               print (c[i].name, end =" ")
-         print ("]")
-         
-      for j in self.joins:
-         print ("[", end =" ")
-         for k in range (2):
-            if (k<1):
-               print (j[k].name, ", ", end =" ")
-            else:
-               print(j[k].name, end =" ")
-         print ("]")
+      s="<Crossings: {"
+      if(len(self.crossings)>=2):
+         for i in range(len(self.crossings)-1):
+            s+=str(self.crossings[i])+","
+      if(len(self.crossings)>=1):
+         s+=str(self.crossings[-1])
+      s+="}; Joins: {"
+      if(len(self.joins)>=2):
+         for i in range(len(self.joins)-1):
+            s+=str(self.joins[i])+","
+      if(len(self.joins)>=1):
+         s+=str(self.joins[-1])
+      s+="}>"
+      return(s)
 
    def strand_lookup(self,strand): #gives a weird output? #returns list of crossings/joins that a specific strand shows up in
       l=[]

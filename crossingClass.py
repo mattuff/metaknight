@@ -10,7 +10,7 @@ class crossing:
         return(item in self.strands)
 
     def __str__(self): #method doesn't work!!
-        return ("["+str(s0)+","+str(s1)+","+str(s2)+","+str(s3)+"]")
+        return ("["+str(self.strands[0])+","+str(self.strands[1])+","+str(self.strands[2])+","+str(self.strands[3])+"]")
 
     def set_strands(self,s0,s1,s2,s3): #define new strands that come out of crossing
         self.strands=[s0,s1,s2,s3] 
