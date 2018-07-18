@@ -1,28 +1,13 @@
 class Kirby:
 
-<<<<<<< HEAD
-   def __init__(self,crossings,joins): #space out more
-=======
    def __init__(self,crossings,joins):
->>>>>>> 3f684acc37d93e169eb2825288200bf7b9fa7b40
-      
       self.crossings=crossings
       self.joins=joins
       strands=[] #makes list of strands
-<<<<<<< HEAD
-
-=======
-      
->>>>>>> 3f684acc37d93e169eb2825288200bf7b9fa7b40
       for c in crossings:
          for i in range(4):
             if(c[i] not in strands):
                strands.append(c[i])
-<<<<<<< HEAD
-
-=======
-               
->>>>>>> 3f684acc37d93e169eb2825288200bf7b9fa7b40
       for j in joins:
          for i in range(2):
             if(j[i] not in strands):
@@ -184,23 +169,23 @@ class Kirby:
 ##         remove_join([s, s.succ]) #removes join; does relabling
 ##         s.component.change_framing(s.component.framing-1) #subracts 1 from framing
 
-   def add_r2(self,strand1,strand2,orientation): #orientation is a boolean which is true if the strands are oriented the same way, and false otherwise
+   def add_r2(self,s1,s2,orientation): #orientation is a boolean which is true if the strands are oriented the same way, and false otherwise
       #change strand1 --> s1?
       #find all places you can do r2?
       #add two joins to each strand
       #add two crossings
       #remove joins
-      self.add_join(strand1)
-      self.add_join(strand1)
-      self.add_join(strand2)
-      self.add_join(strand2)
-      l=(self.strand_lookup(strand1.succ))+(self.strand_lookup(strand2.succ))
+      self.add_join(s1)
+      self.add_join(s1)
+      self.add_join(s2)
+      self.add_join(s2)
+      l=(self.strand_lookup(s1.succ))+(self.strand_lookup(s2.succ))
       if(orientation):
-         c1=crossing(strand1,strand2.succ,strand1.succ,strand2)
-         c2=crossing(strand1.succ,strand2.succ,strand1.succ.succ,strand2.succ.succ)
+         c1=crossing(s1,s2.succ,s1.succ,s2)
+         c2=crossing(s1.succ,s2.succ,s1.succ.succ,s2.succ.succ)
       else:
-         c1=crossing(strand1,strand2.succ.succ,strand1.succ,strand2.succ)
-         c2=crossing(strand1.succ,strand2,strand1.succ.succ,strand2.succ)
+         c1=crossing(s1,s2.succ.succ,s1.succ,s2.succ)
+         c2=crossing(s1.succ,s2,s1.succ.succ,s2.succ)
       self.crossings+=[c1,c2]
       for s in l:
          self.joins.remove(s)
