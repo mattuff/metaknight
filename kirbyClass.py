@@ -1,22 +1,20 @@
 class Kirby:
 
    def __init__(self,crossings,joins):
-      
       self.crossings=crossings
       self.joins=joins
       strands=[] #makes list of strands
-      
       for c in crossings:
          for i in range(4):
             if(c[i] not in strands):
                strands.append(c[i])
-               
       for j in joins:
          for i in range(2):
             if(j[i] not in strands):
                strands.append(j[i])
                   
    def __str__(self): #check if this helps return the str instead of the memory location
+
        return('crossings: ' + str(self.crossings) + ', joins: ' + str(self.joins))
 
    def print_pd(self): #main issue: need way to turn strands into strings
@@ -95,13 +93,14 @@ class Kirby:
       return k
    
    def add_join(self, x): #adds a join to a strand (splitting it into two different strands)
-      y=strand(x.component, self.strand_name(), x.succ, x) #adds strand w pred x and succ x's succ
+      y=strand(x.component, self.strand_name(), x, x.succ) #adds strand w pred x and succ x's succ
       x.succ.set_pred(y) #sets x's old successor's pred to be y
       x.set_succ(y) #sets x's successor to y
       jx=join(x,y) #creates join of [x,y]
       self.joins.append(jx) #adds new join to join list
       #search for crossings containing both x and y.get_succ(), replaces x w/ y
       c=list(set(self.strand_lookup(x))&set(self.strand_lookup(y.succ)))[0] #finds crossing containing x and y.get_succ()
+      #what to do if x comes before a join??
       self.crossings.remove(c) 
       if c[0]==x: #if x is the ith strand in the crossing
          c.set_strands(y, c[1], c[2], c[3]) #then replace strand w strand.get_succ().get_succ()
@@ -122,7 +121,8 @@ class Kirby:
       j1[1].succ.set_pred(j1[0]) #set's y succ's pred to be x
       #search crossings for y, replace w x
       c=self.strand_lookup(y)[0]
-      self.crossings.remove(c) 
+      self.crossings.remove(c)
+      #what to do if join instead of crossing?
       if c[0]==y: #if x is the ith strand in the crossing
          c.set_strands(x, c[1], c[2], c[3]) #then replace strand w strand.get_succ().get_succ()
       elif c[1]==y:
@@ -152,38 +152,40 @@ class Kirby:
       self.joins.remove([strand, strand.succ])
       self.joins.remove([strand.succ, strand.succ.succ])
 
-   def remove_r1(self,s): #s: crossed strand for r1
-      c=self.strand_lookup(s)[0]
-      if (c[2]==c[3] or (c[0]==c[1])):
-         self.crossings.remove(c) #remove crossing
-         self.joins.append([s.pred, s]) #adds join
-         self.joins.append([s, s.succ]) #adds join
-         remove_join([s.pred, s]) #removes join; does relabling
-         remove_join([s, s.succ]) #removes join; does relabling
-         s.component.change_framing(s.component.framing+1) #add 1 to framing
-      elif (c[0]==c[3] or c[1]==c[2]):
-         self.crossings.remove(c) #remove crossing
-         self.joins.append([s.pred, s]) #adds join
-         self.joins.append([s, s.succ]) #adds join
-         remove_join([s.pred, s]) #removes join; does relabling
-         remove_join([s, s.succ]) #removes join; does relabling
-         s.component.change_framing(s.component.framing-1) #subracts 1 from framing
+##   def remove_r1(self, s): #s: crossed strand for r1 #make names longer?
+##      c=self.strand_lookup(s)[0]
+##      if (c[2]==c[3] or (c[0]==c[1])):
+##         self.crossings.remove(c) #remove crossing
+##         self.joins.append([s.pred, s]) #adds join
+##         self.joins.append([s, s.succ]) #adds join
+##         remove_join([s.pred, s]) #removes join; does relabling
+##         remove_join([s, s.succ]) #removes join; does relabling
+##         s.component.change_framing(s.component.framing+1) #add 1 to framing
+##      elif (c[0]==c[3] or c[1]==c[2]):
+##         self.crossings.remove(c) #remove crossing
+##         self.joins.append([s.pred, s]) #adds join
+##         self.joins.append([s, s.succ]) #adds join
+##         remove_join([s.pred, s]) #removes join; does relabling
+##         remove_join([s, s.succ]) #removes join; does relabling
+##         s.component.change_framing(s.component.framing-1) #subracts 1 from framing
 
-   def add_r2(self,strand1,strand2,orientation): #orientation is a boolean which is true if the strands are oriented the same way, and false otherwise
+   def add_r2(self,s1,s2,orientation): #orientation is a boolean which is true if the strands are oriented the same way, and false otherwise
+      #change strand1 --> s1?
+      #find all places you can do r2?
       #add two joins to each strand
       #add two crossings
       #remove joins
-      self.add_join(strand1)
-      self.add_join(strand1)
-      self.add_join(strand2)
-      self.add_join(strand2)
-      l=(self.strand_lookup(strand1.succ))+(self.strand_lookup(strand2.succ))
+      self.add_join(s1)
+      self.add_join(s1)
+      self.add_join(s2)
+      self.add_join(s2)
+      l=(self.strand_lookup(s1.succ))+(self.strand_lookup(s2.succ))
       if(orientation):
-         c1=crossing(strand1,strand2.succ,strand1.succ,strand2)
-         c2=crossing(strand1.succ,strand2.succ,strand1.succ.succ,strand2.succ.succ)
+         c1=crossing(s1,s2.succ,s1.succ,s2)
+         c2=crossing(s1.succ,s2.succ,s1.succ.succ,s2.succ.succ)
       else:
-         c1=crossing(strand1,strand2.succ.succ,strand1.succ,strand2.succ)
-         c2=crossing(strand1.succ,strand2,strand1.succ.succ,strand2.succ)
+         c1=crossing(s1,s2.succ.succ,s1.succ,s2.succ)
+         c2=crossing(s1.succ,s2,s1.succ.succ,s2.succ)
       self.crossings+=[c1,c2]
       for s in l:
          self.joins.remove(s)
