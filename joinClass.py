@@ -1,3 +1,8 @@
+from kirbyClass import *
+from crossingClass import *
+from strandClass import *
+from componentClass import *
+
 class join:
     
     def __init__(self,strand0,strand1): #sets up join from 2 strands

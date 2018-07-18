@@ -1,3 +1,8 @@
+from kirbyClass import *
+from crossingClass import *
+from joinClass import *
+from strandClass import *
+
 class component:
 
     def __init__(self, h, f=None): #for 1-handles, framing=infinity

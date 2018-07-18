@@ -1,3 +1,8 @@
+from kirbyClass import *
+from crossingClass import *
+from joinClass import *
+from componentClass import *
+
 class strand:
     
     def __init__(self,i,component,pred=None,succ=None):

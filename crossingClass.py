@@ -1,3 +1,8 @@
+from kirbyClass import *
+from joinClass import *
+from strandClass import *
+from componentClass import *
+
 class crossing:
     
     def __init__(self,s0,s1,s2,s3):

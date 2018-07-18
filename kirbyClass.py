@@ -1,3 +1,8 @@
+from crossingClass import *
+from joinClass import *
+from strandClass import *
+from componentClass import *
+
 class Kirby:
 
    def __init__(self,crossings,joins):
@@ -74,11 +79,11 @@ class Kirby:
 
    def strand_name(self):
       l=[]
-      for c in crossings:
+      for c in self.crossings:
          for i in range (4):
             if (c[i].name not in l):
                l.append(c[i].name)
-      for j in joins:
+      for j in self.joins:
          for k in range (2):
             if (j[k].name not in l):
                l.append(j[k].name)
