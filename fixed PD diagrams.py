@@ -27,3 +27,10 @@ c1=crossing(a,e,b,d)
 c2=crossing(e,c,f,b)
 c3=crossing(c,a,d,f)
 trefoil=Kirby([c1,c2,c3],[])
+
+#cancelling pair
+h1=component(1)
+h2=component(2,0)
+a=strand(h1,1)
+b=strand(h1,2,a,a)
+a.set_

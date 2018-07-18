@@ -1,16 +1,28 @@
 class Kirby:
 
+<<<<<<< HEAD
    def __init__(self,crossings,joins): #space out more
+=======
+   def __init__(self,crossings,joins):
+>>>>>>> 3f684acc37d93e169eb2825288200bf7b9fa7b40
       
       self.crossings=crossings
       self.joins=joins
       strands=[] #makes list of strands
+<<<<<<< HEAD
 
+=======
+      
+>>>>>>> 3f684acc37d93e169eb2825288200bf7b9fa7b40
       for c in crossings:
          for i in range(4):
             if(c[i] not in strands):
                strands.append(c[i])
+<<<<<<< HEAD
 
+=======
+               
+>>>>>>> 3f684acc37d93e169eb2825288200bf7b9fa7b40
       for j in joins:
          for i in range(2):
             if(j[i] not in strands):
@@ -30,6 +42,7 @@ class Kirby:
             else:
                print (c[i].name, end =" ")
          print ("]")
+         
       for j in self.joins:
          print ("[", end =" ")
          for k in range (2):
