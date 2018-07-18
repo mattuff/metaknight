@@ -7,7 +7,7 @@ class strand:
         self.succ=succ
         
     def __str__(self): #check if this helps
-        return(i)
+        return(str(self.name))
         
     def set_succ(self,succ): #set the successor of this strand to be the strand succ
         self.succ=succ
