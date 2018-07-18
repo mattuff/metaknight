@@ -201,19 +201,77 @@ class Kirby:
             self.crossings.remove(c)
 
     #Pseudo code
-   def add_r3(self, strand1, strand2, strand3): #the input should be the 'heads' of the three crossings
-      c1 = self.returnCrossing(strand1,strand1.succ) #define returnCrossing which will give the crossing between a strand and its succ
-      c2 = self.returnCrossing(strand1.succ, strand1.succ.succ)
-      c3 = self.returnCrossing(strand2, strand2.succ)
-      if(c3 == c1 or c3 == c2):
-         c3 = returnCrosssing(strand2.succ, strand2.succ.succ)
 
-        #identify badStrand that will be moved over. 
-        #joins will be added on other strands, away from the crossings of badStrand. it will be on strandx or strandx.succ.succ
-        #turn joins into crossings- do reidmeister move, make sure to keep badStrand either above or below goodStrands
-        #make sure that if crossing with badStrand, goodStrand1 -> badStrand, goodStrand2 (don't flip strand)
+    def add_r3(self, strand1, strand2, strand3): #the input should be the 'heads' of the three crossings
+        c1 = self.returnCrossing(strand1,strand1.succ) #define returnCrossing which will give the crossing between a strand and its succ
+        c2 = self.returnCrossing(strand1.succ, strand1.succ.succ)
+        c3 = self.returnCrossing(strand2, strand2.succ)
+        if(c3 == c1 or c3 == c2):
+            c3 = returnCrosssing(strand2.succ, strand2.succ.succ)
 
-        #remove unnecessary joins
+        #identify badStrand that will be moved over.
+        if((c2[0] == c1[0].succ) or (c3[0] == c1[0].succ)): badStrand = c1[0] #change to be pred also
+        elif((c1[0] == c2[0].succ) or (c3[0] == c2[0].succ)): badStrand = c2[0]  #change to be pred too
+        elif((c1[0] == c3[0].succ) or (c2[0] == c3[0].succ)): badStrand = c3[0] #change to be pred as well
+
+        #identify strand to add joins to - the strand that is not in a crossing with badStrand
+        if(badStrand, badStrand.succ, badStrand.succ.succ not in c1): #add join here
+            self.add_join(strand1)
+            goodStrand1 = strand1
+            if(strand2.succ in c1):
+                if(strand2) in c1:
+                    self.add_join(strand2)
+                    goodStrand2 = strand2
+                else:
+                    self.add_join(strand2.succ.succ)
+                    goodStrand2 = strand2.succ.succ
+            elif(strand3 in c1):
+                self.add_join(strand3)
+                goodStrand2 = strand3
+            elif(strand3.succ.succ in c1):
+                self.add_join(strand3.succ.succ)
+                goodStrand2 = strand3.succ.succ
+
+        elif(badStrand, badStrand.succ, badStrand.succ.succ not in c2):#add join here
+            self.add_join(strand1.succ.succ)
+            goodStrand1 = strand1.succ.succ
+            if (strand2.succ in c1):
+                if (strand2) in c1:
+                    self.add_join(strand2)
+                    goodStrand2 = strand2
+                else:
+                    self.add_join(strand2.succ.succ)
+                    goodStrand2 = strand2.succ.succ
+            elif (strand3 in c1):
+                self.add_join(strand3)
+                goodStrand2 = strand3
+            elif (strand3.succ.succ in c1):
+                self.add_join(strand3.succ.succ)
+                goodStrand2 = strand3.succ.succ
+
+
+        elif(badStrand, badStrand.succ, badStrand.succ.succ not in c3):#add join here
+            if(strand2 in c3):
+                self.add_join(strand2)
+                goodStrand1 = strand2
+            elif(strand2.succ.succ in c3):
+                self.add_join(strand2.succ.succ)
+                goodStrand1 = strand2.succ.succ
+
+            if(strand3 in c3):
+                self.add_join(strand3)
+                goodStrand2 = strand3
+            elif(strand3.succ.succ in c3):
+                self.add_join(strand3.succ.succ)
+                goodStrand2 = strand3.succ.succ
+
+        c4 = crossing(badStrand, goodStrand1, badStrand.succ, goodStrand1.succ) #change for different orientations
+        c5 = crossing(badStrand.succ, goodStrand2, badStrand.succ.succ, goodStrand2.succ) #change for diff orientations
+
+        self.remove_joins() #not sure if this method exists yet
+
+
+
 
          
    def handle_annihilation(self,h1,h2):
