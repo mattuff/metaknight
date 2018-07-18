@@ -1,8 +1,8 @@
 class component:
 
-    def __init__(self, handle, framing=None): #for 1-handles, framing=infinity
-        self.handle = handle
-        self.framing = framing
+    def __init__(self, h, f=None): #for 1-handles, framing=infinity
+        self.handle = h
+        self.framing = f
         
     def __str__(self): #prints out component in nice way
         return('handle: ' + str(self.handle) + ', framing: ' + str(self.framing))

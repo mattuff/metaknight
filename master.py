@@ -1,5 +1,5 @@
-from kirbyClass.py import *
-from crossingClass.py import *
-from joinClass.py import *
-from strandClass.py import *
-from componentClass.py import *
+import kirbyClass
+import crossingClass
+import joinClass
+import strandClass
+import componentClass

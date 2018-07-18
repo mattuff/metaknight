@@ -1,3 +1,9 @@
+from kirbyClass import *
+from crossingClass import *
+from joinClass import *
+from strandClass import *
+from componentClass import *
+
 #fixed PD diagrams:
 
 #unknot w/ an R1:
