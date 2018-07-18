@@ -13,7 +13,8 @@ class Kirby:
             if(j[i] not in strands):
                strands.append(j[i])
                   
-   def __str__(self): #check if this helps return the str instead of the memory location
+   def __str__(self):
+   #prints PD
       s="<Crossings: {"
       if(len(self.crossings)>=2):
          for i in range(len(self.crossings)-1):
@@ -29,7 +30,8 @@ class Kirby:
       s+="}>"
       return(s)
 
-   def strand_lookup(self,strand): #gives a weird output? #returns list of crossings/joins that a specific strand shows up in
+   def strand_lookup(self,strand):
+   #returns list of crossings/joins that a specific strand shows up in
       l=[]
       for c in self.crossings:
          if(strand in c):
@@ -92,17 +94,23 @@ class Kirby:
       self.joins.append(jx) #adds new join to join list
       #search for crossings containing both x and y.get_succ(), replaces x w/ y
       c=list(set(self.strand_lookup(x))&set(self.strand_lookup(y.succ)))[0] #finds crossing containing x and y.get_succ()
-      #what to do if x comes before a join??
-      self.crossings.remove(c) 
-      if c[0]==x: #if x is the ith strand in the crossing
-         c.set_strands(y, c[1], c[2], c[3]) #then replace strand w strand.get_succ().get_succ()
-      elif c[1]==x:
-         c.set_strands(c[0], y, c[2], c[3])
-      elif c[2]==x:
-         c.set_strands(c[0], c[1], y, c[3])
-      elif c[3]==x:
-         c.set_strands(c[0], c[1], c[2], y)
-      self.crossings.append(c)
+      if (c in self.crossings):
+         self.crossings.remove(c) 
+         if (c[0]==x): #if x is the ith strand in the crossing
+            c.set_strands(y, c[1], c[2], c[3]) #then replace strand w strand.get_succ().get_succ()
+         elif (c[1]==x):
+            c.set_strands(c[0], y, c[2], c[3])
+         elif (c[2]==x):
+            c.set_strands(c[0], c[1], y, c[3])
+         elif (c[3]==x):
+            c.set_strands(c[0], c[1], c[2], y)
+         self.crossings.append(c)
+      elif (c in self.joins):
+         self.joins.remove(c)
+         if (c[0]==x):
+            c.set_strands(y,c[1])
+         elif (c[1]==x):
+            c.set_strands(c[0], y)
       #return new strand?
 
    def remove_join(self,j1):
@@ -113,17 +121,23 @@ class Kirby:
       j1[1].succ.set_pred(j1[0]) #set's y succ's pred to be x
       #search crossings for y, replace w x
       c=self.strand_lookup(y)[0]
-      self.crossings.remove(c)
-      #what to do if join instead of crossing?
-      if c[0]==y: #if x is the ith strand in the crossing
-         c.set_strands(x, c[1], c[2], c[3]) #then replace strand w strand.get_succ().get_succ()
-      elif c[1]==y:
-         c.set_strands(c[0], x, c[2], c[3])
-      elif c[2]==y:
-         c.set_strands(c[0], c[1], x, c[3])
-      elif c[3]==y:
-         c.set_strands(c[0], c[1], c[2], x)
-      self.crossings.append(c)
+      if (c in self.crossings):
+         self.crossings.remove(c)
+         if (c[0]==y):
+            c.set_strands(x, c[1], c[2], c[3])
+         elif (c[1]==y):
+            c.set_strands(c[0], x, c[2], c[3])
+         elif (c[2]==y):
+            c.set_strands(c[0], c[1], x, c[3])
+         elif (c[3]==y):
+            c.set_strands(c[0], c[1], c[2], x)
+         self.crossings.append(c)
+      elif (c in self.joins):
+         self.joins.remove(c)
+         if (c[0]==y):
+            c.set_strands(x,c[1])
+         elif (c[1]==y):
+            c.set_strands(c[0], x)
 
    def remove_joins(self): #removes all joins except for joins in unknots
       for j in self.joins:
@@ -268,7 +282,7 @@ class Kirby:
       c4 = crossing(badStrand, goodStrand1, badStrand.succ, goodStrand1.succ) #change for different orientations
       c5 = crossing(badStrand.succ, goodStrand2, badStrand.succ.succ, goodStrand2.succ) #change for diff orientations
 
-      self.remove_joins() #not sure if this method exists yet
+      self.remove_joins() #not sure if this method exists yet (it does!)
 
 
 
