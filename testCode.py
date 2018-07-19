@@ -8,11 +8,11 @@ from componentClass import *
 
 #unknot w/ an R1:
 knot=component(2,1)
-a=strand(1,knot)
-b=strand(2,knot,a,a)
-a.set_pred(b)
-a.set_succ(b)
-x=crossing(a,a,b,b)
+y=strand(1,knot)
+z=strand(2,knot,y,y)
+y.set_pred(z)
+y.set_succ(z)
+x=crossing(y,y,z,z)
 unknot_r1=Kirby([x], [])
 
 #trefoil
