@@ -155,11 +155,13 @@ class Kirby:
       self.add_join(s) #strand.succ.succ (strand1)
       self.add_join(s) #strand.succ (strand2)
       if (sign==1):
-         self.crossings.append([s.succ, s, s.succ.succ, s.succ]) #adds crossing
+         c = crossing(s.succ,s,s.succ.succ,s.succ)
          s.component.change_framing(s.component.framing+1) #adds 1 to framing
       elif (sign==-1):
-         self.crossings.append([s, s.succ.succ, s.succ, s.succ]) #adds crossing
+         c = crossing(s,s.succ.succ, s.succ, s.succ)
          s.component.change_framing(s.component.framing-1) #subtracts one from framing
+      self.crossings.append(c) #adds crossing to crossing list
+      
       #remove joins added from join list but not using the remove join function
       self.joins.remove([s, s.succ])
       self.joins.remove([s.succ, s.succ.succ])
