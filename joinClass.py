@@ -17,8 +17,8 @@ class join:
     #def __str__(self): doesn't work
      #   return ("[", strand0, "," strand1, "]")
 
-    def set__Strands(self,strand0,strand1): #sets strands for join
+    def set_strands(self,strand0,strand1): #sets strands for join
         self.strands=[strand0,strand1]
 
-    def get__Strands(self): #returns strands for join as a list
+    def get_strands(self): #returns strands for join as a list
         return(self.strands)
