@@ -17,6 +17,7 @@ class Kirby:
          for i in range(2):
             if(j[i] not in strands):
                strands.append(j[i])
+      self.strands=strands
                   
    def __str__(self):
    #prints PD
@@ -220,7 +221,7 @@ class Kirby:
             self.crossings.remove(c)
 
     #Pseudo code
-     def add_r3(self, strandUnder, strandMiddle, strandOver):
+   def add_r3(self, strandUnder, strandMiddle, strandOver):
       #need to add: if a goes up instead of down. maybe add input called orientation.
 
 

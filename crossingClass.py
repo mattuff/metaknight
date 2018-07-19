@@ -14,7 +14,7 @@ class crossing:
     def __contains__(self,item): #returns boolean- True if 'item' is in the crossing
         return(item in self.strands)
 
-    def __str__(self): #method doesn't work!!
+    def __str__(self):
         return ("["+str(self.strands[0])+","+str(self.strands[1])+","+str(self.strands[2])+","+str(self.strands[3])+"]")
 
     def set_strands(self,s0,s1,s2,s3): #define new strands that come out of crossing
