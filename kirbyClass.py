@@ -162,9 +162,11 @@ class Kirby:
       self.crossings.append(c) #adds crossing to crossing list
       
       #remove joins added from join list but not using the remove join function
-      self.joins.remove([s, s.succ])
-      self.joins.remove([s.succ, s.succ.succ])
-
+      #self.joins.remove([s, s.succ])
+      #self.joins.remove([s.succ, s.succ.succ])
+      #instead of doing above, lets use general remove_join method situation
+      
+      
 ##   def remove_r1(self, s): #s: crossed strand for r1 #make names longer?
 ##      c=self.strand_lookup(s)[0]
 ##      if (c[2]==c[3] or (c[0]==c[1])):
