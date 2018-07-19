@@ -149,19 +149,19 @@ class Kirby:
          if ([j[1],j[0]] not in self.joins): #checks if join is in unknot
             remove_join(j)
 
-   def add_r1(self,strand, sign): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, -1 will subtract 1 from framing)
+   def add_r1(self,s, sign): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, -1 will subtract 1 from framing)
       #add two joins to strand using add_join method
-      self.add_join(strand) #strand.succ.succ (strand1)
-      self.add_join(strand) #strand.succ (strand2)
+      self.add_join(s) #strand.succ.succ (strand1)
+      self.add_join(s) #strand.succ (strand2)
       if (sign==1):
-         self.crossings.append([strand.succ, strand, strand.succ.succ, strand.succ]) #adds crossing
-         strand.component.change_framing(strand.component.framing+1) #adds 1 to framing
+         self.crossings.append([s.succ, s, s.succ.succ, s.succ]) #adds crossing
+         s.component.change_framing(s.component.framing+1) #adds 1 to framing
       elif (sign==-1):
-         self.crossings.append([strand, strand.succ.succ, strand.succ, strand.succ]) #adds crossing
-         strand.component.change_framing(strand.component.framing-1) #subtracts one from framing
+         self.crossings.append([s, s.succ.succ, s.succ, s.succ]) #adds crossing
+         s.component.change_framing(s.component.framing-1) #subtracts one from framing
       #remove joins added from join list but not using the remove join function
-      self.joins.remove([strand, strand.succ])
-      self.joins.remove([strand.succ, strand.succ.succ])
+      self.joins.remove([s, s.succ])
+      self.joins.remove([s.succ, s.succ.succ])
 
 ##   def remove_r1(self, s): #s: crossed strand for r1 #make names longer?
 ##      c=self.strand_lookup(s)[0]
@@ -220,46 +220,85 @@ class Kirby:
             self.crossings.remove(c)
 
     #Pseudo code
-   def add_r3(self, strandUnder, strandMiddle, strandOver):
-      #need to add: if a goes up instead of down. maybe add input called orientation.
+   def add_r3(self, strand1, strand2, strand3):  
+   
+   
+   # change to make order of strands significant
+      # # - so that first argument is good strand, then bad strand or something like that
+      # 
+      # # the input should be the 'heads' of the three crossings
+      # c1 = self.returnCrossing(strand1,
+      #                          strand1.succ)  # define returnCrossing which will give the crossing between a strand and its succ
+      # c2 = self.returnCrossing(strand1.succ, strand1.succ.succ)
+      # c3 = self.returnCrossing(strand2, strand2.succ)
+      # if (c3 == c1 or c3 == c2):
+      #    c3 = returnCrosssing(strand2.succ, strand2.succ.succ)
+      # 
+      # # identify badStrand that will be moved over.
+      # if ((c2[0] == c1[0].succ) or (c3[0] == c1[0].succ)):
+      #    badStrand = c1[0]  # change to be pred also
+      # elif ((c1[0] == c2[0].succ) or (c3[0] == c2[0].succ)):
+      #    badStrand = c2[0]  # change to be pred too
+      # elif ((c1[0] == c3[0].succ) or (c2[0] == c3[0].succ)):
+      #    badStrand = c3[0]  # change to be pred as well
+      # 
+      # # identify strand to add joins to - the strand that is not in a crossing with badStrand
+      # if (badStrand, badStrand.succ, badStrand.succ.succ not in c1):  # add join here
+      #    self.add_join(strand1)
+      #    goodStrand1 = strand1
+      #    if (strand2.succ in c1):
+      #       if (strand2) in c1:
+      #          self.add_join(strand2)
+      #          goodStrand2 = strand2
+      #       else:
+      #          self.add_join(strand2.succ.succ)
+      #          goodStrand2 = strand2.succ.succ
+      #    elif (strand3 in c1):
+      #       self.add_join(strand3)
+      #       goodStrand2 = strand3
+      #    elif (strand3.succ.succ in c1):
+      #       self.add_join(strand3.succ.succ)
+      #       goodStrand2 = strand3.succ.succ
+      # 
+      # elif (badStrand, badStrand.succ, badStrand.succ.succ not in c2):  # add join here
+      #    self.add_join(strand1.succ.succ)
+      #    goodStrand1 = strand1.succ.succ
+      #    if (strand2.succ in c1):
+      #       if (strand2) in c1:
+      #          self.add_join(strand2)
+      #          goodStrand2 = strand2
+      #       else:
+      #          self.add_join(strand2.succ.succ)
+      #          goodStrand2 = strand2.succ.succ
+      #    elif (strand3 in c1):
+      #       self.add_join(strand3)
+      #       goodStrand2 = strand3
+      #    elif (strand3.succ.succ in c1):
+      #       self.add_join(strand3.succ.succ)
+      #       goodStrand2 = strand3.succ.succ
+      # 
+      # 
+      # elif (badStrand, badStrand.succ, badStrand.succ.succ not in c3):  # add join here
+      #    if (strand2 in c3):
+      #       self.add_join(strand2)
+      #       goodStrand1 = strand2
+      #    elif (strand2.succ.succ in c3):
+      #       self.add_join(strand2.succ.succ)
+      #       goodStrand1 = strand2.succ.succ
+      # 
+      #    if (strand3 in c3):
+      #       self.add_join(strand3)
+      #       goodStrand2 = strand3
+      #    elif (strand3.succ.succ in c3):
+      #       self.add_join(strand3.succ.succ)
+      #       goodStrand2 = strand3.succ.succ
+      # 
+      # c4 = crossing(badStrand, goodStrand1, badStrand.succ, goodStrand1.succ)  # change for different orientations
+      # c5 = crossing(badStrand.succ, goodStrand2, badStrand.succ.succ,
+      #               goodStrand2.succ)  # change for diff orientations
+      # 
+      # self.remove_joins()  # not sure if this method exists yet
 
-
-      #strandUnder is the strand that goes under strandMiddle and strandOver, which we are going to move
-      #strandMiddle goes over strandUnder and under strandOver
-      #strandOver goes over strandUnder and strandMiddle
-      #strands refer to triangle
-
-      crossingsUnder = self.strand_list(strandUnder) #the two crossing for strandUnder
-
-
-      #add joins to where we are going to move strandUnder
-      if(strandMiddle.pred not in crossingsUnder):
-         self.add_join(strandMiddle.pred)
-         c1 = crossing(strandUnder.pred,strandMiddle.pred,strandUnder, strandMiddle) #add crossing
-
-         if (strandOver.pred not in crossingsUnder):
-            self.add_join(strandOver.pred)
-            c2 = crossing(strandUnder.pred, strandOver.pred, strandUnder, strandOver) #add crossing
-
-         elif (strandOver.succ not in crossingsUnder):
-            self.add_join(strandOver.succ)
-            c2 = crossing(strandUnder.pred, strandOver.succ, strandUnder, strandOver) #add crossing
-
-      elif(strandMiddle.succ not in crossingsUnder):
-         self.add_join(strandMiddle.succ)
-         c1 = crossing(strandUnder.pred, strandMiddle, strandUnder, strandMiddle.succ) #add crossing
-
-         if(strandOver.pred not in crossingsUnder):
-            self.add_join(strandOver.pred)
-            c2 = crossing(strandUnder.pred, strandOver.pred,strandUnder, strandOver) #add crossing
-
-         elif(strandOver.succ not in crossingsUnder):
-            self.add_join(strandOver.succ)
-            c2 = crossing(strandUnder.pred, strandOver.succ, strandUnder, strandOver) #add crossing
-
-      self.crossings += [c1, c2]
-      self.crossings.remove(crossingsUnder) #remove old crossings
-      self.remove_joins()                   #remove extra joins
 
 
          
