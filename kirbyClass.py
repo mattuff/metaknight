@@ -60,11 +60,11 @@ class Kirby:
 
    def strand_list(self, comp):
       l=[]
-      for c in crossings:
+      for c in self.crossings:
          for i in range (4):
             if (c[i].component==comp and c[i] not in l):
                l.append(c[i])
-      for j in joins:
+      for j in self.joins:
          for k in range (2):
             if (j[k].component==comp and j[k] not in l):
                l.append(j[k])
@@ -156,12 +156,12 @@ class Kirby:
       z=x.succ
       self.add_join(x)
       y=x.succ
-
+##      w=x.succ
 ##      y=strand(self.strand_name(), x.component, x)
-##      z=strand(self.strand_name(), x.component, y, x.succ)
-##      x.succ.set_pred(z)
+##      z=strand(self.strand_name(), x.component, y, w)
+##      w.set_pred(z)
 ##      x.set_succ(y)
-##      s=list(set(self.strand_lookup(z))&set(self.strand_lookup(z.succ)))[0]
+##      s=list(set(self.strand_lookup(z))&set(self.strand_lookup(w)))[0]
 ##      if (s in self.crossings):
 ##         self.crossings.remove(s)
 ##         if (s[0]==x):
@@ -180,6 +180,7 @@ class Kirby:
 ##         elif (s[1]==x):
 ##            s.set_strands(s[0],z)
 ##         self.joins.append(s)
+
       if (sign==1):
          c = crossing(y,x,z,y)
          x.component.change_framing(x.component.framing+1) #adds 1 to framing
@@ -187,8 +188,16 @@ class Kirby:
          c = crossing(x,z,y,y)
          x.component.change_framing(x.component.framing-1) #subtracts one from framing
       self.crossings.append(c) #adds crossing to crossing list
-      self.joins.remove([x,y])
-      self.joins.remove([y,z])
+
+
+      for j in self.joins:
+         if (j==join(x,y)):
+            jn1=j
+      for k in self.joins:
+         if (k==join(y,z)):
+            jn2=k 
+      self.joins.remove(jn1)
+      self.joins.remove(jn2)
       
 ##   def remove_r1(self, s): #s: crossed strand for r1 #make names longer?
 ##      c=self.strand_lookup(s)[0]
@@ -292,14 +301,14 @@ class Kirby:
          
    def handle_annihilation(self,h1,h2):
       #checks to make sure each handle only has 2 strands (all joins must be removed)
-      if (len(self.get_strands(h1))!=2 or len(self.get_strands(h2))!=2): #checks that each handle only has two strands
+      if (len(self.strand_list(h1))!=2 or len(self.strand_list(h2))!=2): #checks that each handle only has two strands
          print ("Handles can't be cancelled.")
-      elif (len(list(set(self.strand_lookup(self.get_strands(h1)[0]))&set(self.strand_lookup(self.get_strands(h2)[0]))))!=2):
+      elif (len(list(set(self.strand_list(self.strand_list(h1)[0]))&set(self.strand_lookup(self.strand_list(h2)[0]))))!=2):
       #intersection of crossings containing both handles != 2 
          print ("Handles can't be cancelled.")
       #delete crossings
-      self.crossings.remove(self.strand_lookup(self.get_strands(h1)[0])[0])
-      self.crossings.remove(self.strand_lookup(self.get_strands(h1)[0])[0])
+      self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0])
+      self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0])
       #deletes components
       #self.components.remove(h1)
       #self.components.remove(h2)
@@ -308,13 +317,13 @@ class Kirby:
       h1=component(1)
       h2=component(2,f)
       a=strand(self.strand_name(), h1)
-      b=strand(self.strand_name(), h1, a,a)
+      b=strand(self.strand_name()+1, h1, a,a)
       a.set_pred(b)
       a.set_succ(b)
-      c=strand(self.strand_name(), h2)
-      d=strand(self.strand_name(),h2,c,c)
-      c=set_pred(d)
-      c=set_succ(d)
+      c=strand(self.strand_name()+2, h2)
+      d=strand(self.strand_name()+3,h2,c,c)
+      c.set_pred(d)
+      c.set_succ(d)
       c1=crossing(a,c,b,d)
       c2=crossing(c,a,b,d)
       self.crossings.append(c1)
