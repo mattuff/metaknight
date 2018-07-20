@@ -116,6 +116,7 @@ class Kirby:
             c.set_strands(y,c[1])
          elif (c[1]==x):
             c.set_strands(c[0], y)
+         self.joins.append(c)
       #return new strand?
 
    def remove_join(self,j1):
