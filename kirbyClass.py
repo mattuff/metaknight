@@ -17,7 +17,6 @@ class Kirby:
          for i in range(2):
             if(j[i] not in strands):
                strands.append(j[i])
-      self.strands=strands
                   
    def __str__(self):
    #prints PD
@@ -149,40 +148,47 @@ class Kirby:
    def remove_joins(self): #removes all joins except for joins in unknots
       for j in self.joins:
          if ([j[1],j[0]] not in self.joins): #checks if join is in unknot
-            remove_join(j)
+            self.remove_join(j)
 
    def add_r1(self,x, sign): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, -1 will subtract 1 from framing)
       #add two joins to strand using add_join method
-      y=strand(self.strand_name(), x.component, x)
-      z=strand(self.strand_name(), x.component, y, x.succ)
-      x.succ.set_pred(z)
-      x.set_succ(y)
-      s=list(set(self.strand_lookup(z))&set(self.strand_lookup(z.succ)))[0]
-      if (s in self.crossings):
-         self.crossings.remove(s)
-         if (s[0]==x):
-            s.set_strands(z,s[1],s[2],s[3])
-         elif (s[1]==x):
-            s.set_strands(s[0],z,s[2],s[3])
-         elif (s[2]==x):
-            s.set_strands(s[0],s[1],z,s[3])
-         elif (s[3]==x):
-            s.set_strands(s[0],s[2],s[3],z)
-         self.crossings.append(s)
-      elif (s in self.joins):
-         self.joins.remove(s)
-         if (s[0]==x):
-            s.set_strands(z,s[1])
-         elif (s[1]==x):
-            s.set_strands(s[0],z)
-         self.joins.append(s)
+      self.add_join(x)
+      z=x.succ
+      self.add_join(x)
+      y=x.succ
+
+##      y=strand(self.strand_name(), x.component, x)
+##      z=strand(self.strand_name(), x.component, y, x.succ)
+##      x.succ.set_pred(z)
+##      x.set_succ(y)
+##      s=list(set(self.strand_lookup(z))&set(self.strand_lookup(z.succ)))[0]
+##      if (s in self.crossings):
+##         self.crossings.remove(s)
+##         if (s[0]==x):
+##            s.set_strands(z,s[1],s[2],s[3])
+##         elif (s[1]==x):
+##            s.set_strands(s[0],z,s[2],s[3])
+##         elif (s[2]==x):
+##            s.set_strands(s[0],s[1],z,s[3])
+##         elif (s[3]==x):
+##            s.set_strands(s[0],s[2],s[3],z)
+##         self.crossings.append(s)
+##      elif (s in self.joins):
+##         self.joins.remove(s)
+##         if (s[0]==x):
+##            s.set_strands(z,s[1])
+##         elif (s[1]==x):
+##            s.set_strands(s[0],z)
+##         self.joins.append(s)
       if (sign==1):
          c = crossing(y,x,z,y)
-         s.component.change_framing(s.component.framing+1) #adds 1 to framing
+         x.component.change_framing(x.component.framing+1) #adds 1 to framing
       elif (sign==-1):
          c = crossing(x,z,y,y)
-         s.component.change_framing(s.component.framing-1) #subtracts one from framing
+         x.component.change_framing(x.component.framing-1) #subtracts one from framing
       self.crossings.append(c) #adds crossing to crossing list
+      self.joins.remove([x,y])
+      self.joins.remove([y,z])
       
 ##   def remove_r1(self, s): #s: crossed strand for r1 #make names longer?
 ##      c=self.strand_lookup(s)[0]
