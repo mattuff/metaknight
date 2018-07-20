@@ -5,11 +5,13 @@ from componentClass import *
 
 class strand:
     
-    def __init__(self,i,component,pred=None,succ=None):
+    def __init__(self,i,component,pred=None,succ=None,pred_con=None,succ_con=None):
         self.name=i
         self.component=component
         self.pred=pred
         self.succ=succ
+        self.pred_con=pred_con
+        self.succ_con=succ_con
         
     def __str__(self): #check if this helps
         return(str(self.name))
@@ -19,6 +21,12 @@ class strand:
         
     def set_pred(self,pred): #set the predecessor of this strand to be the strand succ
         self.pred=pred
+
+    def set_pred_con(self,pred_con): #set the successor of this strand to be the strand succ
+        self.pred_con=pred_con
+
+    def set_succ_con(self,succ_con): #set the successor of this strand to be the strand succ
+        self.succ_con=succ_con
         
     def set_component(self,component): #set the component to which this strand belongs to be the component comp
         self.component=component

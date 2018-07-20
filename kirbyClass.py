@@ -17,6 +17,7 @@ class Kirby:
          for i in range(2):
             if(j[i] not in strands):
                strands.append(j[i])
+      self.strands=strands
                   
    def __str__(self):
    #prints PD
