@@ -150,23 +150,38 @@ class Kirby:
          if ([j[1],j[0]] not in self.joins): #checks if join is in unknot
             remove_join(j)
 
-   def add_r1(self,s, sign): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, -1 will subtract 1 from framing)
+   def add_r1(self,x, sign): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, -1 will subtract 1 from framing)
       #add two joins to strand using add_join method
-      self.add_join(s) #strand.succ.succ (strand1)
-      self.add_join(s) #strand.succ (strand2)
+      y=strand(self.strand_name(), x.component, x)
+      z=strand(self.strand_name(), x.component, y, x.succ)
+      x.succ.set_pred(z)
+      x.set_succ(y)
+      s=list(set(self.strand_lookup(z))&set(self.strand_lookup(z.succ)))[0]
+      if (s in self.crossings):
+         self.crossings.remove(s)
+         if (s[0]==x):
+            s.set_strands(z,s[1],s[2],s[3])
+         elif (s[1]==x):
+            s.set_strands(s[0],z,s[2],s[3])
+         elif (s[2]==x):
+            s.set_strands(s[0],s[1],z,s[3])
+         elif (s[3]==x):
+            s.set_strands(s[0],s[2],s[3],z)
+         self.crossings.append(s)
+      elif (s in self.joins):
+         self.joins.remove(s)
+         if (s[0]==x):
+            s.set_strands(z,s[1])
+         elif (s[1]==x):
+            s.set_strands(s[0],z)
+         self.joins.append(s)
       if (sign==1):
-         c = crossing(s.succ,s,s.succ.succ,s.succ)
+         c = crossing(y,x,z,y)
          s.component.change_framing(s.component.framing+1) #adds 1 to framing
       elif (sign==-1):
-         c = crossing(s,s.succ.succ, s.succ, s.succ)
+         c = crossing(x,z,y,y)
          s.component.change_framing(s.component.framing-1) #subtracts one from framing
       self.crossings.append(c) #adds crossing to crossing list
-      
-      #remove joins added from join list but not using the remove join function
-      #self.joins.remove([s, s.succ])
-      #self.joins.remove([s.succ, s.succ.succ])
-      #instead of doing above, lets use general remove_join method situation --> general remove_join doesn't work, as we need the strands to not be renamed, etc.
-      
       
 ##   def remove_r1(self, s): #s: crossed strand for r1 #make names longer?
 ##      c=self.strand_lookup(s)[0]
