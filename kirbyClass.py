@@ -257,46 +257,80 @@ class Kirby:
 
     #Pseudo code
    def add_r3(self, strandUnder, strandMiddle, strandOver):
-      #need to add: if a goes up instead of down. maybe add input called orientation.
+      # need to add: if a goes up instead of down. maybe add input called orientation.
 
 
-      #strandUnder is the strand that goes under strandMiddle and strandOver, which we are going to move
-      #strandMiddle goes over strandUnder and under strandOver
-      #strandOver goes over strandUnder and strandMiddle
-      #strands refer to triangle
-
-      crossingsUnder = self.strand_list(strandUnder) #the two crossing for strandUnder
+      # strandUnder is the strand that goes under strandMiddle and strandOver, which we are going to move
+      # strandMiddle goes over strandUnder and under strandOver
+      # strandOver goes over strandUnder and strandMiddle
+      # strands refer to triangle
 
 
-      #add joins to where we are going to move strandUnder
-      if(strandMiddle.pred not in crossingsUnder):
+
+
+     # crossingsUnder = self.strand_list(strandUnder)  # the two crossing for strandUnder
+
+      #this would be more efficient
+      cross1 = self.pred__con(strandUnder)
+      cross2 = self.succ__con(strandUnder)
+
+      # add joins to where we are going to move strandUnder
+      if (strandMiddle.pred not in cross1,cross2):
          self.add_join(strandMiddle.pred)
-         c1 = crossing(strandUnder.pred,strandMiddle.pred,strandUnder, strandMiddle) #add crossing
 
-         if (strandOver.pred not in crossingsUnder):
+         #if strandUnder originally goes from strandOver to strandMiddle:
+         c1 = crossing(strandUnder.pred, strandMiddle.pred, strandUnder, strandMiddle.pred.pred)
+         
+         #if strandUnder originally goes from strandMiddle to strandOver:
+         c1 = crossing(strandUnder.pred, strandMiddle.pred.pred, strandUnder, strandMiddle.pred)
+
+         if (strandOver.pred not in cross1,cross2):
             self.add_join(strandOver.pred)
-            c2 = crossing(strandUnder.pred, strandOver.pred, strandUnder, strandOver) #add crossing
 
-         elif (strandOver.succ not in crossingsUnder):
+            # if strandUnder originally goes from strandOver to strandMiddle:
+            c2 = crossing(strandUnder, strandOver.pred, strandUnder.succ, strandOver.pred.pred)
+            
+            # if strandUnder originally goes from strandMiddle to strandOver:
+            c2 = crossing(strandUnder.pred, strandOver.pred.pred, strandUnder, strandOver.pred)
+
+         elif (strandOver.succ not in cross1,cross2):
             self.add_join(strandOver.succ)
-            c2 = crossing(strandUnder.pred, strandOver.succ, strandUnder, strandOver) #add crossing
+            
+            # if strandUnder originally goes from strandOver to strandMiddle:
+            c2 = crossing(strandUnder, strandOver.succ, strandUnder.succ, strandOver.succ.succ)
+            
+            # if strandUnder originally goes from strandMiddle to strandOver:
+            c2 = crossing(strandUnder.pred, strandOver.suc.suc, strandUnder, strandOver.succ)
 
-      elif(strandMiddle.succ not in crossingsUnder):
+            
+      elif (strandMiddle.succ not in cross1,cross2):
          self.add_join(strandMiddle.succ)
-         c1 = crossing(strandUnder.pred, strandMiddle, strandUnder, strandMiddle.succ) #add crossing
 
-         if(strandOver.pred not in crossingsUnder):
+         #if strandUnder originally goes from strandOver to strandMiddle:
+         c1 = crossing(strandUnder.pred, strandMiddle.succ, strandUnder, strandMiddle.succ.succ) 
+         
+         #if strandUnder originally goes from strandMiddle to strandOver
+         c1 = crossing(strandUnder,strandMiddle.succ.succ,strandUnder.succ,strandMiddle.succ)
+
+         if (strandOver.pred not in cross1,cross2):
             self.add_join(strandOver.pred)
-            c2 = crossing(strandUnder.pred, strandOver.pred,strandUnder, strandOver) #add crossing
 
-         elif(strandOver.succ not in crossingsUnder):
+            # if strandUnder originally goes from strandOver to strandMiddle:
+            c2 = crossing(strandUnder, strandOver.pred, strandUnder.succ, strandOver.pred.pred)
+            # if strandUnder originally goes from strandMiddle to strandOver:
+            c2 = crossing(strandUnder.pred, strandOver.pred.pred, strandUnder, strandOver.pred)
+
+         elif (strandOver.succ not in cross1,cross2):
             self.add_join(strandOver.succ)
-            c2 = crossing(strandUnder.pred, strandOver.succ, strandUnder, strandOver) #add crossing
+
+            # if strandUnder originally goes from strandOver to strandMiddle:
+            c2 = crossing(strandUnder, strandOver.succ, strandUnder.succ, strandOver.succ.succ)
+            # if strandUnder originally goes from strandMiddle to strandOver:
+            c2 = crossing(strandUnder.pred, strandOver.succ, strandUnder, strandOver.succ.succ)
 
       self.crossings += [c1, c2]
-      self.crossings.remove(crossingsUnder) #remove old crossings
-      self.remove_joins()                   #remove extra joins
-
+      self.crossings.remove(crossingsUnder)  # remove old crossings
+      self.remove_joins()  # remove extra joins
 
          
    def handle_annihilation(self,h1,h2):
