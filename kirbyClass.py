@@ -164,7 +164,7 @@ class Kirby:
       #remove joins added from join list but not using the remove join function
       #self.joins.remove([s, s.succ])
       #self.joins.remove([s.succ, s.succ.succ])
-      #instead of doing above, lets use general remove_join method situation
+      #instead of doing above, lets use general remove_join method situation --> general remove_join doesn't work, as we need the strands to not be renamed, etc.
       
       
 ##   def remove_r1(self, s): #s: crossed strand for r1 #make names longer?
