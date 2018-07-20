@@ -225,7 +225,7 @@ class Kirby:
             self.crossings.remove(c)
 
     #Pseudo code
-     def add_r3(self, strandUnder, strandMiddle, strandOver):
+   def add_r3(self, strandUnder, strandMiddle, strandOver):
       #need to add: if a goes up instead of down. maybe add input called orientation.
 
 
