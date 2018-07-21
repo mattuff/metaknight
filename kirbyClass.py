@@ -68,13 +68,13 @@ class Kirby:
          for k in range (2):
             if (j[k].component==comp and j[k] not in l):
                l.append(j[k])
-      for i in range (len(l)-1):
-         if (l[i+1] != l[i].succ):
-            for k in range (i, len(l)):
-               if (l[k]==l[i].succ):
-                  placeholder=l[i+1]
-                  l[i+1]=l[k]
-                  l[k]=placeholder
+##      for i in range (len(l)-1):
+##         if (l[i+1] != l[i].succ):
+##            for k in range (i, len(l)):
+##               if (l[k]==l[i].succ):
+##                  placeholder=l[i+1]
+##                  l[i+1]=l[k]
+##                  l[k]=placeholder
       return l
 
    def strand_name(self):
@@ -336,18 +336,16 @@ class Kirby:
    def handle_annihilation(self,h1,h2):
       #checks to make sure each handle only has 2 strands (all joins must be removed)
       if (len(self.strand_list(h1))!=2 or len(self.strand_list(h2))!=2): #checks that each handle only has two strands
-         print ("Handles can't be cancelled.")
-      elif (len(list(set(self.strand_list(self.strand_list(h1)[0]))&set(self.strand_lookup(self.strand_list(h2)[0]))))!=2):
+      elif (len(list(set(self.strand_lookup(self.strand_list(h1)[0]))&set(self.strand_lookup(self.strand_list(h2)[0]))))!=2):
       #intersection of crossings containing both handles != 2 
-         print ("Handles can't be cancelled.")
       #delete crossings
-      self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0])
-      self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0])
-      #deletes components
-      #self.components.remove(h1)
-      #self.components.remove(h2)
+      else:
+         self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0]) #deletes first crossing
+         self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0]) #deletes second crossing
+
 
    def handle_creation(self, f): #f=framing for 2-handle to have
+   #THIS CODE WORKS!!!!!! :) :) :) :)
       h1=component(1)
       h2=component(2,f)
       a=strand(self.strand_name(), h1)
