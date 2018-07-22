@@ -7,6 +7,7 @@ class join:
     
     def __init__(self,strand0,strand1): #sets up join from 2 strands
         self.strands=[strand0,strand1]
+        self.len=2
 
     def __getitem__(self,key): #returns either 0th strand or 1st strand
         return(self.strands[key])

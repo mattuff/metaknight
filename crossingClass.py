@@ -7,6 +7,7 @@ class crossing:
     
     def __init__(self,s0,s1,s2,s3):
         self.strands=[s0,s1,s2,s3]
+        self.len=4
 
     def __getitem__(self,key): #key is 0-3 (int), returns strand
         return(self.strands[key])
