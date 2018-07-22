@@ -298,18 +298,10 @@ class Kirby:
 
     #Pseudo code
    def add_r3(self, strandUnder, strandMiddle, strandOver):
-      # need to add: if a goes up instead of down. maybe add input called orientation.
-
-
-      # strandUnder is the strand that goes under strandMiddle and strandOver, which we are going to move
+       # strandUnder is the strand that goes under strandMiddle and strandOver, which we are going to move
       # strandMiddle goes over strandUnder and under strandOver
       # strandOver goes over strandUnder and strandMiddle
       # strands refer to triangle
-
-
-
-
-     # crossingsUnder = self.strand_list(strandUnder)  # the two crossing for strandUnder
 
       #this would be more efficient
       cross1 = self.pred__con(strandUnder)
