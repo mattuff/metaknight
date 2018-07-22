@@ -8,7 +8,7 @@ class Kirby:
    def __init__(self,crossings,joins):
       self.crossings=crossings
       self.joins=joins
-      self.strands=[] #makes list of strands
+      strands=[] #makes list of strands
       for c in crossings:
          for i in range(4):
             if(c[i] not in strands):
@@ -92,8 +92,8 @@ class Kirby:
       return k
 
    def rename(self):
-      for i in len(self.strands):
-         self.strands[i].set_name=i
+      for i in len(strands):
+         strands[i].set_name=i
          
          
    
@@ -162,6 +162,7 @@ class Kirby:
       z=x.succ
       self.add_join(x)
       y=x.succ
+      f=x.component.framing
 ##      w=x.succ
 ##      y=strand(self.strand_name(), x.component, x)
 ##      z=strand(self.strand_name(), x.component, y, w)
@@ -189,21 +190,25 @@ class Kirby:
 
       if (sign==1):
          c = crossing(y,x,z,y)
-         x.component.change_framing(x.component.framing+1) #adds 1 to framing
+         x.component.change_framing(f+1) #adds 1 to framing
       elif (sign==-1):
          c = crossing(x,z,y,y)
-         x.component.change_framing(x.component.framing-1) #subtracts one from framing
+         x.component.change_framing(f-1) #subtracts one from framing
       self.crossings.append(c) #adds crossing to crossing list
 
+      j1=list((set(self.strand_lookup(x))&set(self.strand_lookup(y))))[0]
+      j2=list((set(self.strand_lookup(y))&set(self.strand_lookup(z))))[0]
+      self.joins.remove(j1)
+      self.joins.remove(j2)
 
-      for j in self.joins:
-         if (j==join(x,y)):
-            jn1=j
-      for k in self.joins:
-         if (k==join(y,z)):
-            jn2=k 
-      self.joins.remove(jn1)
-      self.joins.remove(jn2)
+##      for j in self.joins:
+##         if (j==join(x,y)):
+##            jn1=j
+##      for k in self.joins:
+##         if (k==join(y,z)):
+##            jn2=k 
+##      self.joins.remove(jn1)
+##      self.joins.remove(jn2)
       
 ##   def remove_r1(self, s): #s: crossed strand for r1 #make names longer?
 ##      c=self.strand_lookup(s)[0]
@@ -342,11 +347,10 @@ class Kirby:
    def handle_annihilation(self,h1,h2):
       #THIS CODE ALSO WORKS!!!!! :) :) :) :)
       #checks to make sure each handle only has 2 strands (all joins must be removed)
-      if !(len(self.strand_list(h1))!=2 or len(self.strand_list(h2))!=2): #checks that each handle only has two strands   
-         if !(len(list(set(self.strand_lookup(self.strand_list(h1)[0]))&set(self.strand_lookup(self.strand_list(h2)[0]))))!=2):
+      if (len(self.strand_list(h1))==2 and len(self.strand_list(h2))==2): #checks that each handle only has two strands   
+         if (len(list(set(self.strand_lookup(self.strand_list(h1)[0]))&set(self.strand_lookup(self.strand_list(h2)[0]))))==2):
       #intersection of crossings containing both handles != 2 
       #delete crossings
-            else:
                self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0]) #deletes first crossing
                self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0]) #deletes second crossing
 
