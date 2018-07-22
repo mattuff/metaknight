@@ -342,13 +342,13 @@ class Kirby:
    def handle_annihilation(self,h1,h2):
       #THIS CODE ALSO WORKS!!!!! :) :) :) :)
       #checks to make sure each handle only has 2 strands (all joins must be removed)
-      if (len(self.strand_list(h1))!=2 or len(self.strand_list(h2))!=2): #checks that each handle only has two strands
-      elif (len(list(set(self.strand_lookup(self.strand_list(h1)[0]))&set(self.strand_lookup(self.strand_list(h2)[0]))))!=2):
+      if !(len(self.strand_list(h1))!=2 or len(self.strand_list(h2))!=2): #checks that each handle only has two strands   
+         if !(len(list(set(self.strand_lookup(self.strand_list(h1)[0]))&set(self.strand_lookup(self.strand_list(h2)[0]))))!=2):
       #intersection of crossings containing both handles != 2 
       #delete crossings
-      else:
-         self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0]) #deletes first crossing
-         self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0]) #deletes second crossing
+            else:
+               self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0]) #deletes first crossing
+               self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0]) #deletes second crossing
 
 
    def handle_creation(self, f): #f=framing for 2-handle to have
