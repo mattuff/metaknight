@@ -255,9 +255,25 @@ class Kirby:
       if(orientation):
          c1=crossing(s1,s2.succ,s1.succ,s2)
          c2=crossing(s1.succ,s2.succ,s1.succ.succ,s2.succ.succ)
+         s1.set_succ_con(c1)
+         s1.succ.set_pred_con(c1)
+         s1.succ.set_succ_con(c2)
+         s1.succ.succ.set_pred_con(c2)
+         s2.set_succ_con(c1)
+         s2.succ.set_pred_con(c1)
+         s2.succ.set_succ_con(c2)
+         s2.succ.succ.set_pred_con(c2)
       else:
          c1=crossing(s1,s2.succ.succ,s1.succ,s2.succ)
          c2=crossing(s1.succ,s2,s1.succ.succ,s2.succ)
+         s1.set_succ_con(c1)
+         s1.succ.set_pred_con(c1)
+         s1.succ.set_succ_con(c2)
+         s1.succ.succ.set_pred_con(c2)
+         s2.set_succ_con(c2)
+         s2.succ.set_succ_con(c2)
+         s2.succ.set_succ_con(c1)
+         s2.succ.succ.set_pred_con(c1)
       self.crossings+=[c1,c2]
       for s in l:
          self.joins.remove(s)
