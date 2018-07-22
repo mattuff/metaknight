@@ -166,12 +166,14 @@ class Kirby:
             self.remove_join(j)
 
    def add_r1(self,x, sign): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, -1 will subtract 1 from framing)
+
       #add two joins to strand using add_join method
       self.add_join(x)
       z=x.succ
       self.add_join(x)
       y=x.succ
       f=x.component.framing
+      
 ##      w=x.succ
 ##      y=strand(self.strand_name(), x.component, x)
 ##      z=strand(self.strand_name(), x.component, y, w)
@@ -197,6 +199,7 @@ class Kirby:
 ##            s.set_strands(s[0],z)
 ##         self.joins.append(s)
 
+      #adds crossing
       if (sign==1):
          c = crossing(y,x,z,y)
          x.component.change_framing(f+1) #adds 1 to framing
@@ -204,12 +207,14 @@ class Kirby:
          c = crossing(x,z,y,y)
          x.component.change_framing(f-1) #subtracts one from framing
       self.crossings.append(c) #adds crossing to crossing list    
-      
+
+      #changes succ and pred crossings of strands involved
       x.set_succ_con(c)
       y.set_pred_con(c)
       y.set_succ_con(c)
       z.set_pred_con(c)
-      
+
+      #removes joins that were previously added
       j1=list((set(self.strand_lookup(x))&set(self.strand_lookup(y))))[0]
       j2=list((set(self.strand_lookup(y))&set(self.strand_lookup(z))))[0]
       self.joins.remove(j1)
