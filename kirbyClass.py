@@ -105,7 +105,7 @@ class Kirby:
       self.joins.append(jx) #adds new join to join list
       #search for crossings containing both x and y.get_succ(), replaces x w/ y
       c=list(set(self.strand_lookup(x))&set(self.strand_lookup(y.succ)))[0] #finds crossing containing x and y.get_succ()
-      if (c in self.crossings):
+      if (c.len==4):
          self.crossings.remove(c) 
          if (c[0]==x): #if x is the ith strand in the crossing
             c.set_strands(y, c[1], c[2], c[3]) #then replace strand w strand.get_succ().get_succ()
@@ -116,7 +116,7 @@ class Kirby:
          elif (c[3]==x):
             c.set_strands(c[0], c[1], c[2], y)
          self.crossings.append(c)
-      elif (c in self.joins):
+      elif (c.len==2):
          self.joins.remove(c)
          if (c[0]==x):
             c.set_strands(y,c[1])
@@ -133,7 +133,7 @@ class Kirby:
       j1[1].succ.set_pred(j1[0]) #set's y succ's pred to be x
       #search crossings for y, replace w x
       c=self.strand_lookup(y)[0]
-      if (c in self.crossings):
+      if (c.len==4):
          self.crossings.remove(c)
          if (c[0]==y):
             c.set_strands(x, c[1], c[2], c[3])
@@ -144,7 +144,7 @@ class Kirby:
          elif (c[3]==y):
             c.set_strands(c[0], c[1], c[2], x)
          self.crossings.append(c)
-      elif (c in self.joins):
+      elif (c.len==2):
          self.joins.remove(c)
          if (c[0]==y):
             c.set_strands(x,c[1])
