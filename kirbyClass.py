@@ -203,8 +203,13 @@ class Kirby:
       elif (sign==-1):
          c = crossing(x,z,y,y)
          x.component.change_framing(f-1) #subtracts one from framing
-      self.crossings.append(c) #adds crossing to crossing list
-
+      self.crossings.append(c) #adds crossing to crossing list    
+      
+      x.set_succ_con(c)
+      y.set_pred_con(c)
+      y.set_succ_con(c)
+      z.set_pred_con(c)
+      
       j1=list((set(self.strand_lookup(x))&set(self.strand_lookup(y))))[0]
       j2=list((set(self.strand_lookup(y))&set(self.strand_lookup(z))))[0]
       self.joins.remove(j1)
