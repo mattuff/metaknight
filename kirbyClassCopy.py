@@ -138,17 +138,10 @@ class Kirby:
                c1.strands[i]=s1
 """
       
-   def remove_join(self,j):
-      s=strand(None,j[0],j[1],j[0].pred_con,j[1].succ_con)
-      for i in ranges(s.pred_con.len):
-         if(s.pred_con[i]==j[0]):
-            s.pred_con.strands[i]=s
-      for i in ranges(s.succ_con.len):
-         if(s.succ_con[i]==j[1]):
-            s.succ_con.strands[i]=s
-      self.joins.remove(j)
+#   def remove_join(self,j):
+#      s=strand(None,j[0],j[1],j[1]
 
-"""
+
    def remove_join(self,j1):
       self.joins.remove(j1)
       x=j1[0]
@@ -174,7 +167,6 @@ class Kirby:
             c.set_strands(x,c[1])
          elif (c[1]==y):
             c.set_strands(c[0], x)
-"""
 
    def remove_joins(self): #removes all joins except for joins in unknots
       for j in self.joins:
