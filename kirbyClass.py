@@ -78,28 +78,7 @@ class Kirby:
       return l
 
    def strand_name(self):
-<<<<<<< HEAD
-      l=[]
-      for c in self.crossings:
-         for i in range (4):
-            if (c[i].name not in l):
-               l.append(c[i].name)
-      for j in self.joins:
-         for k in range (2):
-            if (j[k].name not in l):
-               l.append(j[k].name)
-      l.sort()
-      k=l[-1]+1
-      return k
-
-   def rename(self):
-      for i in len(strands):
-         strands[i].set_name=i
-         
-         
-=======
       return(max(map(lambda x:x.name,self.strands))+1)
->>>>>>> 43a607f275ed391cefcf51d2b67e035bdd61e7a9
    
    def add_join(self, x): #adds a join to a strand (splitting it into two different strands)
       y=strand(self.strand_name(), x.component, x, x.succ) #adds strand w pred x and succ x's succ
@@ -374,17 +353,7 @@ class Kirby:
       self.remove_joins()  # remove extra joins
 
          
-<<<<<<< HEAD
-   def handle_annihilation(self,h1,h2):
-      #THIS CODE ALSO WORKS!!!!! :) :) :) :)
-      #checks to make sure each handle only has 2 strands (all joins must be removed)
-      if (len(self.strand_list(h1))==2 and len(self.strand_list(h2))==2): #checks that each handle only has two strands   
-         if (len(list(set(self.strand_lookup(self.strand_list(h1)[0]))&set(self.strand_lookup(self.strand_list(h2)[0]))))==2):
-      #intersection of crossings containing both handles != 2 
-      #delete crossings
-               self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0]) #deletes first crossing
-               self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0]) #deletes second crossing
-=======
+
 ##   def handle_annihilation(self,h1,h2):
 ##      #checks to make sure each handle only has 2 strands (all joins must be removed)
 ##      if !(len(self.strand_list(h1))!=2 or len(self.strand_list(h2))!=2): #checks that each handle only has two strands   
@@ -394,7 +363,6 @@ class Kirby:
 ##            else:
 ##               self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0]) #deletes first crossing
 ##               self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0]) #deletes second crossing
->>>>>>> 43a607f275ed391cefcf51d2b67e035bdd61e7a9
 
 
    def handle_creation(self, f): #f=framing for 2-handle to have
