@@ -8,7 +8,7 @@ class Kirby:
    def __init__(self,crossings,joins):
       self.crossings=crossings
       self.joins=joins
-      strands=[] #makes list of strands
+      self.strands=[] #makes list of strands
       for c in crossings:
          for i in range(4):
             if(c[i] not in strands):
@@ -90,6 +90,12 @@ class Kirby:
       l.sort()
       k=l[-1]+1
       return k
+
+   def rename(self):
+      for i in len(self.strands):
+         self.strands[i].set_name=i
+         
+         
    
    def add_join(self, x): #adds a join to a strand (splitting it into two different strands)
       y=strand(self.strand_name(), x.component, x, x.succ) #adds strand w pred x and succ x's succ
