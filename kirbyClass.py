@@ -396,3 +396,5 @@ class Kirby:
       c2=crossing(c,a,b,d)
       self.crossings.append(c1)
       self.crossings.append(c2)
+
+   #def handle_slide(h1, h2, sign):
