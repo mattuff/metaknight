@@ -334,6 +334,7 @@ class Kirby:
 
          
    def handle_annihilation(self,h1,h2):
+      #THIS CODE ALSO WORKS!!!!! :) :) :) :)
       #checks to make sure each handle only has 2 strands (all joins must be removed)
       if (len(self.strand_list(h1))!=2 or len(self.strand_list(h2))!=2): #checks that each handle only has two strands
       elif (len(list(set(self.strand_lookup(self.strand_list(h1)[0]))&set(self.strand_lookup(self.strand_list(h2)[0]))))!=2):
