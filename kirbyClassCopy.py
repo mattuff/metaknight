@@ -78,7 +78,6 @@ class Kirby:
       return l
 
    def strand_name(self):
-<<<<<<< HEAD
       l=[]
       for c in self.crossings:
          for i in range (4):
@@ -91,15 +90,6 @@ class Kirby:
       l.sort()
       k=l[-1]+1
       return k
-
-   def rename(self):
-      for i in len(strands):
-         strands[i].set_name=i
-         
-         
-=======
-      return(max(map(lambda x:x.name,self.strands))+1)
->>>>>>> 43a607f275ed391cefcf51d2b67e035bdd61e7a9
    
    def add_join(self, x): #adds a join to a strand (splitting it into two different strands)
       y=strand(self.strand_name(), x.component, x, x.succ) #adds strand w pred x and succ x's succ
@@ -109,7 +99,7 @@ class Kirby:
       self.joins.append(jx) #adds new join to join list
       #search for crossings containing both x and y.get_succ(), replaces x w/ y
       c=list(set(self.strand_lookup(x))&set(self.strand_lookup(y.succ)))[0] #finds crossing containing x and y.get_succ()
-      if (c.len==4):
+      if (c in self.crossings):
          self.crossings.remove(c) 
          if (c[0]==x): #if x is the ith strand in the crossing
             c.set_strands(y, c[1], c[2], c[3]) #then replace strand w strand.get_succ().get_succ()
@@ -120,66 +110,63 @@ class Kirby:
          elif (c[3]==x):
             c.set_strands(c[0], c[1], c[2], y)
          self.crossings.append(c)
-      elif (c.len==2):
+      elif (c in self.joins):
          self.joins.remove(c)
          if (c[0]==x):
             c.set_strands(y,c[1])
          elif (c[1]==x):
             c.set_strands(c[0], y)
-         self.joins.append(c) #return new strand?
+         self.joins.append(c)
+      #return new strand?
 
-##   def add_join(self, s0): #s0 is strand to be split, s0 will be the predecessor of the new s1
-##      c0=s0.pred_con
-##      c1=s0.succ_con
-##      self.strands.append(s1)
-##      s1=strand(None,s0.component,s0,s0.succ,None,s0.succ_con)
-##      j=join(s0,s1)
-##      s1.set_pred_con(j)
-##      s1.succ.set_pred(s1)
-##      s0.set_succ_con(j)
-##      s0.set_succ(s1)
-##      if(c1==c0):
-##         print("stuff")
-##      else:
-##         for i in range(c1.len):
-##            if(c1[i]==s0):
-##               c1.strands[i]=s1
+"""
+   def add_join(self, s0): #s0 is strand to be split, s0 will be the predecessor of the new s1
+      c0=s0.pred_con
+      c1=s0.succ_con
+      self.strands.append(s1)
+      s1=strand(None,s0.component,s0,s0.succ,None,s0.succ_con)
+      j=join(s0,s1)
+      s1.set_pred_con(j)
+      s1.succ.set_pred(s1)
+      s0.set_succ_con(j)
+      s0.set_succ(s1)
+      if(c1==c0):
+         print("stuff")
+      else:
+         for i in range(c1.len):
+            if(c1[i]==s0):
+               c1.strands[i]=s1
+"""
+      
+#   def remove_join(self,j):
+#      s=strand(None,j[0],j[1],j[1]
 
-   def remove_join(self,j):
-      s=strand(None,j[0],j[1],j[0].pred_con,j[1].succ_con)
-      for i in ranges(s.pred_con.len):
-         if(s.pred_con[i]==j[0]):
-            s.pred_con.strands[i]=s
-      for i in ranges(s.succ_con.len):
-         if(s.succ_con[i]==j[1]):
-            s.succ_con.strands[i]=s
-      self.joins.remove(j)
 
-##   def remove_join(self,j1):
-##      self.joins.remove(j1)
-##      x=j1[0]
-##      y=j1[1]
-##      j1[0].set_succ(j1[1].succ) #set's x's succ to be y's succ
-##      j1[1].succ.set_pred(j1[0]) #set's y succ's pred to be x
-##      #search crossings for y, replace w x
-##      c=self.strand_lookup(y)[0]
-##      if (c.len==4):
-##         self.crossings.remove(c)
-##         if (c[0]==y):
-##            c.set_strands(x, c[1], c[2], c[3])
-##         elif (c[1]==y):
-##            c.set_strands(c[0], x, c[2], c[3])
-##         elif (c[2]==y):
-##            c.set_strands(c[0], c[1], x, c[3])
-##         elif (c[3]==y):
-##            c.set_strands(c[0], c[1], c[2], x)
-##         self.crossings.append(c)
-##      elif (c.len==2):
-##         self.joins.remove(c)
-##         if (c[0]==y):
-##            c.set_strands(x,c[1])
-##         elif (c[1]==y):
-##            c.set_strands(c[0], x)
+   def remove_join(self,j1):
+      self.joins.remove(j1)
+      x=j1[0]
+      y=j1[1]
+      j1[0].set_succ(j1[1].succ) #set's x's succ to be y's succ
+      j1[1].succ.set_pred(j1[0]) #set's y succ's pred to be x
+      #search crossings for y, replace w x
+      c=self.strand_lookup(y)[0]
+      if (c in self.crossings):
+         self.crossings.remove(c)
+         if (c[0]==y):
+            c.set_strands(x, c[1], c[2], c[3])
+         elif (c[1]==y):
+            c.set_strands(c[0], x, c[2], c[3])
+         elif (c[2]==y):
+            c.set_strands(c[0], c[1], x, c[3])
+         elif (c[3]==y):
+            c.set_strands(c[0], c[1], c[2], x)
+         self.crossings.append(c)
+      elif (c in self.joins):
+         self.joins.remove(c)
+         if (c[0]==y):
+            c.set_strands(x,c[1])
+         elif (c[1]==y):
+            c.set_strands(c[0], x)
 
    def remove_joins(self): #removes all joins except for joins in unknots
       for j in self.joins:
@@ -192,7 +179,6 @@ class Kirby:
       z=x.succ
       self.add_join(x)
       y=x.succ
-      f=x.component.framing
 ##      w=x.succ
 ##      y=strand(self.strand_name(), x.component, x)
 ##      z=strand(self.strand_name(), x.component, y, w)
@@ -220,25 +206,21 @@ class Kirby:
 
       if (sign==1):
          c = crossing(y,x,z,y)
-         x.component.change_framing(f+1) #adds 1 to framing
+         x.component.change_framing(x.component.framing+1) #adds 1 to framing
       elif (sign==-1):
          c = crossing(x,z,y,y)
-         x.component.change_framing(f-1) #subtracts one from framing
+         x.component.change_framing(x.component.framing-1) #subtracts one from framing
       self.crossings.append(c) #adds crossing to crossing list
 
-      j1=list((set(self.strand_lookup(x))&set(self.strand_lookup(y))))[0]
-      j2=list((set(self.strand_lookup(y))&set(self.strand_lookup(z))))[0]
-      self.joins.remove(j1)
-      self.joins.remove(j2)
 
-##      for j in self.joins:
-##         if (j==join(x,y)):
-##            jn1=j
-##      for k in self.joins:
-##         if (k==join(y,z)):
-##            jn2=k 
-##      self.joins.remove(jn1)
-##      self.joins.remove(jn2)
+      for j in self.joins:
+         if (j==join(x,y)):
+            jn1=j
+      for k in self.joins:
+         if (k==join(y,z)):
+            jn2=k 
+      self.joins.remove(jn1)
+      self.joins.remove(jn2)
       
 ##   def remove_r1(self, s): #s: crossed strand for r1 #make names longer?
 ##      c=self.strand_lookup(s)[0]
@@ -374,27 +356,15 @@ class Kirby:
       self.remove_joins()  # remove extra joins
 
          
-<<<<<<< HEAD
    def handle_annihilation(self,h1,h2):
-      #THIS CODE ALSO WORKS!!!!! :) :) :) :)
       #checks to make sure each handle only has 2 strands (all joins must be removed)
-      if (len(self.strand_list(h1))==2 and len(self.strand_list(h2))==2): #checks that each handle only has two strands   
-         if (len(list(set(self.strand_lookup(self.strand_list(h1)[0]))&set(self.strand_lookup(self.strand_list(h2)[0]))))==2):
+      if (len(self.strand_list(h1))!=2 or len(self.strand_list(h2))!=2): #checks that each handle only has two strands
+      elif (len(list(set(self.strand_lookup(self.strand_list(h1)[0]))&set(self.strand_lookup(self.strand_list(h2)[0]))))!=2):
       #intersection of crossings containing both handles != 2 
       #delete crossings
-               self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0]) #deletes first crossing
-               self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0]) #deletes second crossing
-=======
-##   def handle_annihilation(self,h1,h2):
-##      #checks to make sure each handle only has 2 strands (all joins must be removed)
-##      if !(len(self.strand_list(h1))!=2 or len(self.strand_list(h2))!=2): #checks that each handle only has two strands   
-##         if !(len(list(set(self.strand_lookup(self.strand_list(h1)[0]))&set(self.strand_lookup(self.strand_list(h2)[0]))))!=2):
-##      #intersection of crossings containing both handles != 2 
-##      #delete crossings
-##            else:
-##               self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0]) #deletes first crossing
-##               self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0]) #deletes second crossing
->>>>>>> 43a607f275ed391cefcf51d2b67e035bdd61e7a9
+      else:
+         self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0]) #deletes first crossing
+         self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0]) #deletes second crossing
 
 
    def handle_creation(self, f): #f=framing for 2-handle to have
