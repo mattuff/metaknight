@@ -70,13 +70,13 @@ class Kirby:
          for k in range (2):
             if (j[k].component==comp and j[k] not in l):
                l.append(j[k])
-##      for i in range (len(l)-1):
-##         if (l[i+1] != l[i].succ):
-##            for k in range (i, len(l)):
-##               if (l[k]==l[i].succ):
-##                  placeholder=l[i+1]
-##                  l[i+1]=l[k]
-##                  l[k]=placeholder
+      for i in range (len(l)-1):
+         if (l[i+1] != l[i].succ):
+            for k in range (i, len(l)):
+               if (l[k]==l[i].succ):
+                  placeholder=l[i+1]
+                  l[i+1]=l[k]
+                  l[k]=placeholder
       return l
 
 ##   def strand_name(self):
