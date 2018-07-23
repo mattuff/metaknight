@@ -182,36 +182,36 @@ class Kirby:
    def add_r1(self,x, sign): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, -1 will subtract 1 from framing)
 
       #add two joins to strand using add_join method
-      self.add_join(x)
-      z=x.succ
-      self.add_join(x)
-      y=x.succ
+##      self.add_join(x)
+##      z=x.succ
+##      self.add_join(x)
+##      y=x.succ
       f=x.component.framing
       
-##      w=x.succ
-##      y=strand(self.strand_name(), x.component, x)
-##      z=strand(self.strand_name(), x.component, y, w)
-##      w.set_pred(z)
-##      x.set_succ(y)
-##      s=list(set(self.strand_lookup(z))&set(self.strand_lookup(w)))[0]
-##      if (s in self.crossings):
-##         self.crossings.remove(s)
-##         if (s[0]==x):
-##            s.set_strands(z,s[1],s[2],s[3])
-##         elif (s[1]==x):
-##            s.set_strands(s[0],z,s[2],s[3])
-##         elif (s[2]==x):
-##            s.set_strands(s[0],s[1],z,s[3])
-##         elif (s[3]==x):
-##            s.set_strands(s[0],s[2],s[3],z)
-##         self.crossings.append(s)
-##      elif (s in self.joins):
-##         self.joins.remove(s)
-##         if (s[0]==x):
-##            s.set_strands(z,s[1])
-##         elif (s[1]==x):
-##            s.set_strands(s[0],z)
-##         self.joins.append(s)
+      w=x.succ
+      y=strand(self.strand_name(), x.component, x)
+      z=strand(self.strand_name(), x.component, y, w)
+      w.set_pred(z)
+      x.set_succ(y)
+      s=z.succ_con
+      if (s in self.crossings):
+         self.crossings.remove(s)
+         if (s[0]==x):
+            s.set_strands(z,s[1],s[2],s[3])
+         elif (s[1]==x):
+            s.set_strands(s[0],z,s[2],s[3])
+         elif (s[2]==x):
+            s.set_strands(s[0],s[1],z,s[3])
+         elif (s[3]==x):
+            s.set_strands(s[0],s[2],s[3],z)
+         self.crossings.append(s)
+      elif (s in self.joins):
+         self.joins.remove(s)
+         if (s[0]==x):
+            s.set_strands(z,s[1])
+         elif (s[1]==x):
+            s.set_strands(s[0],z)
+         self.joins.append(s)
 
       #adds crossing
       if (sign==1):
@@ -229,10 +229,10 @@ class Kirby:
       z.set_pred_con(c)
 
       #removes joins that were previously added
-      j1=list((set(self.strand_lookup(x))&set(self.strand_lookup(y))))[0]
-      j2=list((set(self.strand_lookup(y))&set(self.strand_lookup(z))))[0]
-      self.joins.remove(j1)
-      self.joins.remove(j2)
+##      j1=list((set(self.strand_lookup(x))&set(self.strand_lookup(y))))[0]
+##      j2=list((set(self.strand_lookup(y))&set(self.strand_lookup(z))))[0]
+##      self.joins.remove(j1)
+##      self.joins.remove(j2)
 
 ##      for j in self.joins:
 ##         if (j==join(x,y)):
