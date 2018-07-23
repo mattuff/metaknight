@@ -190,10 +190,11 @@ class Kirby:
       
       w=x.succ
       y=strand(self.strand_name(), x.component, x)
-      z=strand(self.strand_name(), x.component, y, w)
+      z=strand(self.strand_name()+1, x.component, y, w)
+      z.set_succ_con=x.succ_con
       w.set_pred(z)
       x.set_succ(y)
-      s=z.succ_con
+      s=x.succ_con
       if (s in self.crossings):
          self.crossings.remove(s)
          if (s[0]==x):
@@ -223,10 +224,12 @@ class Kirby:
       self.crossings.append(c) #adds crossing to crossing list    
 
       #changes succ and pred crossings of strands involved
+      z.succ_con=s
       x.set_succ_con(c)
       y.set_pred_con(c)
       y.set_succ_con(c)
       z.set_pred_con(c)
+
 
       #removes joins that were previously added
 ##      j1=list((set(self.strand_lookup(x))&set(self.strand_lookup(y))))[0]
