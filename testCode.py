@@ -69,3 +69,18 @@ g.set_pred_con(cx1)
 g.set_succ_con(cx2)
 h.set_pred_con(cx1)
 cnpair=Kirby([cx1,cx2],[])
+
+#unknot
+knt=component(2,0)
+j=strand(1,knt)
+k=strand(2,knt, j, j)
+j.set_succ(k)
+j.set_pred(k)
+j1=join(j,k)
+j2=join(k,j)
+j.set_pred_con(j2)
+j.set_succ_con(j1)
+k.set_pred_con(j1)
+k.set_succ_con(j2)
+unknot=Kirby([],[j1,j2])
+
