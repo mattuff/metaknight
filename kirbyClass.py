@@ -34,7 +34,17 @@ class Kirby:
             s+=str(self.joins[i])+","
       if(len(self.joins)>=1):
          s+=str(self.joins[-1])
-      s+="}>"
+##      s+="}; Components: {"
+##      for c in self.comp_list():
+##         s+="Handle:"+ str(c.handle)+","
+##         if c.handle==2:
+##            str+="Framing:"+str(c.framing)+","
+##         s+="Strands:["
+##         for st in self.strand_list(c):
+##            s+=str(st)+","
+##         s+="]"
+##         s+="}"
+      s+=">"
       return(s)
 
    def strand_lookup(self,strand):
