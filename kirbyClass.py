@@ -191,15 +191,9 @@ class Kirby:
          if ([j[1],j[0]] not in self.joins): #checks if join is in unknot
             self.remove_join(j)
 
-   def add_r1(self,x, sign): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, -1 will subtract 1 from framing)
+   def add_r1(self,x, sign): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, 0 will subtract 1 from framing)
 
-      #add two joins to strand using add_join method
-##      self.add_join(x)
-##      z=x.succ
-##      self.add_join(x)
-##      y=x.succ
       f=x.component.framing
-      
       w=x.succ
       y=strand(self.strand_name(), x.component, x)
       z=strand(self.strand_name()+1, x.component, y, w)
@@ -227,11 +221,11 @@ class Kirby:
          self.joins.append(s)
 
       #adds crossing
-      if (sign==1):
+      if (sign%2): 
          c = crossing(x,y,y,z)
          x.component.change_framing(f+1) #adds 1 to framing
-      elif (sign==-1):
-         c = crossing(z,x,y,y)
+      else:
+         c = crossing(y,y,z,x)
          x.component.change_framing(f-1) #subtracts one from framing
       self.crossings.append(c) #adds crossing to crossing list    
 
@@ -276,7 +270,7 @@ class Kirby:
 ##         s.component.change_framing(s.component.framing-1) #subracts 1 from framing
 
    def add_r2(self,s1,s2,orientation): #orientation is a boolean which is true if the strands are oriented the same way, and false otherwise
-      #change strand1 --> s1?
+      #s1 gets pulled under s2
       #find all places you can do r2?
       #add two joins to each strand
       #add two crossings
