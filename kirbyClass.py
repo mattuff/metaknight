@@ -16,7 +16,7 @@ class Kirby:
       for j in joins:
          for i in range(2):
             if(j[i] not in strands):
-               self.strands.append(j[i])
+               strands.append(j[i])
       self.strands=strands
 
                   
@@ -79,22 +79,22 @@ class Kirby:
 ##                  l[k]=placeholder
       return l
 
-   def strand_name(self):
-      return(max(map(lambda x:x.name,self.strands))+1)
-
 ##   def strand_name(self):
-##      l=[]
-##      for c in self.crossings:
-##         for i in range (4):
-##            if (c[i].name not in l):
-##               l.append(c[i].name)
-##      for j in self.joins:
-##         for k in range (2):
-##            if (j[k].name not in l):
-##               l.append(j[k].name)
-##      l.sort()
-##      k=l[-1]+1
-##      return k
+##      return(max(map(lambda x:x.name,self.strands))+1)
+
+   def strand_name(self):
+      l=[]
+      for c in self.crossings:
+         for i in range (4):
+            if (c[i].name not in l):
+               l.append(c[i].name)
+      for j in self.joins:
+         for k in range (2):
+            if (j[k].name not in l):
+               l.append(j[k].name)
+      l.sort()
+      k=l[-1]+1
+      return k
    
    def add_join(self, x): #adds a join to a strand (splitting it into two different strands)
       y=strand(self.strand_name(), x.component, x, x.succ) #adds strand w pred x and succ x's succ
