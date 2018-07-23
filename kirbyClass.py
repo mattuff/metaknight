@@ -8,15 +8,15 @@ class Kirby:
    def __init__(self,crossings,joins):
       self.crossings=crossings
       self.joins=joins
-      self.strands=[] #makes list of strands
-      for c in crossings:
-         for i in range(4):
-            if(c[i] not in strands):
-               strands.append(c[i])
-      for j in joins:
-         for i in range(2):
-            if(j[i] not in strands):
-               strands.append(j[i])
+##      self.strands=[] #makes list of strands
+##      for c in crossings:
+##         for i in range(4):
+##            if(c[i] not in strands):
+##               strands.append(c[i])
+##      for j in joins:
+##         for i in range(2):
+##            if(j[i] not in strands):
+##               strands.append(j[i])
                   
    def __str__(self):
    #prints PD
@@ -79,6 +79,20 @@ class Kirby:
 
 ##   def strand_name(self):
 ##      return(max(map(lambda x:x.name,self.strands))+1)
+
+   def strand_name(self):
+      l=[]
+      for c in self.crossings:
+         for i in range (4):
+            if (c[i].name not in l):
+               l.append(c[i].name)
+      for j in self.joins:
+         for k in range (2):
+            if (j[k].name not in l):
+               l.append(j[k].name)
+      l.sort()
+      k=l[-1]+1
+      return k
    
    def add_join(self, x): #adds a join to a strand (splitting it into two different strands)
       y=strand(self.strand_name(), x.component, x, x.succ) #adds strand w pred x and succ x's succ
@@ -217,8 +231,8 @@ class Kirby:
       #removes joins that were previously added
       j1=list((set(self.strand_lookup(x))&set(self.strand_lookup(y))))[0]
       j2=list((set(self.strand_lookup(y))&set(self.strand_lookup(z))))[0]
-      #self.joins.remove(j1)
-      #self.joins.remove(j2)
+      self.joins.remove(j1)
+      self.joins.remove(j2)
 
 ##      for j in self.joins:
 ##         if (j==join(x,y)):
