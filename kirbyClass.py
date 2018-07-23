@@ -218,10 +218,10 @@ class Kirby:
 
       #adds crossing
       if (sign==1):
-         c = crossing(y,x,z,y)
+         c = crossing(x,y,y,z)
          x.component.change_framing(f+1) #adds 1 to framing
       elif (sign==-1):
-         c = crossing(x,z,y,y)
+         c = crossing(z,x,y,y)
          x.component.change_framing(f-1) #subtracts one from framing
       self.crossings.append(c) #adds crossing to crossing list    
 
