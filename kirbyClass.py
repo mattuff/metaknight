@@ -225,15 +225,23 @@ class Kirby:
          elif (s[1]==x):
             s.set_strands(s[0],z)
          self.joins.append(s)
+      
+      counterclockwise=True
 
       #adds crossing
       if (sign%2): 
-         c = crossing(x,y,y,z)
+         if counterclockwise:
+            c = crossing(x,y,y,z)
+         else:
+            c = crossing(y,x,z,y)
          x.component.change_framing(f+1) #adds 1 to framing
       else:
-         c = crossing(y,y,z,x)
+         if counterclockwise:
+            c = crossing(y,y,z,x)
+         else:
+            c-crossing(x,z,y,y)
          x.component.change_framing(f-1) #subtracts one from framing
-      self.crossings.append(c) #adds crossing to crossing list    
+      self.crossings.append(c) #adds crossing to crossing list 
 
       #changes succ and pred crossings of strands involved
       z.succ_con=s
