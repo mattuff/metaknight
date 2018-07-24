@@ -118,7 +118,7 @@ class Kirby:
       s1.set_pred_con(j)
       if(c1==c0):
          if(c0.len-2): #if c0 is a crossing rather than a join
-            if(c0[2]==s0 & c0[3]==s0): #this is the only case in which the first instance of s0 should not be replaced with s1
+            if((c0[2]==s0) & (c0[3]==s0)): #this is the only case in which the first instance of s0 should not be replaced with s1
                c0.strands[3]=s1
             else:
                c0.strands[c0.strands.index(s0)]=s1 #index method returns index of first instance of s0 in list
