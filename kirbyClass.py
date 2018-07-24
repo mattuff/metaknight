@@ -34,7 +34,7 @@ class Kirby:
             s+=str(self.joins[i])+","
       if(len(self.joins)>=1):
          s+=str(self.joins[-1])
-##      s+="}; Components: {"
+      s+="}>"##Components: {"
 ##      for c in self.comp_list():
 ##         s+="Handle:"+ str(c.handle)+","
 ##         if c.handle==2:
@@ -44,7 +44,7 @@ class Kirby:
 ##            s+=str(st)+","
 ##         s+="]"
 ##         s+="}"
-      s+=">"
+##      s+=">"
       return(s)
 
    def strand_lookup(self,strand):
@@ -136,13 +136,8 @@ class Kirby:
    def add_join(self, s0): #s0 is strand to be split, s0 will be the predecessor of the new s1
       c0=s0.pred_con
       c1=s0.succ_con
-<<<<<<< HEAD
       s1=strand(self.strand_name(),s0.component,s0,s0.succ,None,s0.succ_con)
       self.strands.append(s1)
-=======
-      self.strands.append(s1)
-      s1=strand(None,s0.component,s0,s0.succ,None,s0.succ_con)
->>>>>>> a2339c83609e02a3c2ac9c22e0466527b53b9ecb
       s0.set_succ(s1)
       s1.succ.set_pred(s1)
       j=join(s0,s1)
@@ -230,8 +225,6 @@ class Kirby:
          elif (s[1]==x):
             s.set_strands(s[0],z)
          self.joins.append(s)
-      
-      counterclockwise=True
 
       #adds crossing
       if (sign%2): 
