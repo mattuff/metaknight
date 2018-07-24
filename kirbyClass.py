@@ -439,6 +439,7 @@ class Kirby:
          #one h1-h1 crossing
          #one h2-h2 crossing
          #two h1-h2 crossings
+      #compute crossings!!
       #if anything else is connected to h1, h2 will now be connected to it
       #framing: for h1 framing n; add n counterclockwise twists of h2 about h1 (canonical framing)
       #compute differnce between blackboard and canonical framings
