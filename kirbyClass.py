@@ -155,6 +155,7 @@ class Kirby:
          for i in range(c1.len):
             if(c1[i]==s0):
                c1.strands[i]=s1
+      self.joins.append(j)
 
    def remove_join(self,j):
       s=strand(None,j[0],j[1],j[0].pred_con,j[1].succ_con)
