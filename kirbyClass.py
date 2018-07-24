@@ -238,7 +238,7 @@ class Kirby:
          if counterclockwise:
             c = crossing(y,y,z,x)
          else:
-            c-crossing(x,z,y,y)
+            c = crossing(x,z,y,y)
          x.component.change_framing(f-1) #subtracts one from framing
       self.crossings.append(c) #adds crossing to crossing list 
 
