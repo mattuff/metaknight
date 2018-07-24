@@ -106,48 +106,55 @@ class Kirby:
       k=l[-1]+1
       return k
    
-   def add_join(self, x): #adds a join to a strand (splitting it into two different strands)
-      y=strand(self.strand_name(), x.component, x, x.succ) #adds strand w pred x and succ x's succ
-      x.succ.set_pred(y) #sets x's old successor's pred to be y
-      jx=join(x,y) #creates join of [x,y]
-      self.joins.append(jx) #adds new join to join list
-      #search for crossings containing both x and y.get_succ(), replaces x w/ y
-      c=list(set(self.strand_lookup(x))&set(self.strand_lookup(y.succ)))[0] #finds crossing containing x and y.get_succ()
-      if (c.len==4):
-         self.crossings.remove(c) 
-         if (c[0]==x): #if x is the ith strand in the crossing
-            c.set_strands(y, c[1], c[2], c[3]) #then replace strand w strand.get_succ().get_succ()
-         elif (c[1]==x):
-            c.set_strands(c[0], y, c[2], c[3])
-         elif (c[2]==x):
-            c.set_strands(c[0], c[1], y, c[3])
-         elif (c[3]==x):
-            c.set_strands(c[0], c[1], c[2], y)
-         self.crossings.append(c)
-      elif (c.len==2):
-         self.joins.remove(c)
-         if (c[0]==x):
-            c.set_strands(y,c[1])
-         elif (c[1]==x):
-            c.set_strands(c[0], y)
-         self.joins.append(c) #return new strand?
+##   def add_join(self, x): #adds a join to a strand (splitting it into two different strands)
+##      y=strand(self.strand_name(), x.component, x, x.succ) #adds strand w pred x and succ x's succ
+##      x.succ.set_pred(y) #sets x's old successor's pred to be y
+##      x.set_succ(y) #sets x's successor to y
+##      jx=join(x,y) #creates join of [x,y]
+##      self.joins.append(jx) #adds new join to join list
+##      #search for crossings containing both x and y.get_succ(), replaces x w/ y
+##      c=list(set(self.strand_lookup(x))&set(self.strand_lookup(y.succ)))[0] #finds crossing containing x and y.get_succ()
+##      if (c.len==4):
+##         self.crossings.remove(c) 
+##         if (c[0]==x): #if x is the ith strand in the crossing
+##            c.set_strands(y, c[1], c[2], c[3]) #then replace strand w strand.get_succ().get_succ()
+##         elif (c[1]==x):
+##            c.set_strands(c[0], y, c[2], c[3])
+##         elif (c[2]==x):
+##            c.set_strands(c[0], c[1], y, c[3])
+##         elif (c[3]==x):
+##            c.set_strands(c[0], c[1], c[2], y)
+##         self.crossings.append(c)
+##      elif (c.len==2):
+##         self.joins.remove(c)
+##         if (c[0]==x):
+##            c.set_strands(y,c[1])
+##         elif (c[1]==x):
+##            c.set_strands(c[0], y)
+##         self.joins.append(c) #return new strand?
 
-##   def add_join(self, s0): #s0 is strand to be split, s0 will be the predecessor of the new s1
-##      c0=s0.pred_con
-##      c1=s0.succ_con
-##      self.strands.append(s1)
-##      s1=strand(None,s0.component,s0,s0.succ,None,s0.succ_con)
-##      j=join(s0,s1)
-##      s1.set_pred_con(j)
-##      s1.succ.set_pred(s1)
-##      s0.set_succ_con(j)
-##      s0.set_succ(s1)
-##      if(c1==c0):
-##         print("stuff")
-##      else:
-##         for i in range(c1.len):
-##            if(c1[i]==s0):
-##               c1.strands[i]=s1
+   def add_join(self, s0): #s0 is strand to be split, s0 will be the predecessor of the new s1
+      c0=s0.pred_con
+      c1=s0.succ_con
+      s1=strand(self.strand_name(),s0.component,s0,s0.succ,None,s0.succ_con)
+      self.strands.append(s1)
+      s0.set_succ(s1)
+      s1.succ.set_pred(s1)
+      j=join(s0,s1)
+      s0.set_succ_con(j)
+      s1.set_pred_con(j)
+      if(c1==c0):
+         if(c0.len-2): #if c0 is a crossing rather than a join
+            if(c0[2]==s0 & c0[3]==s0): #this is the only case in which the first instance of s0 should not be replaced with s1
+               c0.strands[3]=s1
+            else:
+               c0.strands[c0.strands.index(s0)]=s1 #index method returns index of first instance of s0 in list
+         else:
+            c0.strands[0]=s1
+      else:
+         for i in range(c1.len):
+            if(c1[i]==s0):
+               c1.strands[i]=s1
 
    def remove_join(self,j):
       s=strand(None,j[0],j[1],j[0].pred_con,j[1].succ_con)
@@ -190,7 +197,7 @@ class Kirby:
          if ([j[1],j[0]] not in self.joins): #checks if join is in unknot
             self.remove_join(j)
 
-   def add_r1(self,x, sign): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, 0 will subtract 1 from framing)
+   def add_r1(self,x, sign, counterclockwise): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, 0 will subtract 1 from framing)
 
       f=x.component.framing
       w=x.succ
@@ -221,12 +228,18 @@ class Kirby:
 
       #adds crossing
       if (sign%2): 
-         c = crossing(x,y,y,z)
+         if counterclockwise:
+            c = crossing(x,y,y,z)
+         else:
+            c = crossing(y,x,z,y)
          x.component.change_framing(f+1) #adds 1 to framing
       else:
-         c = crossing(y,y,z,x)
+         if counterclockwise:
+            c = crossing(y,y,z,x)
+         else:
+            c-crossing(x,z,y,y)
          x.component.change_framing(f-1) #subtracts one from framing
-      self.crossings.append(c) #adds crossing to crossing list    
+      self.crossings.append(c) #adds crossing to crossing list 
 
       #changes succ and pred crossings of strands involved
       z.succ_con=s
@@ -291,8 +304,8 @@ class Kirby:
          s2.succ.set_succ_con(c2)
          s2.succ.succ.set_pred_con(c2)
       else:
-         c1=crossing(s1,s2.succ.succ,s1.succ,s2.succ)
-         c2=crossing(s1.succ,s2,s1.succ.succ,s2.succ)
+         c1=crossing(s1,s2.succ,s1.succ,s2.succ.succ)
+         c2=crossing(s1.succ,s2.succ,s1.succ.succ,s2)
          s1.set_succ_con(c1)
          s1.succ.set_pred_con(c1)
          s1.succ.set_succ_con(c2)
