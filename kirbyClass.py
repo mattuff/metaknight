@@ -210,15 +210,7 @@ class Kirby:
       s=x.succ_con
       if (s in self.crossings):
          self.crossings.remove(s)
-         if (s[0]==x):
-            s.set_strands(z,s[1],s[2],s[3])
-         elif (s[1]==x):
-            s.set_strands(s[0],z,s[2],s[3])
-         elif (s[2]==x):
-            s.set_strands(s[0],s[1],z,s[3])
-         elif (s[3]==x):
-            s.set_strands(s[0],s[2],s[3],z)
-         self.crossings.append(s)
+         s.strands[s.strands.index(x)]=z
       elif (s in self.joins):
          self.joins.remove(s)
          if (s[0]==x):
