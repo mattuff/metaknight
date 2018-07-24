@@ -109,7 +109,6 @@ class Kirby:
    def add_join(self, x): #adds a join to a strand (splitting it into two different strands)
       y=strand(self.strand_name(), x.component, x, x.succ) #adds strand w pred x and succ x's succ
       x.succ.set_pred(y) #sets x's old successor's pred to be y
-      x.set_succ(y) #sets x's successor to y
       jx=join(x,y) #creates join of [x,y]
       self.joins.append(jx) #adds new join to join list
       #search for crossings containing both x and y.get_succ(), replaces x w/ y
