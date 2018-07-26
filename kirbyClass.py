@@ -382,6 +382,7 @@ class Kirby:
 
    def handle_slide(h1, h2, sign): #h2 is being slid over h1
       #makes parallel copies of all strands in h1
+      s=self.strand_list(h1)
       for k in range (len(self.strand_list(h1))):
          l=[]
          st=strand(self.strand_name()+k h2)
@@ -389,6 +390,38 @@ class Kirby:
       for i in l:
          l[i].set_pred(l[i-1])
          l[i].set_succ(l[i+1])
+      for c in comp_crossings(h1):
+         a=s.index(c[0])
+         b=s.index(c[1])
+         c=s.index(c[2])
+         d=s.index(c[3])
+         if (a<c):
+            e=strand(self.strand_name(), h1, s[a],s[c])
+            ee=strand(self.strand_name(), h2, l[a], l[c])
+            s.insert(a+1, e)
+            l.insert(a+1, ee)
+         else:
+            e=strand(self.strand_name(), h1, s[c], s[a])
+            ee=strand(self.strand_name(), h2, l[c], l[a])
+            s.insert(c+1, e)
+            l.insert(c+1, ee)
+         if (b<d):
+            f=strand(self.strand_name(), h1, s[b], s[d])
+            ff=strand(self.strand_name(), h2, l[b], l[d])
+            s.insert(b+1, f)
+            l.insert(b+1, ff)
+         else:
+            f=strand(self.strand_name(), h1, s[d], s[b])
+            ff=strand(self.strand_nme(), h2, l[b], l[d])
+            s.insert(d+1, f)
+            l.insert(d+1, ff)
+         self.crossings.remove(c)
+         c1=crossing(e,s[b],s[c],s[d])
+         c2=crossing(l[a],l[b],ee,l[d])
+         c3=crossing(s[a],ff,e,l[d])
+         c4=crossing(ee,s[b],l[c],f)
+         self.crossings+=[c1,c2,c3,c4]
+         
 ##      for strands, crossings, joins in h1:
 ##         create parallel copies in h2
 ##         for cx, cx' crossings in h1, h2:
