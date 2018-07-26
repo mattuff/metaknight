@@ -370,7 +370,15 @@ class Kirby:
       self.crossings.append(c1)
       self.crossings.append(c2)
 
-##   def handle_slide(h1, h2, sign): #h2 is being slid over h1
+   def handle_slide(h1, h2, sign): #h2 is being slid over h1
+      #makes parallel copies of all strands in h1
+      for k in range (len(self.strand_list(h1))):
+         l=[]
+         st=strand(self.strand_name()+k h2)
+         l+=[st]
+      for i in l:
+         l[i].set_pred(l[i-1])
+         l[i].set_succ(l[i+1])
 ##      for strands, crossings, joins in h1:
 ##         create parallel copies in h2
 ##         for cx, cx' crossings in h1, h2:
