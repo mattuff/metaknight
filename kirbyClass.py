@@ -117,13 +117,16 @@ class Kirby:
 
    def comp_crossings(h1):
       l=[]
-      for c in crossings:
+      for c in self.crossings:
          if (c[0].component==c[1].component==h1):
             l.append(c)
-      for j in joins:
-         if (j[i].component==h1):
-            l.append(j)
       return l
+
+   def comp_joins(h1):
+      l=[]
+      for j in self.joins:
+         if (j[0].component==h1):
+            l.append(j)
 
    def add_join(self, s0): #s0 is strand to be split, s0 will be the predecessor of the new s1
       c0=s0.pred_con
@@ -394,7 +397,17 @@ class Kirby:
          else:
             l[i].set_succ(l[i-1])
             l[i].set_pred(l[i+1])
-      for c in comp_crossings(h1):
+
+      for j in self.comp_crossings(h1):
+         a=s.index(j[0])
+         b=s.index(j[1])
+         if (sign):
+            jn=join(l[a],l[b])
+         else:
+            jn=join(l[b],l[a])
+         self.joins.append(jn)
+
+      for c in self.comp_crossings(h1):
          a=s.index(c[0])
          b=s.index(c[1])
          c=s.index(c[2])
@@ -437,6 +450,7 @@ class Kirby:
          c3=crossing(s[a],ff,e,l[d])
          c4=crossing(ee,s[b],l[c],f)
          self.crossings+=[c1,c2,c3,c4]
+         #to do next: crossings w h1 and other components?
          
 ##      for strands, crossings, joins in h1:
 ##         create parallel copies in h2
