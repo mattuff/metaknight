@@ -106,6 +106,15 @@ class Kirby:
       k=l[-1]+1
       return k
 
+   def rename(self,s): #s is named 0, strand's name is predecessor's +1
+      s.name=0
+      t=s.succ
+      n=1
+      while(t!=s):
+         t.name=n
+         t=t.succ
+         n+=1
+
    def add_join(self, s0): #s0 is strand to be split, s0 will be the predecessor of the new s1
       c0=s0.pred_con
       c1=s0.succ_con
@@ -118,7 +127,7 @@ class Kirby:
       s1.set_pred_con(j)
       if(c1==c0):
          if(c0.len-2): #if c0 is a crossing rather than a join
-            if(c0[2]==s0 & c0[3]==s0): #this is the only case in which the first instance of s0 should not be replaced with s1
+            if((c0[2]==s0) & (c0[3]==s0)): #this is the only case in which the first instance of s0 should not be replaced with s1
                c0.strands[3]=s1
             else:
                c0.strands[c0.strands.index(s0)]=s1 #index method returns index of first instance of s0 in list
@@ -131,13 +140,18 @@ class Kirby:
       self.joins.append(j)
 
    def remove_join(self,j):
-      s=strand(None,j[0],j[1],j[0].pred_con,j[1].succ_con)
-      for i in ranges(s.pred_con.len):
+      s=strand(self.strand_name(),j[0].component,j[0].pred,j[1].succ,j[0].pred_con,j[1].succ_con)
+      for i in range(s.pred_con.len):
          if(s.pred_con[i]==j[0]):
             s.pred_con.strands[i]=s
-      for i in ranges(s.succ_con.len):
+      for i in range(s.succ_con.len):
          if(s.succ_con[i]==j[1]):
             s.succ_con.strands[i]=s
+      s.pred.succ=s
+      s.succ.pred=s
+      self.strands.append(s)
+      self.strands.remove(j[0])
+      self.strands.remove(j[1])
       self.joins.remove(j)
 
    def remove_joins(self): #removes all joins except for joins in unknots

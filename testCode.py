@@ -115,3 +115,14 @@ o.set_succ_con(jn2)
 p.set_pred_con(jn2)
 p.set_succ_con(jn1)
 unknot2=Kirby([],[jn1,jn2])
+
+mc=component(2,0)
+ma=strand(1,mc)
+mb=strand(2,mc,ma,ma)
+ma.pred=mb
+ma.succ=mb
+md=crossing(mb,ma,ma,mb)
+for i in [ma,mb]:
+   i.set_pred_con(md)
+   i.set_succ_con(md)
+me=Kirby([md],[])
