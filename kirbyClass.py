@@ -386,7 +386,7 @@ class Kirby:
    def handle_slide(h1, h2, sign): #h2 is being slid over h1; sign=True if same orientation
       #makes parallel copies of all strands in h1
       s=self.strand_list(h1)
-      for k in range (len(self.strand_list(h1))):
+      for k in range (len(s)):
          l=[]
          st=strand(self.strand_name()+k h2)
          l+=[st]
