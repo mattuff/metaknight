@@ -118,7 +118,7 @@ class Kirby:
       s1.set_pred_con(j)
       if(c1==c0):
          if(c0.len-2): #if c0 is a crossing rather than a join
-            if((c0[2]==s0) & (c0[3]==s0)): #this is the only case in which the first instance of s0 should not be replaced with s1
+            if(c0[2]==s0 & c0[3]==s0): #this is the only case in which the first instance of s0 should not be replaced with s1
                c0.strands[3]=s1
             else:
                c0.strands[c0.strands.index(s0)]=s1 #index method returns index of first instance of s0 in list
@@ -356,7 +356,17 @@ class Kirby:
       self.crossings.append(c1)
       self.crossings.append(c2)
 
-   #def handle_slide(h1, h2, sign): #h2 is being slid over h1
+##   def handle_slide(h1, h2, sign): #h2 is being slid over h1
+##      for strands, crossings, joins in h1:
+##         create parallel copies in h2
+##         for cx, cx' crossings in h1, h2:
+##            let cx=[a,b,c,d]; cx'=[a',b',c',d']
+##            add strand e between a+c (similarly e')
+##            add strand f betweem b+d (similarly f')
+##            cx=[e,b,c,d]
+##            cx'=[a', b', e', d']
+##            add two more crossings: [a, f', e, d'] and [e', b, c', f]
+      
       #h2 attaches itself to a parallel copy of h1
       #for every crossing of h1 turns into 4:
          #one h1-h1 crossing
