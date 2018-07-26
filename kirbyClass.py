@@ -388,7 +388,7 @@ class Kirby:
       s=self.strand_list(h1)
       for k in range (len(s)):
          l=[]
-         st=strand(self.strand_name()+k h2)
+         st=strand(self.strand_name()+k, h2)
          l+=[st]
       for i in l:
          if (sign):
@@ -408,55 +408,112 @@ class Kirby:
          self.joins.append(jn)
 
       for c in self.comp_crossings(h1):
-         a=s.index(c[0])
-         b=s.index(c[1])
-         c=s.index(c[2])
-         d=s.index(c[3])
-         if (a<c):
-            e=strand(self.strand_name(), h1, s[a],s[c])
-            s.insert(a+1, e)
+         a=c[0]
+         b=c[1]
+         c=c[2]
+         d=c[3]
+         aa=l[s.index(a)]
+         bb=l[s.index(b)]
+         cc=l[s.index(c)]
+         dd=l[s.index(d)]
+
+         if (s.index(a)<s.index(c)):
+            e=strand(self.strand_name(), h1, a,c)
+            s.insert(s.index(a)+1, e)
             if (sign):
-               ee=strand(self.strand_name(), h2, l[a], l[c])
+               ee=strand(self.strand_name(), h2, aa, cc)
             else:
-               ee=strand(self.strand_name(), h2, l[c], l[a])
-            l.insert(a+1, ee)
+               ee=strand(self.strand_name(), h2, cc, aa)
+            l.insert(l.index(aa)+1, ee)
          else:
-            e=strand(self.strand_name(), h1, s[c], s[a])
-            s.insert(c+1, e)
+            e=strand(self.strand_name(), h1, c, a)
+            s.insert(s.index(c)+1, e)
             if (sign):
-               ee=strand(self.strand_name(), h2, l[c], l[a])
+               ee=strand(self.strand_name(), h2, cc, aa)
             else:
-               ee=strand(self.strand_name(), h2, l[a], l[c])
-            l.insert(c+1, ee)
-         if (b<d):
-            f=strand(self.strand_name(), h1, s[b], s[d])
-            s.insert(b+1, f)
+               ee=strand(self.strand_name(), h2, aa, cc)
+            l.insert(l.index(cc)+1, ee)
+         if (s.index(b)<s.index(d)):
+            f=strand(self.strand_name(), h1, b, d)
+            s.insert(s.index(b)+1, f)
             if (sign):
-               ff=strand(self.strand_name(), h2, l[b], l[d])
+               ff=strand(self.strand_name(), h2, bb, dd)
             else:
-               ff=strand(self.strand_name(), h2, l[d], l[b])
-            l.insert(b+1, ff)
+               ff=strand(self.strand_name(), h2, dd, bb)
+            l.insert(l.index(b)+1, ff)
          else:
-            f=strand(self.strand_name(), h1, s[d], s[b])
-            s.insert(d+1, f)
+            f=strand(self.strand_name(), h1, d, b)
+            s.insert(s.index(d)+1, f)
             if (sign):
-               ff=strand(self.strand_name(), h2, l[b], l[d])
+               ff=strand(self.strand_name(), h2, bb, dd)
             else:
-               ff=strand(self.strand_name(),h2, l[d], l[b])
-            l.insert(d+1, ff)
+               ff=strand(self.strand_name(),h2, dd, bb)
+            l.insert(s.index(d)+1, ff)
          self.crossings.remove(c)
-         c1=crossing(e,s[b],s[c],s[d])
+         c1=crossing(e,b,c,d)
          if (sign):
-            c2=crossing(l[a],l[b],ee,l[d])
+            c2=crossing(aa,bb,ee,dd)
          else:
-            c2=crossing(ee,l[d],l[a],l[b])
-         c3=crossing(s[a],ff,e,l[d])
+            c2=crossing(ee,dd,aa,bb)
+         c3=crossing(a,ff,e,d)
          if (sign):
             c4=crossing(ee,s[b],l[c],f)
          else:
-            c4=crossing(l[c],f,s[b],ee)
+            c4=crossing(cc,f,b,ee)
          self.crossings+=[c1,c2,c3,c4]
-         #to do next: crossings w h1 and other components?
+
+         a.set_succ_con(c3)
+         e.set_pred_con(c3)
+         e.set_succ_con(c1)
+         c.set_pred_con(c1)
+         if (sign):
+            aa.set_succ_con(c2)
+            ee.set_pred_con(c2)
+            ee.set_succ_con(c4)
+            cc.set_pred_con(c4)  
+            if (s.index(b)<s.index(d)):
+               b.set_succ_con(c4)
+               f.set_pred_con(c4)
+               f.set_succ_con(c1)
+               d.set_pred_con(c1)
+               bb.set_succ_con(c2)
+               ff.set_pred_con(c2)
+               ff.set_succ_con(c3)
+               dd.set_pred_con(c3)
+            else:
+               b.set_pred_con(c4)
+               f.set_succ_con(c4)
+               f.set_pred_con(c1)
+               d.set_succ_con(c1)
+               bb.set_pred_con(c2)
+               ff.set_succ_con(c2)
+               ff.set_pred_con(c2)
+               dd.set_succ_con(c3)
+         else:
+            aa.set_pred_con(c2)
+            ee.set_succ_con(c2)
+            ee.set_pred_con(c4)
+            cc.set_succ_con(c4)
+            if (s.index(b)<s.index(d)):
+               b.set_succ_con(c4)
+               f.set_pred_con(c4)
+               f.set_succ_con(c1)
+               d.set_pred_con(c1)
+               bb.set_pred_con(c2)
+               ff.set_succ_con(c2)
+               ff.set_pred_con(c3)
+               dd.set_succ_con(c3)
+            else:
+               b.set_pred_con(c4)
+               f.set_succ_con(c4)
+               f.set_pred_con(c1)
+               d.set_succ_con(c1)
+               bb.set_succ_con(c2)
+               ff.set_pred_con(c2)
+               ff.set_succ_con(c3)
+               dd.set_pred_con(c3)
+
+        #to do next: crossings w h1 and other components?
          
 ##      for strands, crossings, joins in h1:
 ##         create parallel copies in h2
