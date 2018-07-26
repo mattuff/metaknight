@@ -380,7 +380,7 @@ class Kirby:
       self.crossings.append(c1)
       self.crossings.append(c2)
 
-   def handle_slide(h1, h2, sign): #h2 is being slid over h1
+   def handle_slide(h1, h2, sign): #h2 is being slid over h1; sign=True if same orientation
       #makes parallel copies of all strands in h1
       s=self.strand_list(h1)
       for k in range (len(self.strand_list(h1))):
@@ -388,8 +388,12 @@ class Kirby:
          st=strand(self.strand_name()+k h2)
          l+=[st]
       for i in l:
-         l[i].set_pred(l[i-1])
-         l[i].set_succ(l[i+1])
+         if (sign):
+            l[i].set_pred(l[i-1])
+            l[i].set_succ(l[i+1])
+         else:
+            l[i].set_succ(l[i-1])
+            l[i].set_pred(l[i+1])
       for c in comp_crossings(h1):
          a=s.index(c[0])
          b=s.index(c[1])
@@ -397,23 +401,35 @@ class Kirby:
          d=s.index(c[3])
          if (a<c):
             e=strand(self.strand_name(), h1, s[a],s[c])
-            ee=strand(self.strand_name(), h2, l[a], l[c])
             s.insert(a+1, e)
+            if (sign):
+               ee=strand(self.strand_name(), h2, l[a], l[c])
+            else:
+               ee=strand(self.strand_name(), h2, l[c], l[a])
             l.insert(a+1, ee)
          else:
             e=strand(self.strand_name(), h1, s[c], s[a])
-            ee=strand(self.strand_name(), h2, l[c], l[a])
             s.insert(c+1, e)
+            if (sign):
+               ee=strand(self.strand_name(), h2, l[c], l[a])
+            else:
+               ee=strand(self.strand_name(), h2, l[a], l[c])
             l.insert(c+1, ee)
          if (b<d):
             f=strand(self.strand_name(), h1, s[b], s[d])
-            ff=strand(self.strand_name(), h2, l[b], l[d])
             s.insert(b+1, f)
+            if (sign):
+               ff=strand(self.strand_name(), h2, l[b], l[d])
+            else:
+               ff=strand(self.strand_name(), h2, l[d], l[b])
             l.insert(b+1, ff)
          else:
             f=strand(self.strand_name(), h1, s[d], s[b])
-            ff=strand(self.strand_nme(), h2, l[b], l[d])
             s.insert(d+1, f)
+            if (sign):
+               ff=strand(self.strand_name(), h2, l[b], l[d])
+            else:
+               ff=strand(self.strand_name(),h2, l[d], l[b])
             l.insert(d+1, ff)
          self.crossings.remove(c)
          c1=crossing(e,s[b],s[c],s[d])
