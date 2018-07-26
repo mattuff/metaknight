@@ -115,6 +115,16 @@ class Kirby:
          t=t.succ
          n+=1
 
+   def comp_crossings(h1):
+      l=[]
+      for c in crossings:
+         if (c[0].component==c[1].component==h1):
+            l.append(c)
+      for j in joins:
+         if (j[i].component==h1):
+            l.append(j)
+      return l
+
    def add_join(self, s0): #s0 is strand to be split, s0 will be the predecessor of the new s1
       c0=s0.pred_con
       c1=s0.succ_con
