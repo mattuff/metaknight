@@ -446,9 +446,15 @@ class Kirby:
             l.insert(d+1, ff)
          self.crossings.remove(c)
          c1=crossing(e,s[b],s[c],s[d])
-         c2=crossing(l[a],l[b],ee,l[d])
+         if (sign):
+            c2=crossing(l[a],l[b],ee,l[d])
+         else:
+            c2=crossing(ee,l[d],l[a],l[b])
          c3=crossing(s[a],ff,e,l[d])
-         c4=crossing(ee,s[b],l[c],f)
+         if (sign):
+            c4=crossing(ee,s[b],l[c],f)
+         else:
+            c4=crossing(l[c],f,s[b],ee)
          self.crossings+=[c1,c2,c3,c4]
          #to do next: crossings w h1 and other components?
          
