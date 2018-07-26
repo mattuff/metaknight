@@ -478,6 +478,8 @@ class Kirby:
       #framing: for h1 framing n; add n counterclockwise twists of h2 about h1 (canonical framing)
       #compute differnce between blackboard and canonical framings
       #apply framing formula from pg 142
+
+      #connecting the parallel copy of h1 to the rest of h2 at some point??
       
 
    #have something to go from blackboard framing to canonical framing?
