@@ -627,9 +627,47 @@ class Kirby:
                 f.set_succ_con(c2)
                 f.set_pred_con(c1)
                 d.set_succ_con(c1)
-            
-
-         if (c[1].component==h1):
+                
+         else:
+            a=c[0]
+            b=c[1]
+            c=c[2]
+            d=c[3]
+            bb=(l[s.index(b)])
+            dd=(l[s.index(d)])
+            e=strand(self.strand_name(), a.component,a,c)
+            if (b.succ==d):
+               c1=crossing(a,b,e,d)
+               c2=crossing(e,bb,c,dd)
+               a.set_succ_con(c1)
+               e.set_pred_con(c1)
+               e.set_succ_con(c2)
+               c.set_pred_con(c2)
+               b.set_succ_con(c1)
+               d.set_pred_con(c1)
+               if (sign):
+                  bb.set_succ_con(c2)
+                  dd.set_pred_con(c2)
+               else:
+                  bb.set_pred_con(c2)
+                  dd.set_succ_con(c2)
+            else:
+               c1=crossing(a,bb,e,dd)
+               c2=crossing(e,b,c,d)
+               a.set_succ_con(c1)
+               e.set_pred_con(c1)
+               e.set_succ_con(c2)
+               c.set_succ_con(c2)
+               b.set_pred_con(c2)
+               d.set_succ_con(c2)
+               if (sign):
+                  bb.set_pred_con(c1)
+                  dd.set_succ_con(c1)
+               else:
+                  bb.set_succ_con(c2)
+                  dd.set_pred_con(c2)
+                  
+                  
                    
         #to do next: crossings w h1 and other components?
          
@@ -658,4 +696,4 @@ class Kirby:
       
 
    #have something to go from blackboard framing to canonical framing?
-      #blackboard framing = canonical framing + n; solve for n
+   #blackboard framing = canonical framing + n; solve for n
