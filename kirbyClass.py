@@ -106,14 +106,22 @@ class Kirby:
       k=l[-1]+1
       return k
 
-   def rename(self,s): #s is named 0, strand's name is predecessor's +1
-      s.name=0
+   def rename(self,s,n): #s is named n, strand's name is predecessor's +1
+      s.name=n
       t=s.succ
-      n=1
       while(t!=s):
+         n+=1
          t.name=n
          t=t.succ
-         n+=1
+      return(n)
+
+   def rename_all(self):
+      l=[]
+      n=1
+      for s in self.strands:
+         if(s.component not in l):
+            n=self.rename(s,n)+1
+            l.append(s.component)
 
    def comp_crossings(h1):
       l=[]
@@ -169,7 +177,7 @@ class Kirby:
 
    def remove_joins(self): #removes all joins except for joins in unknots
       for j in self.joins:
-         if ([j[1],j[0]] not in self.joins): #checks if join is in unknot
+         if (j[0]!=j[1]): #checks if join is in unknot
             self.remove_join(j)
 
    def add_r1(self,x, sign, counterclockwise): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, 0 will subtract 1 from framing)
@@ -182,16 +190,7 @@ class Kirby:
       w.set_pred(z)
       x.set_succ(y)
       s=x.succ_con
-      if (s in self.crossings):
-         self.crossings.remove(s)
-         s.strands[s.strands.index(x)]=z
-      elif (s in self.joins):
-         self.joins.remove(s)
-         if (s[0]==x):
-            s.set_strands(z,s[1])
-         elif (s[1]==x):
-            s.set_strands(s[0],z)
-         self.joins.append(s)
+      s.strands[s.strands.index(x)]=z
 
       #adds crossing
       if (sign%2): 
