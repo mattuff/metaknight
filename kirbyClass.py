@@ -130,6 +130,15 @@ class Kirby:
             l.append(c)
       return l
 
+   def comp_intersections(h1):
+      l=[]
+      for c in self.crossings:
+         if (c[0].component==h1 and c[1].component!=h1):
+            l.append(c)
+         elif (c[1].component==h1 and c[0].component!=h1):
+            l.append(c)
+      return l
+
    def comp_joins(h1):
       l=[]
       for j in self.joins:
@@ -451,10 +460,10 @@ class Kirby:
          self.crossings.remove(c)
 
          if (sign):
-            if (s.index(b)<s.index(d):
+            if (s.index(b)<s.index(d)):
                c1=crossing(a,f,e,d)
                c2=crossing(aa,b,ee,f)
-               c3=crossing(ee,b,,cc,ff)
+               c3=crossing(ee,b,cc,ff)
                c4=crossing(e,ff,c,dd)
 
                a.set_succ_con(c1)
@@ -502,8 +511,6 @@ class Kirby:
                ff.set_succ_con(c3)
                ff.set_pred_con(c4)
                dd.set_succ_con(c4)
-               
-                
                 
          else:
             if (s.index(b)<s.index(d)):
@@ -561,7 +568,69 @@ class Kirby:
          
          self.crossings+=[c1,c2,c3,c4]
 
-         
+      for c in self.comp_intersections(h1):
+         if (c[0].component==h1):
+            a=c[0]
+            b=c[1]
+            c=c[2]
+            d=c[3]
+            aa=l(s.index(a))
+            cc=l(s.index(c))
+            f=strand(self.strand_name(), b.component)
+            if (b.succ==d):
+               f.set_pred(b)
+               f.set_succ(d)
+               if (sign):
+                  c1=crossing(a,f,c,d)
+                  c2=crossing(aa,b,cc,f)
+                  a.set_succ_con(c1)
+                  c.set_pred_con(c1)
+                  aa.set_succ_con(c2)
+                  cc.set_pred_con(c2)
+                  b.set_succ_con(c2)
+                  f.set_pred_con(c2)
+                  f.set_succ_con(c1)
+                  d.set_pred_con(c1)
+               else:
+                  c1=crossing(a,f,c,d)
+                  c2=crossing(cc,f,aa,b)
+                  a.set_succ_con(c1)
+                  c.set_pred_con(c1)
+                  aa.set_pred_con(c2)
+                  cc.set_succ_con(c2)
+                  b.set_succ_con(c2)
+                  f.set_pred_con(c2)
+                  f.set_succ_con(c1)
+                  d.set_pred_con(c1)
+            else:
+               f.set_succ(b)
+               f.set_pred(d)
+               if (sign):
+                  c1=crossing(a,f,c,d)
+                  c2=crossing(aa,b,cc,f)
+                  a.set_succ_con(c1)
+                  c.set_pred_con(c1)
+                  aa.set_succ_con(c2)
+                  cc.set_pred_con(c2)
+                  b.set_pred_con(c2)
+                  f.set_succ_con(c2)
+                  f.set_pred_con(c1)
+                  d.set_succ_con(c1)
+               else:
+                c1=crossing(a,f,c,d)
+                c2=crossing(cc,f,aa,b)
+                a.set_succ_con(c1)
+                c.set_pred_con(c1)
+                aa.set_pred_con(c2)
+                cc.set_succ_con(c2)
+                b.set_pred_con(c2)
+                f.set_succ_con(c2)
+                f.set_pred_con(c1)
+                d.set_succ_con(c1)
+            
+
+         if (c[1].component==h1):
+                   
         #to do next: crossings w h1 and other components?
          
 ##      for strands, crossings, joins in h1:
