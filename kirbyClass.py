@@ -474,21 +474,21 @@ class Kirby:
          self.crossings.remove(c)
 
          if (sign):
+            a.set_succ_con(c1)
+            e.set_pred_con(c1)
+            e.set_succ_con(c4)
+            c.set_pred_con(c4)
+
+            aa.set_succ_con(c2)
+            ee.set_pred_con(c2)
+            ee.set_succ_con(c3)
+            cc.set_pred_con(c3)
+            
             if (s.index(b)<s.index(d)):
                c1=crossing(a,f,e,d)
                c2=crossing(aa,b,ee,f)
                c3=crossing(ee,b,cc,ff)
                c4=crossing(e,ff,c,dd)
-
-               a.set_succ_con(c1)
-               e.set_pred_con(c1)
-               e.set_succ_con(c4)
-               c.set_pred_con(c4)
-
-               aa.set_succ_con(c2)
-               ee.set_pred_con(c2)
-               ee.set_succ_con(c3)
-               cc.set_pred_con(c3)
 
                b.set_succ_con(c2)
                f.set_pred_con(c2)
@@ -506,11 +506,6 @@ class Kirby:
                c3=crossing(ee,b,cc,f)
                c4=crossing(e,f,c,d)
 
-               a.set_succ_con(c1)
-               e.set_pred_con(c1)
-               e.set_succ_con(c4)
-               c.set_pred_con(c4)
-
                aa.set_succ_con(c2)
                ee.set_pred_con(c2)
                ee.set_succ_con(c3)
@@ -525,23 +520,24 @@ class Kirby:
                ff.set_succ_con(c3)
                ff.set_pred_con(c4)
                dd.set_succ_con(c4)
+
+            a.set_succ_con(c1)
+            e.set_pred_con(c1)
+            e.set_succ_con(c4)
+            c.set_pred_con(c4)
+
+            aa.set_succ_con(c2)
+            ee.set_pred_con(c2)
+            ee.set_succ_con(c3)
+            cc.set_pred_con(c3)
                 
          else:
+            
             if (s.index(b)<s.index(d)):
                 c1=crossing(a,f,e,d)
                 c2=crossing(ee,f,aa,b)
                 c3=crossing(cc,ff,ee,bb)
                 c4=crossing(ff,c,dd,e)
-
-                a.set_succ_con(c1)
-                e.set_pred_con(c1)
-                e.set_succ_con(c4)
-                c.set_pred_con(c4)
-
-                aa.set_pred_con(c2)
-                ee.set_succ_con(c2)
-                ee.set_pred_con(c3)
-                cc.set_succ_con(c3)
 
                 b.set_succ_con(c2)
                 f.set_pred_con(c2)
@@ -553,22 +549,11 @@ class Kirby:
                 ff.set_pred_con(c4)
                 dd.set_succ_con(c4)
                 
-                
             else:
                 c1=crossing(a,ff,e,dd)
                 c2=crossing(ee,ff,aa,bb)
                 c3=crossing(cc,f,ee,b)
                 c4=crossing(e,f,c,d)
-
-                a.set_succ_con(c1)
-                e.set_pred_con(c1)
-                e.set_succ_con(c4)
-                c.set_pred_con(c4)
-
-                aa.set_pred_con(c2)
-                ee.set_succ_con(c2)
-                ee.set_pred_con(c3)
-                cc.set_succ_con(c3)
 
                 b.set_pred_con(c3)
                 f.set_succ_con(c3)
@@ -579,6 +564,16 @@ class Kirby:
                 ff.set_pred_con(c2)
                 ff.set_succ_con(c1)
                 dd.set_pred_con(c1)
+
+            a.set_succ_con(c1)
+            e.set_pred_con(c1)
+            e.set_succ_con(c4)
+            c.set_pred_con(c4)
+
+            aa.set_pred_con(c2)
+            ee.set_succ_con(c2)
+            ee.set_pred_con(c3)
+            cc.set_succ_con(c3)
          
          self.crossings+=[c1,c2,c3,c4]
 
