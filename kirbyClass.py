@@ -130,15 +130,6 @@ class Kirby:
             l.append(c)
       return l
 
-   def comp_intersections(h1):
-      l=[]
-      for c in self.crossings:
-         if (c[0].component==h1 and c[1].component!=h1):
-            l.append(c)
-         elif (c[1].component==h1 and c[0].component!=h1):
-            l.append(c)
-      return l
-
    def comp_joins(h1):
       l=[]
       for j in self.joins:
@@ -202,7 +193,7 @@ class Kirby:
       s.strands[s.strands.index(x)]=z
 
       #adds crossing
-      if (sign%2): 
+      if (sign%2):
          if counterclockwise:
             c = crossing(x,y,y,z)
          else:
@@ -240,7 +231,7 @@ class Kirby:
 ##         remove_join([s, s.succ]) #removes join; does relabling
 ##         s.component.change_framing(s.component.framing-1) #subracts 1 from framing
 
-   def add_r2(self,s1,s2,orientation): #orientation is a boolean which is true if the strands are oriented the same way, and false otherwise
+   def add_r2(self,s1,s2,o): #orientation is a boolean which is true if the strands are oriented the same way, and false otherwise
       #s1 gets pulled under s2
       #find all places you can do r2?
       #add two joins to each strand
@@ -250,29 +241,46 @@ class Kirby:
       self.add_join(s1)
       self.add_join(s2)
       self.add_join(s2)
-      l=(self.strand_lookup(s1.succ))+(self.strand_lookup(s2.succ))
-      if(orientation):
+##      l=(self.strand_lookup(s1.succ))+(self.strand_lookup(s2.succ))
+      l=[s1.succ_con,s1.succ.succ_con,s2.succ_con,s2.succ.succ_con]
+##      if(orientation):
+##         c1=crossing(s1,s2.succ,s1.succ,s2)
+##         c2=crossing(s1.succ,s2.succ,s1.succ.succ,s2.succ.succ)
+##         s1.set_succ_con(c1)
+##         s1.succ.set_pred_con(c1)
+##         s1.succ.set_succ_con(c2)
+##         s1.succ.succ.set_pred_con(c2)
+##         s2.set_succ_con(c1)
+##         s2.succ.set_pred_con(c1)
+##         s2.succ.set_succ_con(c2)
+##         s2.succ.succ.set_pred_con(c2)
+##      else:
+##         c1=crossing(s1,s2.succ,s1.succ,s2.succ.succ)
+##         c2=crossing(s1.succ,s2.succ,s1.succ.succ,s2)
+##         s1.set_succ_con(c1)
+##         s1.succ.set_pred_con(c1)
+##         s1.succ.set_succ_con(c2)
+##         s1.succ.succ.set_pred_con(c2)
+##         s2.set_succ_con(c2)
+##         s2.succ.set_pred_con(c2)
+##         s2.succ.set_succ_con(c1)
+##         s2.succ.succ.set_pred_con(c1)
+##      self.crossings+=[c1,c2]
+##      for s in l:
+##         self.joins.remove(s)
+      if(o):
          c1=crossing(s1,s2.succ,s1.succ,s2)
          c2=crossing(s1.succ,s2.succ,s1.succ.succ,s2.succ.succ)
-         s1.set_succ_con(c1)
-         s1.succ.set_pred_con(c1)
-         s1.succ.set_succ_con(c2)
-         s1.succ.succ.set_pred_con(c2)
-         s2.set_succ_con(c1)
-         s2.succ.set_pred_con(c1)
-         s2.succ.set_succ_con(c2)
-         s2.succ.succ.set_pred_con(c2)
       else:
          c1=crossing(s1,s2.succ,s1.succ,s2.succ.succ)
          c2=crossing(s1.succ,s2.succ,s1.succ.succ,s2)
-         s1.set_succ_con(c1)
-         s1.succ.set_pred_con(c1)
-         s1.succ.set_succ_con(c2)
-         s1.succ.succ.set_pred_con(c2)
-         s2.set_succ_con(c2)
-         s2.succ.set_succ_con(c2)
-         s2.succ.set_succ_con(c1)
-         s2.succ.succ.set_pred_con(c1)
+      c = lambda x : c1 if x else c2
+      s = lambda x : s1 if x else s2
+      for b in [True,False]:
+         s(b).succ_con=c(o or b)
+         s(b).succ.pred_con=c(o or b)
+         s(b).succ.succ_con=c(not o and not b)
+         s(b).succ.succ.pred_con=c(not o and not b)
       self.crossings+=[c1,c2]
       for s in l:
          self.joins.remove(s)
@@ -283,14 +291,11 @@ class Kirby:
          self.add_join(s1.succ)
       if(s2.succ==s1.pred):
          self.add_join(s2.succ)
-      s1.set_succ(s1.succ.succ)
-      s1.succ.set_pred(s1)
-      s1.set_pred(s1.pred.pred)
-      s1.pred.set_succ(s1)
-      s2.set_succ(s2.succ.succ)
-      s2.succ.set_pred(s2)
-      s2.set_pred(s2.pred.pred)
-      s2.pred.set_succ(s2)
+      for s in [s1,s2]:
+         s.set_succ(s.succ.succ)
+         s.succ.set_pred(s)
+         s.set_pred(s.pred.pred)
+         s.pred.set_succ(s)
       for c in l:
          if(c in self.crossings):
             self.crossings.remove(c)
