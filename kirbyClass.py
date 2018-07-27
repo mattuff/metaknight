@@ -626,8 +626,7 @@ class Kirby:
                 b.set_pred_con(c2)
                 f.set_succ_con(c2)
                 f.set_pred_con(c1)
-                d.set_succ_con(c1)
-                
+                d.set_succ_con(c1)  
          else:
             a=c[0]
             b=c[1]
@@ -666,6 +665,7 @@ class Kirby:
                else:
                   bb.set_succ_con(c2)
                   dd.set_pred_con(c2)
+         self.crossings+=[c1,c2]
                   
                   
                    
