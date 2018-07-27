@@ -596,10 +596,7 @@ class Kirby:
                   c.set_pred_con(c1)
                   aa.set_succ_con(c2)
                   cc.set_pred_con(c2)
-                  b.set_succ_con(c2)
-                  f.set_pred_con(c2)
-                  f.set_succ_con(c1)
-                  d.set_pred_con(c1)
+                  
                else:
                   c1=crossing(a,f,c,d)
                   c2=crossing(cc,f,aa,b)
@@ -607,10 +604,12 @@ class Kirby:
                   c.set_pred_con(c1)
                   aa.set_pred_con(c2)
                   cc.set_succ_con(c2)
-                  b.set_succ_con(c2)
-                  f.set_pred_con(c2)
-                  f.set_succ_con(c1)
-                  d.set_pred_con(c1)
+                  
+               b.set_succ_con(c2)
+               f.set_pred_con(c2)
+               f.set_succ_con(c1)
+               d.set_pred_con(c1)
+               
             else:
                f.set_succ(b)
                f.set_pred(d)
@@ -621,21 +620,19 @@ class Kirby:
                   c.set_pred_con(c1)
                   aa.set_succ_con(c2)
                   cc.set_pred_con(c2)
-                  b.set_pred_con(c2)
-                  f.set_succ_con(c2)
-                  f.set_pred_con(c1)
-                  d.set_succ_con(c1)
+                  
                else:
-                c1=crossing(a,f,c,d)
-                c2=crossing(cc,f,aa,b)
-                a.set_succ_con(c1)
-                c.set_pred_con(c1)
-                aa.set_pred_con(c2)
-                cc.set_succ_con(c2)
-                b.set_pred_con(c2)
-                f.set_succ_con(c2)
-                f.set_pred_con(c1)
-                d.set_succ_con(c1)  
+                  c1=crossing(a,f,c,d)
+                  c2=crossing(cc,f,aa,b)
+                  a.set_succ_con(c1)
+                  c.set_pred_con(c1)
+                  aa.set_pred_con(c2)
+                  cc.set_succ_con(c2)
+                  
+               b.set_pred_con(c2)
+               f.set_succ_con(c2)
+               f.set_pred_con(c1)
+               d.set_succ_con(c1)  
          else:
             a=c[0]
             b=c[1]
@@ -677,26 +674,6 @@ class Kirby:
          self.crossings+=[c1,c2]
                   
                   
-                   
-        #to do next: crossings w h1 and other components?
-         
-##      for strands, crossings, joins in h1:
-##         create parallel copies in h2
-##         for cx, cx' crossings in h1, h2:
-##            let cx=[a,b,c,d]; cx'=[a',b',c',d']
-##            add strand e between a+c (similarly e')
-##            add strand f betweem b+d (similarly f')
-##            cx=[e,b,c,d]
-##            cx'=[a', b', e', d']
-##            add two more crossings: [a, f', e, d'] and [e', b, c', f]
-      
-      #h2 attaches itself to a parallel copy of h1
-      #for every crossing of h1 turns into 4:
-         #one h1-h1 crossing
-         #one h2-h2 crossing
-         #two h1-h2 crossings
-      #compute crossings!!
-      #if anything else is connected to h1, h2 will now be connected to it
       #framing: for h1 framing n; add n counterclockwise twists of h2 about h1 (canonical framing)
       #compute differnce between blackboard and canonical framings
       #apply framing formula from pg 142
