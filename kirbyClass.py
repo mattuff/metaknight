@@ -135,6 +135,15 @@ class Kirby:
       for j in self.joins:
          if (j[0].component==h1):
             l.append(j)
+            
+   def comp_intersections(h1):
+      l=[]
+      for c in self.crossings:
+         if (c[0].component==h1 and c[1].component!=h1):
+            l.append(c)
+         elif (c[1].component==h1 and c[0].component!=h1):
+            l.append(c)
+      return l
 
    def add_join(self, s0): #s0 is strand to be split, s0 will be the predecessor of the new s1
       c0=s0.pred_con
