@@ -450,16 +450,18 @@ class Kirby:
                ff=strand(self.strand_name(),h2, dd, bb)
             l.insert(s.index(d)+1, ff)
          self.crossings.remove(c)
-         c1=crossing(e,b,c,d)
+
          if (sign):
-            c2=crossing(aa,bb,ee,dd)
+            c1=crossing(e,f,c,b)
+            c2=crossing(aa,dd,ee,ff)
+            c3=crossing(a,ff,e,bb)
+            c4=crossing(ee,d,cc,f)
          else:
-            c2=crossing(ee,dd,aa,bb)
-         c3=crossing(a,ff,e,d)
-         if (sign):
-            c4=crossing(ee,s[b],l[c],f)
-         else:
-            c4=crossing(cc,f,b,ee)
+            c1=crossing(e,f,c,b)
+            c2=crossing(ee,ff,aa,dd)
+            c3=crossing(a,ff,e,bb)
+            c4=crossing(cc,f,ee,d)
+         
          self.crossings+=[c1,c2,c3,c4]
 
          a.set_succ_con(c3)
