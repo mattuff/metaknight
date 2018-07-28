@@ -123,20 +123,20 @@ class Kirby:
             n=self.rename(s,n)+1
             l.append(s.component)
 
-   def comp_crossings(h1):
+   def comp_crossings(self,h1):
       l=[]
       for c in self.crossings:
          if (c[0].component==c[1].component==h1):
             l.append(c)
       return l
 
-   def comp_joins(h1):
+   def comp_joins(self,h1):
       l=[]
       for j in self.joins:
          if (j[0].component==h1):
             l.append(j)
             
-   def comp_intersections(h1):
+   def comp_intersections(self,h1):
       l=[]
       for c in self.crossings:
          if (c[0].component==h1 and c[1].component!=h1):
@@ -405,20 +405,26 @@ class Kirby:
       self.crossings.append(c1)
       self.crossings.append(c2)
 
-   def handle_slide(h1, h2, sign): #h2 is being slid over h1; sign=True if same orientation
+   def handle_slide(self, h1, h2, sign): #h2 is being slid over h1; sign=True if same orientation
       #makes parallel copies of all strands in h1
       s=self.strand_list(h1)
       for k in range (len(s)):
          l=[]
          st=strand(self.strand_name()+k, h2)
          l+=[st]
-      for i in l:
+      for i in range (len(l)):
          if (sign):
             l[i].set_pred(l[i-1])
-            l[i].set_succ(l[i+1])
+            if (i < (len(l)-1)):
+               l[i].set_succ(l[i+1])
+            else:
+               l[i].set_succ(l[0])
          else:
             l[i].set_succ(l[i-1])
-            l[i].set_pred(l[i+1])
+            if (i < (len(l)-1)):
+               l[i].set_pred(l[i+1])
+            else:
+               l[i].set_pred(l[0])
 
       for j in self.comp_crossings(h1):
          a=s.index(j[0])

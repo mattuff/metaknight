@@ -72,7 +72,7 @@ cnpair=Kirby([cx1,cx2],[])
 
 #unknot
 knt=component(2,0)
-j=strand(1,knt)
+j=strand(7,knt)
 j.set_succ(j)
 j.set_pred(j)
 j1=join(j,j)
@@ -126,3 +126,7 @@ for i in [ma,mb]:
    i.set_pred_con(md)
    i.set_succ_con(md)
 me=Kirby([md],[])
+
+
+#disjoint trefoil and unknot
+trefoil_unknot=Kirby([c1,c2,c3],[j1])
