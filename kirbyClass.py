@@ -435,11 +435,11 @@ class Kirby:
             jn=join(l[b],l[a])
          self.joins.append(jn)
 
-      for c in self.comp_crossings(h1):
-         a=c[0]
-         b=c[1]
-         c=c[2]
-         d=c[3]
+      for cx in self.comp_crossings(h1):
+         a=cx[0]
+         b=cx[1]
+         c=cx[2]
+         d=cx[3]
          aa=l[s.index(a)]
          bb=l[s.index(b)]
          cc=l[s.index(c)]
@@ -477,7 +477,7 @@ class Kirby:
             else:
                ff=strand(self.strand_name(),h2, dd, bb)
             l.insert(s.index(d)+1, ff)
-         self.crossings.remove(c)
+         self.crossings.remove(cx)
 
          if (sign):
             a.set_succ_con(c1)
@@ -583,12 +583,12 @@ class Kirby:
          
          self.crossings+=[c1,c2,c3,c4]
 
-      for c in self.comp_intersections(h1):
-         if (c[0].component==h1):
-            a=c[0]
-            b=c[1]
-            c=c[2]
-            d=c[3]
+      for cx in self.comp_intersections(h1):
+         if (cx[0].component==h1):
+            a=cx[0]
+            b=cx[1]
+            c=cx[2]
+            d=cx[3]
             aa=l(s.index(a))
             cc=l(s.index(c))
             f=strand(self.strand_name(), b.component)
@@ -640,10 +640,10 @@ class Kirby:
                f.set_pred_con(c1)
                d.set_succ_con(c1)  
          else:
-            a=c[0]
-            b=c[1]
-            c=c[2]
-            d=c[3]
+            a=cx[0]
+            b=cx[1]
+            c=cx[2]
+            d=cx[3]
             bb=(l[s.index(b)])
             dd=(l[s.index(d)])
             e=strand(self.strand_name(), a.component,a,c)
