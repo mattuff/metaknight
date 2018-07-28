@@ -135,6 +135,7 @@ class Kirby:
       for j in self.joins:
          if (j[0].component==h1):
             l.append(j)
+      return l
             
    def comp_intersections(self,h1):
       l=[]
@@ -408,8 +409,8 @@ class Kirby:
    def handle_slide(self, h1, h2, sign): #h2 is being slid over h1; sign=True if same orientation
       #makes parallel copies of all strands in h1
       s=self.strand_list(h1)
+      l=[]
       for k in range (len(s)):
-         l=[]
          st=strand(self.strand_name()+k, h2)
          l+=[st]
       for i in range (len(l)):
@@ -426,7 +427,7 @@ class Kirby:
             else:
                l[i].set_pred(l[0])
 
-      for j in self.comp_crossings(h1):
+      for j in self.comp_joins(h1):
          a=s.index(j[0])
          b=s.index(j[1])
          if (sign):
@@ -468,7 +469,7 @@ class Kirby:
                ff=strand(self.strand_name(), h2, bb, dd)
             else:
                ff=strand(self.strand_name(), h2, dd, bb)
-            l.insert(l.index(b)+1, ff)
+            l.insert(l.index(bb)+1, ff)
          else:
             f=strand(self.strand_name(), h1, d, b)
             s.insert(s.index(d)+1, f)
@@ -480,15 +481,6 @@ class Kirby:
          self.crossings.remove(cx)
 
          if (sign):
-            a.set_succ_con(c1)
-            e.set_pred_con(c1)
-            e.set_succ_con(c4)
-            c.set_pred_con(c4)
-
-            aa.set_succ_con(c2)
-            ee.set_pred_con(c2)
-            ee.set_succ_con(c3)
-            cc.set_pred_con(c3)
             
             if (s.index(b)<s.index(d)):
                c1=crossing(a,f,e,d)
@@ -589,8 +581,8 @@ class Kirby:
             b=cx[1]
             c=cx[2]
             d=cx[3]
-            aa=l(s.index(a))
-            cc=l(s.index(c))
+            aa=l[s.index(a)]
+            cc=l[s.index(c)]
             f=strand(self.strand_name(), b.component)
             if (b.succ==d):
                f.set_pred(b)
@@ -644,8 +636,8 @@ class Kirby:
             b=cx[1]
             c=cx[2]
             d=cx[3]
-            bb=(l[s.index(b)])
-            dd=(l[s.index(d)])
+            bb=l[s.index(b)]
+            dd=l[s.index(d)]
             e=strand(self.strand_name(), a.component,a,c)
             if (b.succ==d):
                c1=crossing(a,b,e,d)
