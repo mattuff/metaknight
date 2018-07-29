@@ -310,6 +310,21 @@ class Kirby:
 ##         if(c in self.crossings):
 ##            self.crossings.remove(c)
 
+##   def remove_r2 (self,s1, s2): #strands s1 and s2
+##      l=self.strand_lookup(s1)
+##      if(s1.succ==s2.pred):
+##         self.add_join(s1.succ)
+##      if(s2.succ==s1.pred):
+##         self.add_join(s2.succ)
+##      for s in [s1,s2]:
+##         s.set_succ(s.succ.succ)
+##         s.succ.set_pred(s)
+##         s.set_pred(s.pred.pred)
+##         s.pred.set_succ(s)
+##      for c in l:
+##         if(c in self.crossings):
+##            self.crossings.remove(c)
+
    def remove_r2(self,s0,s1):
       s=[s0,s1]
       c=[s0.pred_con,s0.succ_con]
