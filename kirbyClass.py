@@ -186,9 +186,10 @@ class Kirby:
       self.joins.remove(j)
 
    def remove_joins(self): #removes all joins except for joins in unknots
-      for j in self.joins:
-         if (j[0]!=j[1]): #checks if join is in unknot
-            self.remove_join(j)
+      j=self.joins.copy()
+      for x in j:
+         if(x[0]!=x[1]):
+            self.remove_join(x)
 
    def add_r1(self,x, sign, counterclockwise): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, 0 will subtract 1 from framing)
 
