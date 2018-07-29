@@ -295,20 +295,33 @@ class Kirby:
       for s in l:
          self.joins.remove(s)
 
-   def remove_r2 (self,s1, s2): #strands s1 and s2
-      l=self.strand_lookup(s1)
-      if(s1.succ==s2.pred):
-         self.add_join(s1.succ)
-      if(s2.succ==s1.pred):
-         self.add_join(s2.succ)
-      for s in [s1,s2]:
-         s.set_succ(s.succ.succ)
-         s.succ.set_pred(s)
-         s.set_pred(s.pred.pred)
-         s.pred.set_succ(s)
-      for c in l:
-         if(c in self.crossings):
-            self.crossings.remove(c)
+##   def remove_r2 (self,s1, s2): #strands s1 and s2
+##      l=self.strand_lookup(s1)
+##      if(s1.succ==s2.pred):
+##         self.add_join(s1.succ)
+##      if(s2.succ==s1.pred):
+##         self.add_join(s2.succ)
+##      for s in [s1,s2]:
+##         s.set_succ(s.succ.succ)
+##         s.succ.set_pred(s)
+##         s.set_pred(s.pred.pred)
+##         s.pred.set_succ(s)
+##      for c in l:
+##         if(c in self.crossings):
+##            self.crossings.remove(c)
+
+   def remove_r2(self,s0,s1):
+      s=[s0,s1]
+      c=[s0.pred_con,s0.succ_con]
+      j=[join(s0.pred,s0),join(s1.pred,s1),join(s0,s0.succ),join(s1,s1.succ)]
+      for i in range(2):
+         s[i].pred_con=j[i]
+         s[i].pred.succ_con=j[i]
+         s[i].succ_con=j[i+2]
+         s[i].succ.pred_con=j[i+2]
+      self.joins+=j
+      for x in c:
+         self.crossings.remove(x)
 
     #Pseudo code
    def add_r3(self, strandUnder, strandMiddle, strandOver):
