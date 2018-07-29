@@ -673,6 +673,29 @@ class Kirby:
                   dd.set_pred_con(c2)
          self.crossings+=[c1,c2]
 
+         #attaching parallel copy of h1 onto h2:
+         #split self.strand_list(h2)[0] in two by adding join
+         st=self.strand_list(h2)[0]
+         self.add_join(st)
+         self.joins.remove(st.succ_con)
+         if (sign):
+            jn1=join(st,l[0])
+            jn2=join(l[-1],st.succ)
+            st.set_succ_con(jn1)
+            l[0].set_pred_con(jn1)
+            l[-1].set_succ_con(jn2)
+            st.succ.set_pred_con(jn2)
+            self.joins+=[jn1,jn2]
+         else:
+            jn1=join(st,l[-1])
+            jn2=join(l[0],st.succ)
+            st.set_succ_con(jn1)
+            l[-1].set_pred_con(jn1)
+            l[0].set_succ_con(jn2)
+            st.succ.set_pred_con(jn2)
+            self.joins+=[jn1,jn2]
+            #add join(l[0], self.strand_list(h2).succ)
+
 ##         self.add_join(l[0])
 ##         self.add_join(self.strand_list(h2)[0])
 ##         join1=join(self.strand_list(h2)[0], l[0])
