@@ -410,6 +410,8 @@ class Kirby:
       #makes parallel copies of all strands in h1
       s=self.strand_list(h1)
       l=[]
+      comp_crossings=self.comp_crossings(h1)
+      comp_intersections=self.comp_intersections(h1)
       for k in range (len(s)):
          st=strand(self.strand_name()+k, h2)
          l+=[st]
@@ -436,7 +438,7 @@ class Kirby:
             jn=join(l[b],l[a])
          self.joins.append(jn)
 
-      for cx in self.comp_crossings(h1):
+      for cx in comp_crossings:
          a=cx[0]
          b=cx[1]
          c=cx[2]
@@ -575,7 +577,7 @@ class Kirby:
          
          self.crossings+=[c1,c2,c3,c4]
 
-      for cx in self.comp_intersections(h1):
+      for cx in comp_intersections:
          if (cx[0].component==h1):
             a=cx[0]
             b=cx[1]
@@ -670,7 +672,12 @@ class Kirby:
                   bb.set_succ_con(c2)
                   dd.set_pred_con(c2)
          self.crossings+=[c1,c2]
-                  
+
+##         self.add_join(l[0])
+##         self.add_join(self.strand_list(h2)[0])
+##         join1=join(self.strand_list(h2)[0], l[0])
+##         join2=join(self.strand_list(h2).succ, l[0].succ)
+         
                   
       #framing: for h1 framing n; add n counterclockwise twists of h2 about h1 (canonical framing)
       #compute differnce between blackboard and canonical framings
