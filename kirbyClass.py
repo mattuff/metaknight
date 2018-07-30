@@ -471,29 +471,21 @@ class Kirby:
          dd=l[s.index(d)]
          var=(b.succ==d)
 
-         if (s.index(a)<s.index(c)):
-            e=strand(self.strand_name()+ls+1, h1.component, a,c)
-            s.insert(s.index(a)+1, e)
-            if (sign):
-               ee=strand(self.strand_name()+ls+2, h2.component, aa, cc)
-            else:
-               ee=strand(self.strand_name()+ls+2, h2.component, cc, aa)
-            l.insert(l.index(aa)+1, ee)
+         e=strand(self.strand_name()+ls+1, h1.component, a,c)
+         s.insert(s.index(a)+1, e)
+         if (sign):
+            ee=strand(self.strand_name()+ls+2, h2.component, aa, cc)
          else:
-            e=strand(self.strand_name()+ls+1, h1.component, c, a)
-            s.insert(s.index(c)+1, e)
-            if (sign):
-               ee=strand(self.strand_name()+ls+2, h2.component, cc, aa)
-            else:
-               ee=strand(self.strand_name()+ls+2, h2.component, aa, cc)
-            l.insert(l.index(cc)+1, ee)
+            ee=strand(self.strand_name()+ls+2, h2.component, cc, aa)
+         l.insert(l.index(aa)+1, ee)
+         
          if (var):
             f=strand(self.strand_name()+ls+3, h1.component, b, d)
             s.insert(s.index(b)+1, f)
             if (sign):
-               ff=strand(self.strand_name()+ls+4, h2, bb, dd)
+               ff=strand(self.strand_name()+ls+4, h2.component, bb, dd)
             else:
-               ff=strand(self.strand_name()+ls+4, h2, dd, bb)
+               ff=strand(self.strand_name()+ls+4, h2.component, dd, bb)
             l.insert(l.index(bb)+1, ff)
          else:
             f=strand(self.strand_name()+ls+3, h1.component, d, b)
