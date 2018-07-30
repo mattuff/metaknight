@@ -434,7 +434,7 @@ class Kirby:
       self.crossings.append(c1)
       self.crossings.append(c2)
 
- def handle_slide(self, h1, h2, sign): #h2 is being slid over h1; sign=True if same orientation
+   def handle_slide(self, h1, h2, sign): #h2 is being slid over h1; sign=True if same orientation
       #makes parallel copies of all strands in h1
       h2st=self.strand_list(h2)[0]
 
