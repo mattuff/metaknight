@@ -477,6 +477,10 @@ class Kirby:
          bb=l[s.index(b)]
          cc=l[s.index(c)]
          dd=l[s.index(d)]
+         if (b.succ==d):
+            var=True
+         else:
+            var=False
 
          if (s.index(a)<s.index(c)):
             e=strand(self.strand_name()+ls+1, h1, a,c)
@@ -494,7 +498,7 @@ class Kirby:
             else:
                ee=strand(self.strand_name()+ls+6, h2, aa, cc)
             l.insert(l.index(cc)+1, ee)
-         if (s.index(b)<s.index(d)):
+         if (var):
             f=strand(self.strand_name()+ls+7, h1, b, d)
             s.insert(s.index(b)+1, f)
             if (sign):
@@ -514,7 +518,7 @@ class Kirby:
 
          if (sign):
             
-            if (s.index(b)<s.index(d)):
+            if (var):
                c1=crossing(a,f,e,d)
                c2=crossing(aa,b,ee,f)
                c3=crossing(ee,b,cc,ff)
@@ -563,7 +567,7 @@ class Kirby:
                 
          else:
             
-            if (s.index(b)<s.index(d)):
+            if (var):
                 c1=crossing(a,f,e,d)
                 c2=crossing(ee,f,aa,b)
                 c3=crossing(cc,ff,ee,bb)
