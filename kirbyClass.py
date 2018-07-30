@@ -488,31 +488,31 @@ class Kirby:
             if (sign):
                ee=strand(self.strand_name()+ls+2, h2, aa, cc)
             else:
-               ee=strand(self.strand_name()+ls+3, h2, cc, aa)
+               ee=strand(self.strand_name()+ls+2, h2, cc, aa)
             l.insert(l.index(aa)+1, ee)
          else:
-            e=strand(self.strand_name()+ls+4, h1, c, a)
+            e=strand(self.strand_name()+ls+1 h1, c, a)
             s.insert(s.index(c)+1, e)
             if (sign):
-               ee=strand(self.strand_name()+ls+5, h2, cc, aa)
+               ee=strand(self.strand_name()+ls+2, h2, cc, aa)
             else:
-               ee=strand(self.strand_name()+ls+6, h2, aa, cc)
+               ee=strand(self.strand_name()+ls+2, h2, aa, cc)
             l.insert(l.index(cc)+1, ee)
          if (var):
-            f=strand(self.strand_name()+ls+7, h1, b, d)
+            f=strand(self.strand_name()+ls+3, h1, b, d)
             s.insert(s.index(b)+1, f)
             if (sign):
-               ff=strand(self.strand_name()+ls+8, h2, bb, dd)
+               ff=strand(self.strand_name()+ls+4, h2, bb, dd)
             else:
-               ff=strand(self.strand_name()+ls+9, h2, dd, bb)
+               ff=strand(self.strand_name()+ls+4, h2, dd, bb)
             l.insert(l.index(bb)+1, ff)
          else:
-            f=strand(self.strand_name()+ls+10, h1, d, b)
+            f=strand(self.strand_name()+ls+3, h1, d, b)
             s.insert(s.index(d)+1, f)
             if (sign):
-               ff=strand(self.strand_name()+ls+11, h2, bb, dd)
+               ff=strand(self.strand_name()+ls+4, h2, bb, dd)
             else:
-               ff=strand(self.strand_name()+ls+12,h2, dd, bb)
+               ff=strand(self.strand_name()+ls+4,h2, dd, bb)
             l.insert(s.index(d)+1, ff)
          self.crossings.remove(cx)
 
