@@ -424,16 +424,15 @@ class Kirby:
 
    def handle_slide(self, h1, h2, sign): #h2 is being slid over h1; sign=True if same orientation
       #makes parallel copies of all strands in h1
-      h2st=self.strand_list(h2)[0] #arbitrary strand in h2, pre-slide
       s=self.strand_list(h1) #list of strands in h1, in succ order
       ls=len(s) #original # of strands in h1
       l=[]
-      comp_crossings=self.comp_crossings(h1) #crossings with only strands in h1
-      comp_intersections=self.comp_intersections(h1) #crossings w 2 strands in h1, and 2 in another strand
+      comp_crossings=self.comp_crossings(h1.component) #crossings with only strands in h1
+      comp_intersections=self.comp_intersections(h1.component) #crossings w 2 strands in h1, and 2 in another strand
 
       #can considate, use ternary operator?
       for k in range (len(s)): #sets up parallel copy of h1
-         st=strand(self.strand_name()+k, h2)
+         st=strand(self.strand_name()+k, h2.component)
          l+=[st]
       for i in range (len(l)): #sets up preds and succs
          if (sign):
@@ -449,8 +448,10 @@ class Kirby:
             else:
                l[i].set_pred(l[0])
 
+      self.strands+=l
+
       #look up index thing
-      for j in self.comp_joins(h1): #duplicates joins
+      for j in self.comp_joins(h1.component): #duplicates joins
          a=s.index(j[0])
          if (sign):
             jn=join(l[a],l[a+1])
@@ -470,23 +471,23 @@ class Kirby:
          var=(b.succ==d)
 
          if (s.index(a)<s.index(c)):
-            e=strand(self.strand_name()+ls+1, h1, a,c)
+            e=strand(self.strand_name()+ls+1, h1.component, a,c)
             s.insert(s.index(a)+1, e)
             if (sign):
-               ee=strand(self.strand_name()+ls+2, h2, aa, cc)
+               ee=strand(self.strand_name()+ls+2, h2.component, aa, cc)
             else:
-               ee=strand(self.strand_name()+ls+2, h2, cc, aa)
+               ee=strand(self.strand_name()+ls+2, h2.component, cc, aa)
             l.insert(l.index(aa)+1, ee)
          else:
-            e=strand(self.strand_name()+ls+1 h1, c, a)
+            e=strand(self.strand_name()+ls+1, h1.component, c, a)
             s.insert(s.index(c)+1, e)
             if (sign):
-               ee=strand(self.strand_name()+ls+2, h2, cc, aa)
+               ee=strand(self.strand_name()+ls+2, h2.component, cc, aa)
             else:
-               ee=strand(self.strand_name()+ls+2, h2, aa, cc)
+               ee=strand(self.strand_name()+ls+2, h2.component, aa, cc)
             l.insert(l.index(cc)+1, ee)
          if (var):
-            f=strand(self.strand_name()+ls+3, h1, b, d)
+            f=strand(self.strand_name()+ls+3, h1.component, b, d)
             s.insert(s.index(b)+1, f)
             if (sign):
                ff=strand(self.strand_name()+ls+4, h2, bb, dd)
@@ -494,23 +495,49 @@ class Kirby:
                ff=strand(self.strand_name()+ls+4, h2, dd, bb)
             l.insert(l.index(bb)+1, ff)
          else:
-            f=strand(self.strand_name()+ls+3, h1, d, b)
+            f=strand(self.strand_name()+ls+3, h1.component, d, b)
             s.insert(s.index(d)+1, f)
             if (sign):
-               ff=strand(self.strand_name()+ls+4, h2, bb, dd)
+               ff=strand(self.strand_name()+ls+4, h2.component, bb, dd)
             else:
-               ff=strand(self.strand_name()+ls+4,h2, dd, bb)
+               ff=strand(self.strand_name()+ls+4,h2.component, dd, bb)
             l.insert(s.index(d)+1, ff)
+         self.strands+=[e,ee,f,ff]
          self.crossings.remove(cx)
 
-         if (sign):
-            
-            if (var):
-               c1=crossing(a,f,e,d)
+         if (var):
+            c1=crossing(a,f,e,d)
+            c4=crossing(e,ff,c,dd)
+            if (sign):
                c2=crossing(aa,b,ee,f)
-               c3=crossing(ee,b,cc,ff)
-               c4=crossing(e,ff,c,dd)
+               c3=crossing(ee,bb,cc,ff)
+            else:
+               c2=crossing(ee,f,aa,b)
+               c3=crossing(cc,ff,ee,bb)
+         else:
+            c1=crossing(a,ff,e,dd)
+            c4=crossing(e,f,c,d)
+            if (sign):
+               c2=crossing(aa,bb,ee,ff)
+               c3=crossing(ee,b,cc,f)
+            else:
+               c2=crossing(ee,ff,aa,bb)
+               c3=crossing(cc,f,ee,b)
+         
+         self.crossings+=[c1,c2,c3,c4]
 
+         a.set_succ_con(c1)
+         e.set_pred_con(c1)
+         e.set_succ_con(c4)
+         c.set_pred_con(c4)
+
+         if (sign):
+            aa.set_succ_con(c2)
+            ee.set_pred_con(c2)
+            ee.set_succ_con(c3)
+            cc.set_pred_con(c3)
+
+            if (var):
                b.set_succ_con(c2)
                f.set_pred_con(c2)
                f.set_succ_con(c1)
@@ -520,86 +547,49 @@ class Kirby:
                ff.set_pred_con(c3)
                ff.set_succ_con(c4)
                dd.set_pred_con(c4)
-                
+      
             else:
-               c1=crossing(a,ff,e,dd)
-               c2=crossing(aa,bb,ee,ff)
-               c3=crossing(ee,b,cc,f)
-               c4=crossing(e,f,c,d)
+               d.set_succ_con(c4)
+               f.set_pred_con(c4)
+               f.set_succ_con(c3)
+               b.set_pred_con(c3)
 
-               aa.set_succ_con(c2)
-               ee.set_pred_con(c2)
-               ee.set_succ_con(c3)
-               cc.set_pred_con(c3)
-
-               b.set_pred_con(c2)
-               f.set_succ_con(c2)
-               f.set_pred_con(c1)
-               d.set_succ_con(c1)
-
-               bb.set_pred_con(c3)
-               ff.set_succ_con(c3)
-               ff.set_pred_con(c4)
-               dd.set_succ_con(c4)
-
-            a.set_succ_con(c1)
-            e.set_pred_con(c1)
-            e.set_succ_con(c4)
-            c.set_pred_con(c4)
-
-            aa.set_succ_con(c2)
-            ee.set_pred_con(c2)
-            ee.set_succ_con(c3)
-            cc.set_pred_con(c3)
-                
-         else:
+               dd.set_succ_con(c1)
+               ff.set_pred_con(c1)
+               ff.set_succ_con(c2)
+               bb.set_pred_con(c2)
             
-            if (var):
-                c1=crossing(a,f,e,d)
-                c2=crossing(ee,f,aa,b)
-                c3=crossing(cc,ff,ee,bb)
-                c4=crossing(ff,c,dd,e)
-
-                b.set_succ_con(c2)
-                f.set_pred_con(c2)
-                f.set_succ_con(c1)
-                d.set_pred_con(c1)
-
-                bb.set_pred_con(c3)
-                ff.set_succ_con(c3)
-                ff.set_pred_con(c4)
-                dd.set_succ_con(c4)
-                
-            else:
-                c1=crossing(a,ff,e,dd)
-                c2=crossing(ee,ff,aa,bb)
-                c3=crossing(cc,f,ee,b)
-                c4=crossing(e,f,c,d)
-
-                b.set_pred_con(c3)
-                f.set_succ_con(c3)
-                f.set_pred_con(c4)
-                d.set_succ_con(c4)
-
-                bb.set_succ_con(c2)
-                ff.set_pred_con(c2)
-                ff.set_succ_con(c1)
-                dd.set_pred_con(c1)
-
-            a.set_succ_con(c1)
-            e.set_pred_con(c1)
-            e.set_succ_con(c4)
-            c.set_pred_con(c4)
-
-            aa.set_pred_con(c2)
-            ee.set_succ_con(c2)
-            ee.set_pred_con(c3)
+         else:
             cc.set_succ_con(c3)
-         
-         self.crossings+=[c1,c2,c3,c4]
+            ee.set_pred_con(c3)
+            ee.set_succ_con(c2)
+            aa.set_pred_con(c2)
+
+            if (var):
+               b.set_succ_con(c2)
+               f.set_pred_con(c2)
+               f.set_succ_con(c1)
+               d.set_pred_con(c1)
+
+               dd.set_succ_con(c4)
+               ff.set_pred_con(c4)
+               ff.set_succ_con(c3)
+               bb.set_pred_con(c3)
+
+            else:
+               d.set_succ_con(c4)
+               f.set_pred_con(c4)
+               f.set_succ_con(c3)
+               b.set_pred_con(c3)
+
+               bb.set_succ_con(c2)
+               ff.set_pred_con(c2)
+               ff.set_succ_con(c1)
+               dd.set_pred_con(c1)
+               
 
       for cx in comp_intersections: #turns crossings between h1 and another comp into 2 crossings
-         if (cx[0].component==h1):
+         if (cx[0].component==h1.component):
             a=cx[0]
             b=cx[1]
             c=cx[2]
@@ -653,7 +643,8 @@ class Kirby:
                b.set_pred_con(c2)
                f.set_succ_con(c2)
                f.set_pred_con(c1)
-               d.set_succ_con(c1)  
+               d.set_succ_con(c1)
+               
          else:
             a=cx[0]
             b=cx[1]
@@ -697,23 +688,24 @@ class Kirby:
          #attaching parallel copy of h1 onto h2:
          #split self.strand_list(h2)[0] in two by adding join
 
-      self.add_join(h2st) 
-      self.joins.remove(h2st.succ_con)
+      self.add_join(h2) 
+      self.joins.remove(h2.succ_con)
       if (sign):
-         jn1=join(h2st,l[0])
-         jn2=join(l[-1],h2st.succ)
+         jn1=join(h2,l[0])
+         jn2=join(l[-1],h2.succ)
          h2st.set_succ_con(jn1)
          l[0].set_pred_con(jn1)
          l[-1].set_succ_con(jn2)
-         h2st.succ.set_pred_con(jn2)
+         h2.succ.set_pred_con(jn2)
       else:
-         jn1=join(h2st,l[-1])
-         jn2=join(l[0],h2st.succ)
+         jn1=join(h2,l[-1])
+         jn2=join(l[0],h2.succ)
          h2st.set_succ_con(jn1)
          l[-1].set_pred_con(jn1)
          l[0].set_succ_con(jn2)
-         h2st.succ.set_pred_con(jn2)
+         h2.succ.set_pred_con(jn2)
       self.joins+=[jn1,jn2]
+
       
       #framing: for h1 framing n; add n counterclockwise twists of h2 about h1 (canonical framing)
       #compute differnce between blackboard and canonical framings
