@@ -70,24 +70,12 @@ class Kirby:
                l.append(k[j].component)
       return l
 
-   def strand_list(self, comp): #returns an ordered list of strands given a component
-      l=[]
-      for c in self.crossings:
-         for i in range (4):
-            if (c[i].component==comp and c[i] not in l):
-               l.append(c[i])
-      for j in self.joins:
-         for k in range (2):
-            if (j[k].component==comp and j[k] not in l):
-               l.append(j[k])
-      for i in range (len(l)-1):
-         if (l[i+1] != l[i].succ):
-            for k in range (i, len(l)):
-               if (l[k]==l[i].succ):
-                  placeholder=l[i+1]
-                  l[i+1]=l[k]
-                  l[k]=placeholder
-      return l
+   def strand_list(self, s): #returns an ordered list of strands given a component
+      l=[s]
+      t=s.succ
+      while(t!=s):
+         l.append(t)
+         t=t.succ
 
 ##   def strand_name(self):
 ##      return(max(map(lambda x:x.name,self.strands))+1)
@@ -202,7 +190,6 @@ class Kirby:
       x.set_succ(y)
       s=x.succ_con
       s.strands[s.strands.index(x)]=z
-      self.strands+=[y,z]
 
       #adds crossing
       if (sign%2):
