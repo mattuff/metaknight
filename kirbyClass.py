@@ -435,9 +435,12 @@ class Kirby:
       self.crossings.append(c1)
       self.crossings.append(c2)
 
-   def handle_slide(self, h1, h2, sign): #h2 is being slid over h1; sign=True if same orientation
+     def handle_slide(self, h1, h2, sign): #h2 is being slid over h1; sign=True if same orientation
       #makes parallel copies of all strands in h1
+      h2st=self.strand_list(h2)[0]
+
       s=self.strand_list(h1)
+      ls=len(s)
       l=[]
       comp_crossings=self.comp_crossings(h1)
       comp_intersections=self.comp_intersections(h1)
@@ -478,36 +481,36 @@ class Kirby:
          dd=l[s.index(d)]
 
          if (s.index(a)<s.index(c)):
-            e=strand(self.strand_name(), h1, a,c)
+            e=strand(self.strand_name()+ls+1, h1, a,c)
             s.insert(s.index(a)+1, e)
             if (sign):
-               ee=strand(self.strand_name(), h2, aa, cc)
+               ee=strand(self.strand_name()+ls+2, h2, aa, cc)
             else:
-               ee=strand(self.strand_name(), h2, cc, aa)
+               ee=strand(self.strand_name()+ls+3, h2, cc, aa)
             l.insert(l.index(aa)+1, ee)
          else:
-            e=strand(self.strand_name(), h1, c, a)
+            e=strand(self.strand_name()+ls+4, h1, c, a)
             s.insert(s.index(c)+1, e)
             if (sign):
-               ee=strand(self.strand_name(), h2, cc, aa)
+               ee=strand(self.strand_name()+ls+5, h2, cc, aa)
             else:
-               ee=strand(self.strand_name(), h2, aa, cc)
+               ee=strand(self.strand_name()+ls+6, h2, aa, cc)
             l.insert(l.index(cc)+1, ee)
          if (s.index(b)<s.index(d)):
-            f=strand(self.strand_name(), h1, b, d)
+            f=strand(self.strand_name()+ls+7, h1, b, d)
             s.insert(s.index(b)+1, f)
             if (sign):
-               ff=strand(self.strand_name(), h2, bb, dd)
+               ff=strand(self.strand_name()+ls+8, h2, bb, dd)
             else:
-               ff=strand(self.strand_name(), h2, dd, bb)
+               ff=strand(self.strand_name()+ls+9, h2, dd, bb)
             l.insert(l.index(bb)+1, ff)
          else:
-            f=strand(self.strand_name(), h1, d, b)
+            f=strand(self.strand_name()+ls+10, h1, d, b)
             s.insert(s.index(d)+1, f)
             if (sign):
-               ff=strand(self.strand_name(), h2, bb, dd)
+               ff=strand(self.strand_name()+ls+11, h2, bb, dd)
             else:
-               ff=strand(self.strand_name(),h2, dd, bb)
+               ff=strand(self.strand_name()+ls+12,h2, dd, bb)
             l.insert(s.index(d)+1, ff)
          self.crossings.remove(cx)
 
@@ -704,33 +707,25 @@ class Kirby:
 
          #attaching parallel copy of h1 onto h2:
          #split self.strand_list(h2)[0] in two by adding join
-         st=self.strand_list(h2)[0]
-         self.add_join(st)
-         self.joins.remove(st.succ_con)
-         if (sign):
-            jn1=join(st,l[0])
-            jn2=join(l[-1],st.succ)
-            st.set_succ_con(jn1)
-            l[0].set_pred_con(jn1)
-            l[-1].set_succ_con(jn2)
-            st.succ.set_pred_con(jn2)
-            self.joins+=[jn1,jn2]
-         else:
-            jn1=join(st,l[-1])
-            jn2=join(l[0],st.succ)
-            st.set_succ_con(jn1)
-            l[-1].set_pred_con(jn1)
-            l[0].set_succ_con(jn2)
-            st.succ.set_pred_con(jn2)
-            self.joins+=[jn1,jn2]
-            #add join(l[0], self.strand_list(h2).succ)
 
-##         self.add_join(l[0])
-##         self.add_join(self.strand_list(h2)[0])
-##         join1=join(self.strand_list(h2)[0], l[0])
-##         join2=join(self.strand_list(h2).succ, l[0].succ)
-         
-                  
+      self.add_join(h2st) 
+      self.joins.remove(h2st.succ_con)
+      if (sign):
+         jn1=join(h2st,l[0])
+         jn2=join(l[-1],h2st.succ)
+         h2st.set_succ_con(jn1)
+         l[0].set_pred_con(jn1)
+         l[-1].set_succ_con(jn2)
+         h2st.succ.set_pred_con(jn2)
+      else:
+         jn1=join(h2st,l[-1])
+         jn2=join(l[0],h2st.succ)
+         h2st.set_succ_con(jn1)
+         l[-1].set_pred_con(jn1)
+         l[0].set_succ_con(jn2)
+         h2st.succ.set_pred_con(jn2)
+      self.joins+=[jn1,jn2]
+      
       #framing: for h1 framing n; add n counterclockwise twists of h2 about h1 (canonical framing)
       #compute differnce between blackboard and canonical framings
       #apply framing formula from pg 142
