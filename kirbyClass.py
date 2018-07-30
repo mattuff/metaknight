@@ -76,6 +76,7 @@ class Kirby:
       while(t!=s):
          l.append(t)
          t=t.succ
+      return l
 
 ##   def strand_name(self):
 ##      return(max(map(lambda x:x.name,self.strands))+1)
@@ -693,14 +694,14 @@ class Kirby:
       if (sign):
          jn1=join(h2,l[0])
          jn2=join(l[-1],h2.succ)
-         h2st.set_succ_con(jn1)
+         h2.set_succ_con(jn1)
          l[0].set_pred_con(jn1)
          l[-1].set_succ_con(jn2)
          h2.succ.set_pred_con(jn2)
       else:
          jn1=join(h2,l[-1])
          jn2=join(l[0],h2.succ)
-         h2st.set_succ_con(jn1)
+         h2.set_succ_con(jn1)
          l[-1].set_pred_con(jn1)
          l[0].set_succ_con(jn2)
          h2.succ.set_pred_con(jn2)
