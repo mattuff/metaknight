@@ -442,6 +442,8 @@ class Kirby:
       l=[]
       comp_crossings=self.comp_crossings(h1) #crossings with only strands in h1
       comp_intersections=self.comp_intersections(h1) #crossings w 2 strands in h1, and 2 in another strand
+
+      #can considate, use ternary operator?
       for k in range (len(s)): #sets up parallel copy of h1
          st=strand(self.strand_name()+k, h2)
          l+=[st]
@@ -459,13 +461,13 @@ class Kirby:
             else:
                l[i].set_pred(l[0])
 
+      #look up index thing
       for j in self.comp_joins(h1): #duplicates joins
          a=s.index(j[0])
-         b=s.index(j[1])
          if (sign):
-            jn=join(l[a],l[b])
+            jn=join(l[a],l[a+1])
          else:
-            jn=join(l[b],l[a])
+            jn=join(l[a+1],l[a])
          self.joins.append(jn)
 
       for cx in comp_crossings: #takes crossing, makes into four
@@ -477,10 +479,7 @@ class Kirby:
          bb=l[s.index(b)]
          cc=l[s.index(c)]
          dd=l[s.index(d)]
-         if (b.succ==d):
-            var=True
-         else:
-            var=False
+         var=(b.succ==d)
 
          if (s.index(a)<s.index(c)):
             e=strand(self.strand_name()+ls+1, h1, a,c)
