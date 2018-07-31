@@ -112,28 +112,27 @@ class Kirby:
             n=self.rename(s,n)+1
             l.append(s.component)
 
-   def comp_crossings(self,h): #given a component, returns crossings fully contained within component
-##      l=[]
-##      for c in self.crossings:
-##         if (c[0].component==c[1].component==h):
-##            l.append(c)
-##      return l
-      return(list(filter(lambda x:(x[0].component==h)and(x[1].component==h),self.crossings)))
+   def comp_crossings(self,h1): #given a component, returns crossings fully contained within component
+      l=[]
+      for c in self.crossings:
+         if (c[0].component==c[1].component==h1):
+            l.append(c)
+      return l
 
-   def comp_joins(self,h): #given a component, returns joins fully contained within component
-##      l=[]
-##      for j in self.joins:
-##         if (j[0].component==h):
-##            l.append(j)
-##      return l
-      return(list(filter(lambda x:x[0].component==h,self.joins)))
+   def comp_joins(self,h1): #given a component, returns joins fully contained within component
+      l=[]
+      for j in self.joins:
+         if (j[0].component==h1):
+            l.append(j)
+      return l
             
    def comp_intersections(self,h1): #given a component, returns crossings between that component and another
       l=[]
       for c in self.crossings:
-         for i in range(2):
-            if((c[i].component==h1) and (c[not i].component!=h1)):
-               l.append(c)
+         if (c[0].component==h1 and c[1].component!=h1):
+            l.append(c)
+         elif (c[1].component==h1 and c[0].component!=h1):
+            l.append(c)
       return l
 
    def connect_sum(self,s0,s1):
@@ -340,12 +339,10 @@ class Kirby:
             if(strandOver in c1):
                c1.set_strands(strandUnder.pred, strandMiddle.succ, strandUnder, strandMiddle.succ.succ)
                c2.set_strands(strandUnder, strandOver.succ, strandUnder.succ, strandOver.succ.succ)
-               
-            elif (strandOver in c2):
+
+            elif(strandOver in c2):
                c1.set_strands(strandUnder.pred, strandOver.succ.succ, strandUnder, strandOver.succ)
                c2.set_strands(strandUnder, strandMiddle.succ.succ, strandUnder.succ, strandMiddle.succ)
-
-      self.remove_joins()
          
 
    def handle_annihilation(self,h1,h2):
@@ -647,32 +644,7 @@ class Kirby:
          #attaching parallel copy of h1 onto h2:
          #split self.strand_list(h2)[0] in two by adding join
 
-      self.connect_sum(h2,l[0])
-
-##      self.add_join(h2)
-##      h2s=h2.succ
-##      self.joins.remove(h2.succ_con)
-##      self.add_join(l[0])
-##      self.joins.remove(l[0].succ_con)
-##      if (sign):
-##         jn1=join(h2,l[0])
-##         h2.set_succ(l[0])
-##         jn2=join(l[0].succ,h2s)
-##         h2.set_succ_con(jn1)
-##         l[0].set_pred_con(jn1)
-##         l[0].succ.set_succ_con(jn2)
-##         h2s.set_pred_con(jn2)
-##      else:
-##         jn1=join(h2,l[0].succ)
-##         jn2=join(l[0],h2s)
-##         h2.set_succ_con(jn1)
-##         l[0].succ.set_pred_con(jn1)
-##         l[0].set_succ_con(jn2)
-##         h2s.set_pred_con(jn2)
-##      self.joins+=[jn1,jn2]
-
-##      for k in l:
-##         print(k)
+      #self.connect_sum(h2,l[0])
 
       
       #framing: for h1 framing n; add n counterclockwise twists of h2 about h1 (canonical framing)
