@@ -224,23 +224,7 @@ class Kirby:
       y.set_pred_con(c)
       y.set_succ_con(c)
       z.set_pred_con(c)
-      
-##   def remove_r1(self, s): #s: crossed strand for r1 #make names longer?
-##      c=self.strand_lookup(s)[0]
-##      if (c[2]==c[3] or (c[0]==c[1])):
-##         self.crossings.remove(c) #remove crossing
-##         self.joins.append([s.pred, s]) #adds join
-##         self.joins.append([s, s.succ]) #adds join
-##         remove_join([s.pred, s]) #removes join; does relabling
-##         remove_join([s, s.succ]) #removes join; does relabling
-##         s.component.change_framing(s.component.framing+1) #add 1 to framing
-##      elif (c[0]==c[3] or c[1]==c[2]):
-##         self.crossings.remove(c) #remove crossing
-##         self.joins.append([s.pred, s]) #adds join
-##         self.joins.append([s, s.succ]) #adds join
-##         remove_join([s.pred, s]) #removes join; does relabling
-##         remove_join([s, s.succ]) #removes join; does relabling
-##         s.component.change_framing(s.component.framing-1) #subracts 1 from framing
+
 
    def add_r2(self,s1,s2,o): #orientation is a boolean which is true if the strands are oriented the same way, and false otherwise
       #s1 gets pulled under s2
@@ -252,33 +236,8 @@ class Kirby:
       self.add_join(s1)
       self.add_join(s2)
       self.add_join(s2)
-##      l=(self.strand_lookup(s1.succ))+(self.strand_lookup(s2.succ))
       l=[s1.succ_con,s1.succ.succ_con,s2.succ_con,s2.succ.succ_con]
-##      if(orientation):
-##         c1=crossing(s1,s2.succ,s1.succ,s2)
-##         c2=crossing(s1.succ,s2.succ,s1.succ.succ,s2.succ.succ)
-##         s1.set_succ_con(c1)
-##         s1.succ.set_pred_con(c1)
-##         s1.succ.set_succ_con(c2)
-##         s1.succ.succ.set_pred_con(c2)
-##         s2.set_succ_con(c1)
-##         s2.succ.set_pred_con(c1)
-##         s2.succ.set_succ_con(c2)
-##         s2.succ.succ.set_pred_con(c2)
-##      else:
-##         c1=crossing(s1,s2.succ,s1.succ,s2.succ.succ)
-##         c2=crossing(s1.succ,s2.succ,s1.succ.succ,s2)
-##         s1.set_succ_con(c1)
-##         s1.succ.set_pred_con(c1)
-##         s1.succ.set_succ_con(c2)
-##         s1.succ.succ.set_pred_con(c2)
-##         s2.set_succ_con(c2)
-##         s2.succ.set_pred_con(c2)
-##         s2.succ.set_succ_con(c1)
-##         s2.succ.succ.set_pred_con(c1)
-##      self.crossings+=[c1,c2]
-##      for s in l:
-##         self.joins.remove(s)
+
       if(o):
          c1=crossing(s1,s2.succ,s1.succ,s2)
          c2=crossing(s1.succ,s2.succ,s1.succ.succ,s2.succ.succ)
@@ -295,36 +254,6 @@ class Kirby:
       self.crossings+=[c1,c2]
       for s in l:
          self.joins.remove(s)
-
-##   def remove_r2 (self,s1, s2): #strands s1 and s2
-##      l=self.strand_lookup(s1)
-##      if(s1.succ==s2.pred):
-##         self.add_join(s1.succ)
-##      if(s2.succ==s1.pred):
-##         self.add_join(s2.succ)
-##      for s in [s1,s2]:
-##         s.set_succ(s.succ.succ)
-##         s.succ.set_pred(s)
-##         s.set_pred(s.pred.pred)
-##         s.pred.set_succ(s)
-##      for c in l:
-##         if(c in self.crossings):
-##            self.crossings.remove(c)
-
-##   def remove_r2 (self,s1, s2): #strands s1 and s2
-##      l=self.strand_lookup(s1)
-##      if(s1.succ==s2.pred):
-##         self.add_join(s1.succ)
-##      if(s2.succ==s1.pred):
-##         self.add_join(s2.succ)
-##      for s in [s1,s2]:
-##         s.set_succ(s.succ.succ)
-##         s.succ.set_pred(s)
-##         s.set_pred(s.pred.pred)
-##         s.pred.set_succ(s)
-##      for c in l:
-##         if(c in self.crossings):
-##            self.crossings.remove(c)
 
    def remove_r2(self,s0,s1):
       s=[s0,s1]
@@ -410,15 +339,9 @@ class Kirby:
                c1.set_strands(strandUnder.pred, strandMiddle.succ, strandUnder, strandMiddle.succ.succ)
                c2.set_strands(strandUnder, strandOver.succ, strandUnder.succ, strandOver.succ.succ)
 
-
             elif(strandOver in c2):
                c1.set_strands(strandUnder.pred, strandOver.succ.succ, strandUnder, strandOver.succ)
                c2.set_strands(strandUnder, strandMiddle.succ.succ, strandUnder.succ, strandMiddle.succ)
-
-
-      #self.remove_joins()  # remove extra joins
-
-
          
 
    def handle_annihilation(self,h1,h2):
@@ -720,15 +643,13 @@ class Kirby:
          #attaching parallel copy of h1 onto h2:
          #split self.strand_list(h2)[0] in two by adding join
 
-      self.add_join(h2)
-      h2s=h2.succ
-      self.joins.remove(h2.succ_con)
-      self.add_join(l[0])
-      self.joins.remove(l[0].succ_con)
+      self.connect_sum(h2,l[0])
 
-
-      
-      
+##      self.add_join(h2)
+##      h2s=h2.succ
+##      self.joins.remove(h2.succ_con)
+##      self.add_join(l[0])
+##      self.joins.remove(l[0].succ_con)
 ##      if (sign):
 ##         jn1=join(h2,l[0])
 ##         h2.set_succ(l[0])
@@ -744,7 +665,7 @@ class Kirby:
 ##         l[0].succ.set_pred_con(jn1)
 ##         l[0].set_succ_con(jn2)
 ##         h2s.set_pred_con(jn2)
-      self.joins+=[jn1,jn2]
+##      self.joins+=[jn1,jn2]
 
 ##      for k in l:
 ##         print(k)
