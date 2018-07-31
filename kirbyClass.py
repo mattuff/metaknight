@@ -334,75 +334,75 @@ class Kirby:
       # strandOver goes over strandUnder and strandMiddle
       # strands refer to triangle
 
-      cross1 = strandUnder.pred_con
+      c1 = strandUnder.pred_con
       #print('cross1: ' + str(cross1))
-      cross2 = strandUnder.succ_con
+      c2 = strandUnder.succ_con
       #print('cross2: ' + str(cross2))
-      if(strandMiddle.pred_con != cross1 and strandMiddle.pred_con != cross2): cross3 = strandMiddle.pred_con
-      else: cross3 = strandMiddle.succ_con
+      if(strandMiddle.pred_con != c1 and strandMiddle.pred_con != c2): c3 = strandMiddle.pred_con
+      else: c3 = strandMiddle.succ_con
 
 
       #orientation of strandMiddle
-      if (strandMiddle.pred not in cross1 and strandMiddle.pred not in cross2):
+      if (strandMiddle.pred not in c1 and strandMiddle.pred not in c2):
          self.add_join(strandMiddle.pred)
 
          #orientation of strandOver
-         if (strandOver.pred not in cross1 and strandOver.pred not in cross2):
+         if (strandOver.pred not in c1 and strandOver.pred not in c2):
             self.add_join(strandOver.pred)
 
             #orientation of strandUnder
-            if(strandOver in cross1):
-               cross1.set_strands(strandUnder.pred, strandMiddle.pred, strandUnder, strandMiddle.pred.pred)
-               cross2.set_strands(strandUnder, strandOver.pred, strandUnder.succ, strandOver.pred.pred)
+            if(strandOver in c1):
+               c1.set_strands(strandUnder.pred, strandMiddle.pred, strandUnder, strandMiddle.pred.pred)
+               c2.set_strands(strandUnder, strandOver.pred, strandUnder.succ, strandOver.pred.pred)
 
-            elif(strandOver in cross2):
-               cross1.set_strands(strandUnder.pred, strandOver.pred.pred, strandUnder, strandOver.pred)
-               cross2.set_strands(strandUnder, strandMiddle.pred.pred, strandUnder.succ, strandMiddle.pred)
+            elif(strandOver in c2):
+               c1.set_strands(strandUnder.pred, strandOver.pred.pred, strandUnder, strandOver.pred)
+               c2.set_strands(strandUnder, strandMiddle.pred.pred, strandUnder.succ, strandMiddle.pred)
 
          #orientation of strandOver
-         elif (strandOver.succ not in cross1 and strandOver.succ not in cross2):
+         elif (strandOver.succ not in cross1 and strandOver.succ not in c2):
             self.add_join(strandOver.succ)
 
             #orientation of strandUnder
-            if(strandOver in cross1):
-               cross1.set_strands(strandUnder.pred, strandMiddle.succ, strandUnder, strandUnder.pred)
-               cross2.set_strands(strandUnder, strandOver.pred, strandUnder.succ, strandUnder.succ)
+            if(strandOver in c1):
+               c1.set_strands(strandUnder.pred, strandMiddle.succ, strandUnder, strandUnder.pred)
+               c2.set_strands(strandUnder, strandOver.pred, strandUnder.succ, strandUnder.succ)
 
-            elif(strandOver in cross2):
-               cross1.set_strands(strandUnder.pred, strandOver.succ.succ, strandUnder, strandOver.succ)
-               cross2.set_strands(strandUnder, strandMiddle.pred.pred, strandUnder.succ, strandMiddle.pred)
+            elif(strandOver in c2):
+               c1.set_strands(strandUnder.pred, strandOver.succ.succ, strandUnder, strandOver.succ)
+               c2.set_strands(strandUnder, strandMiddle.pred.pred, strandUnder.succ, strandMiddle.pred)
 
       #orientation of strandMiddle
-      elif (strandMiddle.succ not in cross1 and strandMiddle.succ not in cross2):
+      elif (strandMiddle.succ not in c1 and strandMiddle.succ not in c2):
          self.add_join(strandMiddle.succ)
 
          #orientation of strandOver
-         if (strandOver.pred not in cross1 and strandOver.pred not in cross2):
+         if (strandOver.pred not in c1 and strandOver.pred not in c2):
             print('strandOver.pred not in cross1 and strandOver.pred not in cross2, adding join')
             self.add_join(strandOver.pred)
 
             #orientation of strandUnder
-            if(strandOver in cross1):
-               cross1.set_strands(strandUnder.pred, strandMiddle.succ, strandUnder, strandMiddle.succ.succ)
-               cross2.set_strands(strandUnder, strandOver.pred, strandUnder.succ, strandOver.pred.pred)
+            if(strandOver in c1):
+               c1.set_strands(strandUnder.pred, strandMiddle.succ, strandUnder, strandMiddle.succ.succ)
+               c2.set_strands(strandUnder, strandOver.pred, strandUnder.succ, strandOver.pred.pred)
 
-            elif(strandOver in cross2):
-               cross1.set_strands(strandUnder.pred, strandOver.pred.pred, strandUnder, strandOver.pred)
-               cross2.set_strands(strandUnder, strandMiddle.succ.succ, strandUnder.succ, strandMiddle.succ)
+            elif(strandOver in c2):
+               c1.set_strands(strandUnder.pred, strandOver.pred.pred, strandUnder, strandOver.pred)
+               c2.set_strands(strandUnder, strandMiddle.succ.succ, strandUnder.succ, strandMiddle.succ)
 
          #orientation of strandOver
-         elif (strandOver.succ not in cross1, cross2):
+         elif (strandOver.succ not in c1, c2):
             self.add_join(strandOver.succ)
 
             #orientation of strandUnder
-            if(strandOver in cross1):
-               cross1.set_strands(strandUnder.pred, strandMiddle.succ, strandUnder, strandMiddle.succ.succ)
-               cross2.set_strands(strandUnder, strandOver.succ, strandUnder.succ, strandOver.succ.succ)
+            if(strandOver in c1):
+               c1.set_strands(strandUnder.pred, strandMiddle.succ, strandUnder, strandMiddle.succ.succ)
+               c2.set_strands(strandUnder, strandOver.succ, strandUnder.succ, strandOver.succ.succ)
 
 
-            elif(strandOver in cross2):
-               cross1.set_strands(strandUnder.pred, strandOver.succ.succ, strandUnder, strandOver.succ)
-               cross2.set_strands(strandUnder, strandMiddle.succ.succ, strandUnder.succ, strandMiddle.succ)
+            elif(strandOver in c2):
+               c1.set_strands(strandUnder.pred, strandOver.succ.succ, strandUnder, strandOver.succ)
+               c2.set_strands(strandUnder, strandMiddle.succ.succ, strandUnder.succ, strandMiddle.succ)
 
 
       #self.remove_joins()  # remove extra joins
@@ -715,8 +715,6 @@ class Kirby:
       self.add_join(l[0])
       self.joins.remove(l[0].succ_con)
 
-      jn1=join(h2,l[0].succ)
-      jn2=join(l[0],h2s)
 
       
       
