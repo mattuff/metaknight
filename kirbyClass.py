@@ -328,74 +328,85 @@ class Kirby:
       for x in c:
          self.crossings.remove(x)
 
-    #Pseudo code
    def add_r3(self, strandUnder, strandMiddle, strandOver):
-       # strandUnder is the strand that goes under strandMiddle and strandOver, which we are going to move
+      # strandUnder is the strand that goes under strandMiddle and strandOver, which we are going to move
       # strandMiddle goes over strandUnder and under strandOver
       # strandOver goes over strandUnder and strandMiddle
       # strands refer to triangle
 
-      #this would be more efficient
-      cross1 = self.pred__con(strandUnder)
-      cross2 = self.succ__con(strandUnder)
+      cross1 = strandUnder.pred_con
+      #print('cross1: ' + str(cross1))
+      cross2 = strandUnder.succ_con
+      #print('cross2: ' + str(cross2))
+      if(strandMiddle.pred_con != cross1 and strandMiddle.pred_con != cross2): cross3 = strandMiddle.pred_con
+      else: cross3 = strandMiddle.succ_con
 
-      # add joins to where we are going to move strandUnder
-      if (strandMiddle.pred not in cross1,cross2):
+
+      #orientation of strandMiddle
+      if (strandMiddle.pred not in cross1 and strandMiddle.pred not in cross2):
          self.add_join(strandMiddle.pred)
 
-         #if strandUnder originally goes from strandOver to strandMiddle:
-         c1 = crossing(strandUnder.pred, strandMiddle.pred, strandUnder, strandMiddle.pred.pred)
-         
-         #if strandUnder originally goes from strandMiddle to strandOver:
-         c1 = crossing(strandUnder.pred, strandMiddle.pred.pred, strandUnder, strandMiddle.pred)
-
-         if (strandOver.pred not in cross1,cross2):
+         #orientation of strandOver
+         if (strandOver.pred not in cross1 and strandOver.pred not in cross2):
             self.add_join(strandOver.pred)
 
-            # if strandUnder originally goes from strandOver to strandMiddle:
-            c2 = crossing(strandUnder, strandOver.pred, strandUnder.succ, strandOver.pred.pred)
-            
-            # if strandUnder originally goes from strandMiddle to strandOver:
-            c2 = crossing(strandUnder.pred, strandOver.pred.pred, strandUnder, strandOver.pred)
+            #orientation of strandUnder
+            if(strandOver in cross1):
+               cross1.set_strands(strandUnder.pred, strandMiddle.pred, strandUnder, strandMiddle.pred.pred)
+               cross2.set_strands(strandUnder, strandOver.pred, strandUnder.succ, strandOver.pred.pred)
 
-         elif (strandOver.succ not in cross1,cross2):
+            elif(strandOver in cross2):
+               cross1.set_strands(strandUnder.pred, strandOver.pred.pred, strandUnder, strandOver.pred)
+               cross2.set_strands(strandUnder, strandMiddle.pred.pred, strandUnder.succ, strandMiddle.pred)
+
+         #orientation of strandOver
+         elif (strandOver.succ not in cross1 and strandOver.succ not in cross2):
             self.add_join(strandOver.succ)
-            
-            # if strandUnder originally goes from strandOver to strandMiddle:
-            c2 = crossing(strandUnder, strandOver.succ, strandUnder.succ, strandOver.succ.succ)
-            
-            # if strandUnder originally goes from strandMiddle to strandOver:
-            c2 = crossing(strandUnder.pred, strandOver.suc.suc, strandUnder, strandOver.succ)
 
-            
-      elif (strandMiddle.succ not in cross1,cross2):
+            #orientation of strandUnder
+            if(strandOver in cross1):
+               cross1.set_strands(strandUnder.pred, strandMiddle.succ, strandUnder, strandUnder.pred)
+               cross2.set_strands(strandUnder, strandOver.pred, strandUnder.succ, strandUnder.succ)
+
+            elif(strandOver in cross2):
+               cross1.set_strands(strandUnder.pred, strandOver.succ.succ, strandUnder, strandOver.succ)
+               cross2.set_strands(strandUnder, strandMiddle.pred.pred, strandUnder.succ, strandMiddle.pred)
+
+      #orientation of strandMiddle
+      elif (strandMiddle.succ not in cross1 and strandMiddle.succ not in cross2):
          self.add_join(strandMiddle.succ)
 
-         #if strandUnder originally goes from strandOver to strandMiddle:
-         c1 = crossing(strandUnder.pred, strandMiddle.succ, strandUnder, strandMiddle.succ.succ) 
-         
-         #if strandUnder originally goes from strandMiddle to strandOver
-         c1 = crossing(strandUnder,strandMiddle.succ.succ,strandUnder.succ,strandMiddle.succ)
-
-         if (strandOver.pred not in cross1,cross2):
+         #orientation of strandOver
+         if (strandOver.pred not in cross1 and strandOver.pred not in cross2):
+            print('strandOver.pred not in cross1 and strandOver.pred not in cross2, adding join')
             self.add_join(strandOver.pred)
 
-            # if strandUnder originally goes from strandOver to strandMiddle:
-            c2 = crossing(strandUnder, strandOver.pred, strandUnder.succ, strandOver.pred.pred)
-            # if strandUnder originally goes from strandMiddle to strandOver:
-            c2 = crossing(strandUnder.pred, strandOver.pred.pred, strandUnder, strandOver.pred)
+            #orientation of strandUnder
+            if(strandOver in cross1):
+               cross1.set_strands(strandUnder.pred, strandMiddle.succ, strandUnder, strandMiddle.succ.succ)
+               cross2.set_strands(strandUnder, strandOver.pred, strandUnder.succ, strandOver.pred.pred)
 
-         elif (strandOver.succ not in cross1,cross2):
+            elif(strandOver in cross2):
+               cross1.set_strands(strandUnder.pred, strandOver.pred.pred, strandUnder, strandOver.pred)
+               cross2.set_strands(strandUnder, strandMiddle.succ.succ, strandUnder.succ, strandMiddle.succ)
+
+         #orientation of strandOver
+         elif (strandOver.succ not in cross1, cross2):
             self.add_join(strandOver.succ)
 
-            # if strandUnder originally goes from strandOver to strandMiddle:
-            c2 = crossing(strandUnder, strandOver.succ, strandUnder.succ, strandOver.succ.succ)
-            # if strandUnder originally goes from strandMiddle to strandOver:
-            c2 = crossing(strandUnder.pred, strandOver.succ, strandUnder, strandOver.succ.succ)
+            #orientation of strandUnder
+            if(strandOver in cross1):
+               cross1.set_strands(strandUnder.pred, strandMiddle.succ, strandUnder, strandMiddle.succ.succ)
+               cross2.set_strands(strandUnder, strandOver.succ, strandUnder.succ, strandOver.succ.succ)
 
-      self.crossings += [c1, c2]
-      self.crossings.remove(crossingsUnder)  # remove old crossings
-      self.remove_joins()  # remove extra joins
+
+            elif(strandOver in cross2):
+               cross1.set_strands(strandUnder.pred, strandOver.succ.succ, strandUnder, strandOver.succ)
+               cross2.set_strands(strandUnder, strandMiddle.succ.succ, strandUnder.succ, strandMiddle.succ)
+
+
+      #self.remove_joins()  # remove extra joins
+
 
          
 
@@ -435,7 +446,7 @@ class Kirby:
       for k in range (len(s)): #sets up parallel copy of h1
          st=strand(self.strand_name()+k, h2.component)
          l+=[st]
-      for i in range (len(l)): #sets up preds and succs
+      for i in range (len(l)-1): #sets up preds and succs
          if (sign):
             l[i].set_pred(l[i-1])
             if (i < (len(l)-1)):
@@ -472,28 +483,46 @@ class Kirby:
          var=(b.succ==d)
 
          e=strand(self.strand_name()+ls+1, h1.component, a,c)
+         a.set_succ(e)
+         c.set_pred(e)
          s.insert(s.index(a)+1, e)
          if (sign):
             ee=strand(self.strand_name()+ls+2, h2.component, aa, cc)
+            aa.set_succ(ee)
+            cc.set_pred(ee)
          else:
             ee=strand(self.strand_name()+ls+2, h2.component, cc, aa)
+            cc.set_succ(ee)
+            aa.set_pred(ee)
          l.insert(l.index(aa)+1, ee)
          
          if (var):
             f=strand(self.strand_name()+ls+3, h1.component, b, d)
             s.insert(s.index(b)+1, f)
+            b.set_succ(f)
+            d.set_pred(f)
             if (sign):
                ff=strand(self.strand_name()+ls+4, h2.component, bb, dd)
+               bb.set_succ(ff)
+               dd.set_pred(ff)
             else:
                ff=strand(self.strand_name()+ls+4, h2.component, dd, bb)
+               dd.set_succ(ff)
+               bb.set_pred(ff)
             l.insert(l.index(bb)+1, ff)
          else:
             f=strand(self.strand_name()+ls+3, h1.component, d, b)
+            d.set_succ(f)
+            b.set_pred(f)
             s.insert(s.index(d)+1, f)
             if (sign):
-               ff=strand(self.strand_name()+ls+4, h2.component, bb, dd)
+               ff=strand(self.strand_name()+ls+4, h2.component, dd, bb)
+               dd.set_succ(ff)
+               bb.set_pred(ff)
             else:
-               ff=strand(self.strand_name()+ls+4,h2.component, dd, bb)
+               ff=strand(self.strand_name()+ls+4,h2.component, bb, dd)
+               bb.set_succ(ff)
+               dd.set_pred(ff)
             l.insert(s.index(d)+1, ff)
          self.strands+=[e,ee,f,ff]
          self.crossings.remove(cx)
@@ -578,8 +607,7 @@ class Kirby:
                bb.set_succ_con(c2)
                ff.set_pred_con(c2)
                ff.set_succ_con(c1)
-               dd.set_pred_con(c1)
-               
+               dd.set_pred_con(c1)               
 
       for cx in comp_intersections: #turns crossings between h1 and another comp into 2 crossings
          if (cx[0].component==h1.component):
@@ -681,23 +709,31 @@ class Kirby:
          #attaching parallel copy of h1 onto h2:
          #split self.strand_list(h2)[0] in two by adding join
 
-      self.add_join(h2) 
-      self.joins.remove(h2.succ_con)
-      if (sign):
-         jn1=join(h2,l[0])
-         jn2=join(l[-1],h2.succ)
-         h2.set_succ_con(jn1)
-         l[0].set_pred_con(jn1)
-         l[-1].set_succ_con(jn2)
-         h2.succ.set_pred_con(jn2)
-      else:
-         jn1=join(h2,l[-1])
-         jn2=join(l[0],h2.succ)
-         h2.set_succ_con(jn1)
-         l[-1].set_pred_con(jn1)
-         l[0].set_succ_con(jn2)
-         h2.succ.set_pred_con(jn2)
-      self.joins+=[jn1,jn2]
+##      self.add_join(h2)
+##      h2s=h2.succ
+##      self.joins.remove(h2.succ_con)
+##      self.add_join(l[0])
+##      self.joins.remove(l[0].succ_con)
+##      
+##      if (sign):
+##         jn1=join(h2,l[0])
+##         h2.set_succ(l[0])
+##         jn2=join(l[0].succ,h2s)
+##         h2.set_succ_con(jn1)
+##         l[0].set_pred_con(jn1)
+##         l[0].succ.set_succ_con(jn2)
+##         h2s.set_pred_con(jn2)
+##      else:
+##         jn1=join(h2,l[0].succ)
+##         jn2=join(l[0],h2s)
+##         h2.set_succ_con(jn1)
+##         l[0].succ.set_pred_con(jn1)
+##         l[0].set_succ_con(jn2)
+##         h2s.set_pred_con(jn2)
+##      self.joins+=[jn1,jn2]
+
+##      for k in l:
+##         print(k)
 
       
       #framing: for h1 framing n; add n counterclockwise twists of h2 about h1 (canonical framing)
@@ -705,7 +741,3 @@ class Kirby:
       #apply framing formula from pg 142
 
       #connecting the parallel copy of h1 to the rest of h2 at some point??
-      
-
-   #have something to go from blackboard framing to canonical framing?
-   #blackboard framing = canonical framing + n; solve for n
