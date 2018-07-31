@@ -143,6 +143,7 @@ class Kirby:
       for i in range(2):
          j.append(join(s[i],s[not i].succ))
          self.joins.remove(s[i].succ_con)
+         self.joins.append(j[i])
          s[i].succ_con=j[i]
          s[not i].succ.pred_con=j[i]
 
