@@ -339,10 +339,12 @@ class Kirby:
             if(strandOver in c1):
                c1.set_strands(strandUnder.pred, strandMiddle.succ, strandUnder, strandMiddle.succ.succ)
                c2.set_strands(strandUnder, strandOver.succ, strandUnder.succ, strandOver.succ.succ)
-
-            elif(strandOver in c2):
+               
+            elif (strandOver in c2):
                c1.set_strands(strandUnder.pred, strandOver.succ.succ, strandUnder, strandOver.succ)
                c2.set_strands(strandUnder, strandMiddle.succ.succ, strandUnder.succ, strandMiddle.succ)
+
+      self.remove_joins()
          
 
    def handle_annihilation(self,h1,h2):
