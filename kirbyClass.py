@@ -141,11 +141,14 @@ class Kirby:
       for i in range(2):
          self.add_join(s[i])
       for i in range(2):
-         j.append(join(s[i],s[not i].succ))
+         j=join(s[i],s[not i].succ)
          self.joins.remove(s[i].succ_con)
-         self.joins.append(j[i])
-         s[i].succ_con=j[i]
-         s[not i].succ.pred_con=j[i]
+         self.joins.append(j)
+         s[i].succ_con=j
+         s[not i].succ.pred_con=j
+      for i in range(2):
+         s[i].succ=s[not i].succ
+         s[i].succ.pred=s[i]
 
    def add_join(self, s0): #s0 is strand to be split, s0 will be the predecessor of the new s1
       c0=s0.pred_con
