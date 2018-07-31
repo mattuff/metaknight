@@ -139,7 +139,7 @@ class Kirby:
       s=[s0,s1]
       j=[]
       for i in range(2):
-         s[i].add_join()
+         self.add_join(s[i])
       for i in range(2):
          j.append(join(s[i],s[not i].succ))
          self.joins.remove(s[i].succ_con)
@@ -643,7 +643,7 @@ class Kirby:
          #attaching parallel copy of h1 onto h2:
          #split self.strand_list(h2)[0] in two by adding join
 
-      self.connect_sum(h2,l[0])
+      #self.connect_sum(h2,l[0])
 
 ##      self.add_join(h2)
 ##      h2s=h2.succ
