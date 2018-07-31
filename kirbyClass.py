@@ -328,7 +328,7 @@ class Kirby:
       for x in c:
          self.crossings.remove(x)
 
-   def add_r3(self, strandUnder, strandMiddle, strandOver):def add_r3(self, strandUnder, strandMiddle, strandOver):
+   def add_r3(self, strandUnder, strandMiddle, strandOver):
       # strandUnder is the strand that goes under strandMiddle and strandOver, which we are going to move
       # strandMiddle goes over strandUnder and under strandOver
       # strandOver goes over strandUnder and strandMiddle
@@ -434,7 +434,7 @@ class Kirby:
       self.crossings.append(c1)
       self.crossings.append(c2)
 
-     def handle_slide(self, h1, h2, sign): #h2 is being slid over h1; sign=True if same orientation
+   def handle_slide(self, h1, h2, sign): #h2 is being slid over h1; sign=True if same orientation
       #makes parallel copies of all strands in h1
       s=self.strand_list(h1) #list of strands in h1, in succ order
       ls=len(s) #original # of strands in h1
@@ -709,12 +709,17 @@ class Kirby:
          #attaching parallel copy of h1 onto h2:
          #split self.strand_list(h2)[0] in two by adding join
 
-##      self.add_join(h2)
-##      h2s=h2.succ
-##      self.joins.remove(h2.succ_con)
-##      self.add_join(l[0])
-##      self.joins.remove(l[0].succ_con)
-##      
+      self.add_join(h2)
+      h2s=h2.succ
+      self.joins.remove(h2.succ_con)
+      self.add_join(l[0])
+      self.joins.remove(l[0].succ_con)
+
+      jn1=join(h2,l[0].succ)
+      jn2=join(l[0],h2s)
+
+      
+      
 ##      if (sign):
 ##         jn1=join(h2,l[0])
 ##         h2.set_succ(l[0])
@@ -730,7 +735,7 @@ class Kirby:
 ##         l[0].succ.set_pred_con(jn1)
 ##         l[0].set_succ_con(jn2)
 ##         h2s.set_pred_con(jn2)
-##      self.joins+=[jn1,jn2]
+      self.joins+=[jn1,jn2]
 
 ##      for k in l:
 ##         print(k)
