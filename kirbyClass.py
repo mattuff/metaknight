@@ -112,27 +112,28 @@ class Kirby:
             n=self.rename(s,n)+1
             l.append(s.component)
 
-   def comp_crossings(self,h1): #given a component, returns crossings fully contained within component
-      l=[]
-      for c in self.crossings:
-         if (c[0].component==c[1].component==h1):
-            l.append(c)
-      return l
+   def comp_crossings(self,h): #given a component, returns crossings fully contained within component
+##      l=[]
+##      for c in self.crossings:
+##         if (c[0].component==c[1].component==h):
+##            l.append(c)
+##      return l
+      return(list(filter(lambda x:(x[0].component==h)and(x[1].component==h),self.crossings)))
 
-   def comp_joins(self,h1): #given a component, returns joins fully contained within component
-      l=[]
-      for j in self.joins:
-         if (j[0].component==h1):
-            l.append(j)
-      return l
+   def comp_joins(self,h): #given a component, returns joins fully contained within component
+##      l=[]
+##      for j in self.joins:
+##         if (j[0].component==h):
+##            l.append(j)
+##      return l
+      return(list(filter(lambda x:x[0].component==h,self.joins)))
             
    def comp_intersections(self,h1): #given a component, returns crossings between that component and another
       l=[]
       for c in self.crossings:
-         if (c[0].component==h1 and c[1].component!=h1):
-            l.append(c)
-         elif (c[1].component==h1 and c[0].component!=h1):
-            l.append(c)
+         for i in range(2):
+            if((c[i].component==h1) and (c[not i].component!=h1)):
+               l.append(c)
       return l
 
    def connect_sum(self,s0,s1):
