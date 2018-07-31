@@ -135,6 +135,17 @@ class Kirby:
             l.append(c)
       return l
 
+   def connect_sum(self,s0,s1):
+      s=[s0,s1]
+      j=[]
+      for i in range(2):
+         s[i].add_join()
+      for i in range(2):
+         j.append(join(s[i],s[not i].succ))
+         self.joins.remove(s[i].succ_con)
+         s[i].succ_con=j[i]
+         s[not i].succ.pred_con=j[i]
+
    def add_join(self, s0): #s0 is strand to be split, s0 will be the predecessor of the new s1
       c0=s0.pred_con
       c1=s0.succ_con
