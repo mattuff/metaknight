@@ -328,7 +328,7 @@ class Kirby:
       for x in c:
          self.crossings.remove(x)
 
-   def add_r3(self, strandUnder, strandMiddle, strandOver):
+   def add_r3(self, strandUnder, strandMiddle, strandOver):def add_r3(self, strandUnder, strandMiddle, strandOver):
       # strandUnder is the strand that goes under strandMiddle and strandOver, which we are going to move
       # strandMiddle goes over strandUnder and under strandOver
       # strandOver goes over strandUnder and strandMiddle
@@ -434,7 +434,7 @@ class Kirby:
       self.crossings.append(c1)
       self.crossings.append(c2)
 
-   def handle_slide(self, h1, h2, sign): #h2 is being slid over h1; sign=True if same orientation
+     def handle_slide(self, h1, h2, sign): #h2 is being slid over h1; sign=True if same orientation
       #makes parallel copies of all strands in h1
       s=self.strand_list(h1) #list of strands in h1, in succ order
       ls=len(s) #original # of strands in h1
