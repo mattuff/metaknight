@@ -644,7 +644,7 @@ class Kirby:
          #attaching parallel copy of h1 onto h2:
          #split self.strand_list(h2)[0] in two by adding join
 
-      #self.connect_sum(h2,l[0])
+      self.connect_sum(h2,l[0])
 
 ##      self.add_join(h2)
 ##      h2s=h2.succ
