@@ -328,74 +328,85 @@ class Kirby:
       for x in c:
          self.crossings.remove(x)
 
-    #Pseudo code
-   def add_r3(self, strandUnder, strandMiddle, strandOver):
-       # strandUnder is the strand that goes under strandMiddle and strandOver, which we are going to move
+       def add_r3(self, strandUnder, strandMiddle, strandOver):
+      # strandUnder is the strand that goes under strandMiddle and strandOver, which we are going to move
       # strandMiddle goes over strandUnder and under strandOver
       # strandOver goes over strandUnder and strandMiddle
       # strands refer to triangle
 
-      #this would be more efficient
-      cross1 = self.pred__con(strandUnder)
-      cross2 = self.succ__con(strandUnder)
+      cross1 = strandUnder.pred_con
+      #print('cross1: ' + str(cross1))
+      cross2 = strandUnder.succ_con
+      #print('cross2: ' + str(cross2))
+      if(strandMiddle.pred_con != cross1 and strandMiddle.pred_con != cross2): cross3 = strandMiddle.pred_con
+      else: cross3 = strandMiddle.succ_con
 
-      # add joins to where we are going to move strandUnder
-      if (strandMiddle.pred not in cross1,cross2):
+
+      #orientation of strandMiddle
+      if (strandMiddle.pred not in cross1 and strandMiddle.pred not in cross2):
          self.add_join(strandMiddle.pred)
 
-         #if strandUnder originally goes from strandOver to strandMiddle:
-         c1 = crossing(strandUnder.pred, strandMiddle.pred, strandUnder, strandMiddle.pred.pred)
-         
-         #if strandUnder originally goes from strandMiddle to strandOver:
-         c1 = crossing(strandUnder.pred, strandMiddle.pred.pred, strandUnder, strandMiddle.pred)
-
-         if (strandOver.pred not in cross1,cross2):
+         #orientation of strandOver
+         if (strandOver.pred not in cross1 and strandOver.pred not in cross2):
             self.add_join(strandOver.pred)
 
-            # if strandUnder originally goes from strandOver to strandMiddle:
-            c2 = crossing(strandUnder, strandOver.pred, strandUnder.succ, strandOver.pred.pred)
-            
-            # if strandUnder originally goes from strandMiddle to strandOver:
-            c2 = crossing(strandUnder.pred, strandOver.pred.pred, strandUnder, strandOver.pred)
+            #orientation of strandUnder
+            if(strandOver in cross1):
+               cross1.set_strands(strandUnder.pred, strandMiddle.pred, strandUnder, strandMiddle.pred.pred)
+               cross2.set_strands(strandUnder, strandOver.pred, strandUnder.succ, strandOver.pred.pred)
 
-         elif (strandOver.succ not in cross1,cross2):
+            elif(strandOver in cross2):
+               cross1.set_strands(strandUnder.pred, strandOver.pred.pred, strandUnder, strandOver.pred)
+               cross2.set_strands(strandUnder, strandMiddle.pred.pred, strandUnder.succ, strandMiddle.pred)
+
+         #orientation of strandOver
+         elif (strandOver.succ not in cross1 and strandOver.succ not in cross2):
             self.add_join(strandOver.succ)
-            
-            # if strandUnder originally goes from strandOver to strandMiddle:
-            c2 = crossing(strandUnder, strandOver.succ, strandUnder.succ, strandOver.succ.succ)
-            
-            # if strandUnder originally goes from strandMiddle to strandOver:
-            c2 = crossing(strandUnder.pred, strandOver.suc.suc, strandUnder, strandOver.succ)
 
-            
-      elif (strandMiddle.succ not in cross1,cross2):
+            #orientation of strandUnder
+            if(strandOver in cross1):
+               cross1.set_strands(strandUnder.pred, strandMiddle.succ, strandUnder, strandUnder.pred)
+               cross2.set_strands(strandUnder, strandOver.pred, strandUnder.succ, strandUnder.succ)
+
+            elif(strandOver in cross2):
+               cross1.set_strands(strandUnder.pred, strandOver.succ.succ, strandUnder, strandOver.succ)
+               cross2.set_strands(strandUnder, strandMiddle.pred.pred, strandUnder.succ, strandMiddle.pred)
+
+      #orientation of strandMiddle
+      elif (strandMiddle.succ not in cross1 and strandMiddle.succ not in cross2):
          self.add_join(strandMiddle.succ)
 
-         #if strandUnder originally goes from strandOver to strandMiddle:
-         c1 = crossing(strandUnder.pred, strandMiddle.succ, strandUnder, strandMiddle.succ.succ) 
-         
-         #if strandUnder originally goes from strandMiddle to strandOver
-         c1 = crossing(strandUnder,strandMiddle.succ.succ,strandUnder.succ,strandMiddle.succ)
-
-         if (strandOver.pred not in cross1,cross2):
+         #orientation of strandOver
+         if (strandOver.pred not in cross1 and strandOver.pred not in cross2):
+            print('strandOver.pred not in cross1 and strandOver.pred not in cross2, adding join')
             self.add_join(strandOver.pred)
 
-            # if strandUnder originally goes from strandOver to strandMiddle:
-            c2 = crossing(strandUnder, strandOver.pred, strandUnder.succ, strandOver.pred.pred)
-            # if strandUnder originally goes from strandMiddle to strandOver:
-            c2 = crossing(strandUnder.pred, strandOver.pred.pred, strandUnder, strandOver.pred)
+            #orientation of strandUnder
+            if(strandOver in cross1):
+               cross1.set_strands(strandUnder.pred, strandMiddle.succ, strandUnder, strandMiddle.succ.succ)
+               cross2.set_strands(strandUnder, strandOver.pred, strandUnder.succ, strandOver.pred.pred)
 
-         elif (strandOver.succ not in cross1,cross2):
+            elif(strandOver in cross2):
+               cross1.set_strands(strandUnder.pred, strandOver.pred.pred, strandUnder, strandOver.pred)
+               cross2.set_strands(strandUnder, strandMiddle.succ.succ, strandUnder.succ, strandMiddle.succ)
+
+         #orientation of strandOver
+         elif (strandOver.succ not in cross1, cross2):
             self.add_join(strandOver.succ)
 
-            # if strandUnder originally goes from strandOver to strandMiddle:
-            c2 = crossing(strandUnder, strandOver.succ, strandUnder.succ, strandOver.succ.succ)
-            # if strandUnder originally goes from strandMiddle to strandOver:
-            c2 = crossing(strandUnder.pred, strandOver.succ, strandUnder, strandOver.succ.succ)
+            #orientation of strandUnder
+            if(strandOver in cross1):
+               cross1.set_strands(strandUnder.pred, strandMiddle.succ, strandUnder, strandMiddle.succ.succ)
+               cross2.set_strands(strandUnder, strandOver.succ, strandUnder.succ, strandOver.succ.succ)
 
-      self.crossings += [c1, c2]
-      self.crossings.remove(crossingsUnder)  # remove old crossings
-      self.remove_joins()  # remove extra joins
+
+            elif(strandOver in cross2):
+               cross1.set_strands(strandUnder.pred, strandOver.succ.succ, strandUnder, strandOver.succ)
+               cross2.set_strands(strandUnder, strandMiddle.succ.succ, strandUnder.succ, strandMiddle.succ)
+
+
+      #self.remove_joins()  # remove extra joins
+
 
          
 
