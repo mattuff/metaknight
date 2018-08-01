@@ -55,7 +55,7 @@ class Kirby:
             l.append(x)
             c.append(x.component)
       s="Components:\n"
-      n=1
+      n=0
       for x in l:
          n+=1
          s+=" - ["+str(n)
@@ -67,22 +67,27 @@ class Kirby:
             y.name=n
             y=y.succ
          s+="] ("
-         if(x.component==2):
+         if(x.component.handle==2):
             s+="2-handle;f="+str(x.component.framing)+")\n"
          else:
-            s+=str(x.component.framing)+"-handle)\n"
+            s+=str(x.component.handle)+"-handle)\n"
       s+="Crossings:\n"
+      if(len(self.crossings)==0):
+         s+="None"
       if(len(self.crossings)>=2):
          for i in range(len(self.crossings)-1):
             s+=str(self.crossings[i])+","
       if(len(self.crossings)>=1):
          s+=str(self.crossings[-1])
       s+="\nJoins:\n"
+      if(len(self.join)==0):
+         s+="None"
       if(len(self.joins)>=2):
          for i in range(len(self.joins)-1):
             s+=str(self.joins[i])+","
       if(len(self.joins)>=1):
          s+=str(self.joins[-1])
+      return(s)
 
    def strand_lookup(self,strand):
    #returns list of crossings/joins that a specific strand shows up in
