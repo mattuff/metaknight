@@ -80,7 +80,7 @@ class Kirby:
       if(len(self.crossings)>=1):
          s+=str(self.crossings[-1])
       s+="\nJoins:\n"
-      if(len(self.join)==0):
+      if(len(self.joins)==0):
          s+="None"
       if(len(self.joins)>=2):
          for i in range(len(self.joins)-1):
