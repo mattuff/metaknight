@@ -695,14 +695,14 @@ class Kirby:
             for i in range(h1.component.framing):
                l1=l[-1]
                s1=s[-1]
-               l1.add_join()
-               l1.add_join()
+               self.add_join(l1)
+               self.add_join(l1)
                l2=l1.succ
                l3=l1.succ.succ
-               s1.add_join()
-               s1.add_join()
+               self.add_join(s1)
+               self.add_join(s1)
                s2=s1.succ
-               s3.s1.succ
+               s3=s1.succ
                joinlist=[l1.succ_con, l2.succ_con, s1.succ_con, s2.succ_con]
                l+=[l2,l3]
                s+=[s2,s3]
@@ -724,12 +724,12 @@ class Kirby:
             for i in range(-h1.component.framing):
                l1=l[-1]
                s1=s[-1]
-               l1.add_join()
-               l1.add_join()
+               selef.add_join(l1)
+               self.add_join(l1)
                l2=l1.succ
                l3=l1.succ.succ
-               s1.add_join()
-               s1.add_join()
+               self.add_join(s1)
+               self.add_join(s1)
                s2=s1.succ
                s3.s1.succ
                joinlist=[l1.succ_con, l2.succ_con, s1.succ_con, s2.succ_con]
@@ -754,12 +754,12 @@ class Kirby:
             for i in range(h1.component.framing):
                l1=l[-1]
                s1=s[-1]
-               l1.add_join()
-               l1.add_join()
+               self.add_join(l1)
+               self.add_join(l1)
                l2=l1.succ
                l3=l2.succ
-               s1.add_join()
-               s1.add_join()
+               self.add_join(s1)
+               self.add_join(s1)
                s2=s1.succ
                s3=s2.succ
                joinlist=[l1.succ_con, l2.succ_con, s1.succ_con, s2.succ_con]
@@ -782,12 +782,12 @@ class Kirby:
             for i in range(-h1.component.framing):
                l1=l[-1]
                s1=s[-1]
-               l1.add_join()
-               l1.add_join()
+               self.add_join(l1)
+               self.add_join(l1)
                l2=l1.succ
                l3=l2.succ
-               s1.add_join()
-               s1.add_join()
+               self.add_join(s1)
+               self.add_join(s1)
                s2=s1.succ
                s3=s2.succ
                joinlist=[l1.succ_con, l2.succ_con, s1.succ_con, s2.succ_con]
