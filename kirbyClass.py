@@ -19,34 +19,6 @@ class Kirby:
                strands.append(j[i])
       self.strands=strands
 
-                  
-##   def __str__(self):
-##   #prints PD
-##      s="<Crossings: {"
-##      if(len(self.crossings)>=2):
-##         for i in range(len(self.crossings)-1):
-##            s+=str(self.crossings[i])+","
-##      if(len(self.crossings)>=1):
-##         s+=str(self.crossings[-1])
-##      s+="}; Joins: {"
-##      if(len(self.joins)>=2):
-##         for i in range(len(self.joins)-1):
-##            s+=str(self.joins[i])+","
-##      if(len(self.joins)>=1):
-##         s+=str(self.joins[-1])
-##      s+="}>"##Components: {"
-####      for c in self.comp_list():
-####         s+="Handle:"+ str(c.handle)+","
-####         if c.handle==2:
-####            str+="Framing:"+str(c.framing)+","
-####         s+="Strands:["
-####         for st in self.strand_list(c):
-####            s+=str(st)+","
-####         s+="]"
-####         s+="}"
-####      s+=">"
-##      return(s)
-
    def __str__(self):
       l=[]
       c=[]
@@ -119,23 +91,6 @@ class Kirby:
          l.append(t)
          t=t.succ
       return l
-
-##   def strand_name(self):
-##      return(max(map(lambda x:x.name,self.strands))+1)
-
-##   def strand_name(self):
-##      l=[]
-##      for c in self.crossings:
-##         for i in range (4):
-##            if (c[i].name not in l):
-##               l.append(c[i].name)
-##      for j in self.joins:
-##         for k in range (2):
-##            if (j[k].name not in l):
-##               l.append(j[k].name)
-##      l.sort()
-##      k=l[-1]+1
-##      return k
 
    def rename(self,s,n): #s is named n, strand's name is predecessor's +1
       s.name=n
