@@ -194,6 +194,8 @@ class Kirby:
       for x in j:
          if(x[0]!=x[1]):
             self.remove_join(x)
+##      while(len(self.joins)):
+##         self.remove_join(self.joins[0])
 
    def add_r1(self,x, sign, counterclockwise): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, 0 will subtract 1 from framing)
 
@@ -644,10 +646,13 @@ class Kirby:
                   dd.set_pred_con(c2)
          self.crossings+=[c1,c2]
 
-         #attaching parallel copy of h1 onto h2:
-         #split self.strand_list(h2)[0] in two by adding join
+      self.connect_sum(h2,l[0])
 
-      #self.connect_sum(h2,l[0])
+## change in blackboard framing?????????????????????????????????
+##      if (sign):
+##         h2.component.framing+=h1.component.framing
+##      else:
+##         h2.component.framing+=(-h1.component.framing)
 
       
       #framing: for h1 framing n; add n counterclockwise twists of h2 about h1 (canonical framing)
