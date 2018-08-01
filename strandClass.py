@@ -5,7 +5,7 @@ from componentClass import *
 
 class strand:
     
-    def __init__(self,i,component,pred=None,succ=None,pred_con=None,succ_con=None):
+    def __init__(self,component,pred=None,succ=None,pred_con=None,succ_con=None,i=None):
         self.name=i
         self.component=component
         self.pred=pred

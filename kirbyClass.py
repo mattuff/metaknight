@@ -81,19 +81,19 @@ class Kirby:
 ##   def strand_name(self):
 ##      return(max(map(lambda x:x.name,self.strands))+1)
 
-   def strand_name(self):
-      l=[]
-      for c in self.crossings:
-         for i in range (4):
-            if (c[i].name not in l):
-               l.append(c[i].name)
-      for j in self.joins:
-         for k in range (2):
-            if (j[k].name not in l):
-               l.append(j[k].name)
-      l.sort()
-      k=l[-1]+1
-      return k
+##   def strand_name(self):
+##      l=[]
+##      for c in self.crossings:
+##         for i in range (4):
+##            if (c[i].name not in l):
+##               l.append(c[i].name)
+##      for j in self.joins:
+##         for k in range (2):
+##            if (j[k].name not in l):
+##               l.append(j[k].name)
+##      l.sort()
+##      k=l[-1]+1
+##      return k
 
    def rename(self,s,n): #s is named n, strand's name is predecessor's +1
       s.name=n
@@ -153,7 +153,7 @@ class Kirby:
    def add_join(self, s0): #s0 is strand to be split, s0 will be the predecessor of the new s1
       c0=s0.pred_con
       c1=s0.succ_con
-      s1=strand(self.strand_name(),s0.component,s0,s0.succ,None,s0.succ_con)
+      s1=strand(s0.component,s0,s0.succ,None,s0.succ_con)
       self.strands.append(s1)
       s0.set_succ(s1)
       s1.succ.set_pred(s1)
@@ -175,7 +175,7 @@ class Kirby:
       self.joins.append(j)
 
    def remove_join(self,j):
-      s=strand(self.strand_name(),j[0].component,j[0].pred,j[1].succ,j[0].pred_con,j[1].succ_con)
+      s=strand(j[0].component,j[0].pred,j[1].succ,j[0].pred_con,j[1].succ_con)
       for i in range(s.pred_con.len):
          if(s.pred_con[i]==j[0]):
             s.pred_con.strands[i]=s
@@ -201,8 +201,8 @@ class Kirby:
 
       f=x.component.framing
       w=x.succ
-      y=strand(self.strand_name(), x.component, x)
-      z=strand(self.strand_name()+1, x.component, y, w)
+      y=strand(x.component, x)
+      z=strand(x.component, y, w)
       z.set_succ_con=x.succ_con
       w.set_pred(z)
       x.set_succ(y)
@@ -361,12 +361,12 @@ class Kirby:
    #THIS CODE WORKS!!!!!! :) :) :) :)
       h1=component(1)
       h2=component(2,f)
-      a=strand(self.strand_name(), h1)
-      b=strand(self.strand_name()+1, h1, a,a)
+      a=strand(h1)
+      b=strand(h1, a,a)
       a.set_pred(b)
       a.set_succ(b)
-      c=strand(self.strand_name()+2, h2)
-      d=strand(self.strand_name()+3,h2,c,c)
+      c=strand(h2)
+      d=strand(h2,c,c)
       c.set_pred(d)
       c.set_succ(d)
       c1=crossing(a,c,b,d)
@@ -384,7 +384,7 @@ class Kirby:
 
       #can considate, use ternary operator?
       for k in range (len(s)): #sets up parallel copy of h1
-         st=strand(self.strand_name()+k, h2.component)
+         st=strand(h2.component)
          l+=[st]
       for i in range (len(l)-1): #sets up preds and succs
          if (sign):
@@ -422,45 +422,45 @@ class Kirby:
          dd=l[s.index(d)]
          var=(b.succ==d)
 
-         e=strand(self.strand_name()+ls+1, h1.component, a,c)
+         e=strand(h1.component, a,c)
          a.set_succ(e)
          c.set_pred(e)
          s.insert(s.index(a)+1, e)
          if (sign):
-            ee=strand(self.strand_name()+ls+2, h2.component, aa, cc)
+            ee=strand(h2.component, aa, cc)
             aa.set_succ(ee)
             cc.set_pred(ee)
          else:
-            ee=strand(self.strand_name()+ls+2, h2.component, cc, aa)
+            ee=strand(h2.component, cc, aa)
             cc.set_succ(ee)
             aa.set_pred(ee)
          l.insert(l.index(aa)+1, ee)
          
          if (var):
-            f=strand(self.strand_name()+ls+3, h1.component, b, d)
+            f=strand(h1.component, b, d)
             s.insert(s.index(b)+1, f)
             b.set_succ(f)
             d.set_pred(f)
             if (sign):
-               ff=strand(self.strand_name()+ls+4, h2.component, bb, dd)
+               ff=strand(h2.component, bb, dd)
                bb.set_succ(ff)
                dd.set_pred(ff)
             else:
-               ff=strand(self.strand_name()+ls+4, h2.component, dd, bb)
+               ff=strand(h2.component, dd, bb)
                dd.set_succ(ff)
                bb.set_pred(ff)
             l.insert(l.index(bb)+1, ff)
          else:
-            f=strand(self.strand_name()+ls+3, h1.component, d, b)
+            f=strand(h1.component, d, b)
             d.set_succ(f)
             b.set_pred(f)
             s.insert(s.index(d)+1, f)
             if (sign):
-               ff=strand(self.strand_name()+ls+4, h2.component, dd, bb)
+               ff=strand(h2.component, dd, bb)
                dd.set_succ(ff)
                bb.set_pred(ff)
             else:
-               ff=strand(self.strand_name()+ls+4,h2.component, bb, dd)
+               ff=strand(h2.component, bb, dd)
                bb.set_succ(ff)
                dd.set_pred(ff)
             l.insert(s.index(d)+1, ff)
@@ -557,7 +557,7 @@ class Kirby:
             d=cx[3]
             aa=l[s.index(a)]
             cc=l[s.index(c)]
-            f=strand(self.strand_name(), b.component)
+            f=strand(b.component)
             if (b.succ==d):
                f.set_pred(b)
                f.set_succ(d)
@@ -613,7 +613,7 @@ class Kirby:
             d=cx[3]
             bb=l[s.index(b)]
             dd=l[s.index(d)]
-            e=strand(self.strand_name(), a.component,a,c)
+            e=strand(a.component,a,c)
             if (b.succ==d):
                c1=crossing(a,b,e,d)
                c2=crossing(e,bb,c,dd)
