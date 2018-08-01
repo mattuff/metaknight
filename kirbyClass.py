@@ -239,35 +239,37 @@ class Kirby:
 ##      while(len(self.joins)):
 ##         self.remove_join(self.joins[0])
 
-   def add_r1(self,x, sign, counterclockwise): #strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, 0 will subtract 1 from framing)
+   def add_r1(self, x, sign,
+              counterclockwise):  # strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, 0 will subtract 1 from framing)
 
-      f=x.component.framing
-      w=x.succ
-      y=strand(x.component, x)
-      z=strand(x.component, y, w)
-      z.set_succ_con=x.succ_con
+      f = x.component.framing
+      w = x.succ
+      y = strand(self.strand_name(), x.component, x)
+      z = strand(self.strand_name() + 1, x.component, y, w)
+      z.set_succ_con = x.succ_con
+      y.set_succ(z)
       w.set_pred(z)
       x.set_succ(y)
-      s=x.succ_con
-      s.strands[s.strands.index(x)]=z
+      s = x.succ_con
+      s.strands[s.strands.index(x)] = z
 
-      #adds crossing
-      if (sign%2):
+      # adds crossing
+      if (sign % 2):
          if counterclockwise:
-            c = crossing(x,y,y,z)
+            c = crossing(x, y, y, z)
          else:
-            c = crossing(y,x,z,y)
-         x.component.change_framing(f+1) #adds 1 to framing
+            c = crossing(y, x, z, y)
+         x.component.change_framing(f + 1)  # adds 1 to framing
       else:
          if counterclockwise:
-            c = crossing(y,y,z,x)
+            c = crossing(y, y, z, x)
          else:
-            c = crossing(x,z,y,y)
-         x.component.change_framing(f-1) #subtracts one from framing
-      self.crossings.append(c) #adds crossing to crossing list 
+            c = crossing(x, z, y, y)
+         x.component.change_framing(f - 1)  # subtracts one from framing
+      self.crossings.append(c)  # adds crossing to crossing list
 
-      #changes succ and pred crossings of strands involved
-      z.succ_con=s
+      # changes succ and pred crossings of strands involved
+      z.succ_con = s
       x.set_succ_con(c)
       y.set_pred_con(c)
       y.set_succ_con(c)
