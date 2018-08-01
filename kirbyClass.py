@@ -646,7 +646,61 @@ class Kirby:
                   dd.set_pred_con(c2)
          self.crossings+=[c1,c2]
 
+
+      #adding extra twists for framing
+      if (sign):
+         if (h1.component.framing>0): #counterclockwise twists
+            for i in range(h1.component.framing):
+               l1=l[-1]
+               s1=s[-1]
+               l1.add_join()
+               l1.add_join()
+               l2=l1.succ
+               l3=l1.succ.succ
+               s1.add_join()
+               s1.add_join()
+               s2=s1.succ
+               s3.s1.succ
+               joinlist=[l1.succ_con, l2.succ_con, s1.succ_con, s2.succ_con]
+               l+=[l2,l3]
+               s+=[s2,s3]
+               c1=crossing(s1,l1,s2,l2)
+               c2=crossing(s2,l3,s3,l2)
+               self.crossings+=[c1,c2]
+               for j in joinlist:
+                  self.joins.remove(j)
+               
+         else: #clockwise twists
+            for i in range(-h1.component.framing):
+               l1=l[-1]
+               s1=s[-1]
+               l1.add_join()
+               l1.add_join()
+               l2=l1.succ
+               l3=l1.succ.succ
+               s1.add_join()
+               s1.add_join()
+               s2=s1.succ
+               s3.s1.succ
+               joinlist=[l1.succ_con, l2.succ_con, s1.succ_con, s2.succ_con]
+               l+=[l2,l3]
+               s+=[s2,s3]
+               c1=crossing(l1,s2,l2,s1)
+               c2=crossing(s2,l3,s3,l2)
+               self.crossings+=[c1,c2]
+               for j in joinlist:
+                  self.joins.remove(j)
+
+      else:
+         if (h1.component.framing>0): #counterclockwise twists
+            for i in range(h1.component.framing):
+
+         else: #clockwise twists
+            for i in range(-h1.component.framing):
+
       self.connect_sum(h2,l[0])
+
+      
 
 ## change in blackboard framing?????????????????????????????????
 ##      if (sign):
