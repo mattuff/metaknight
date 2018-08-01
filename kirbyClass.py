@@ -669,6 +669,14 @@ class Kirby:
                self.crossings+=[c1,c2]
                for j in joinlist:
                   self.joins.remove(j)
+               l1.set_succ_con(c1)
+               l2.set_pred_con(c1)
+               l2.set_succ_con(c2)
+               l3.set_pred_con(c2)
+               s1.set_succ_con(c1)
+               s2.set_pred_con(c1)
+               s2.set_succ_con(c2)
+               s3.set_pred_con(c2)
                
          else: #clockwise twists
             for i in range(-h1.component.framing):
@@ -690,6 +698,14 @@ class Kirby:
                self.crossings+=[c1,c2]
                for j in joinlist:
                   self.joins.remove(j)
+               l1.set_succ_con(c1)
+               l2.set_pred_con(c1)
+               l2.set_succ_con(c2)
+               l3.set_pred_con(c2)
+               s1.set_succ_con(c1)
+               s2.set_pred_con(c1)
+               s2.set_succ_con(c2)
+               s3.set_pred_con(c2)
 
       else:
          if (h1.component.framing>0): #counterclockwise twists
@@ -697,6 +713,13 @@ class Kirby:
 
          else: #clockwise twists
             for i in range(-h1.component.framing):
+               l1=l[-1]
+               s1=l[-1]
+               l1.add_join()
+               l1.add_join()
+               l2=l1.succ
+               l3=l2.succ
+               
 
       self.connect_sum(h2,l[0])
 
