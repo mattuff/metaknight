@@ -20,32 +20,69 @@ class Kirby:
       self.strands=strands
 
                   
+##   def __str__(self):
+##   #prints PD
+##      s="<Crossings: {"
+##      if(len(self.crossings)>=2):
+##         for i in range(len(self.crossings)-1):
+##            s+=str(self.crossings[i])+","
+##      if(len(self.crossings)>=1):
+##         s+=str(self.crossings[-1])
+##      s+="}; Joins: {"
+##      if(len(self.joins)>=2):
+##         for i in range(len(self.joins)-1):
+##            s+=str(self.joins[i])+","
+##      if(len(self.joins)>=1):
+##         s+=str(self.joins[-1])
+##      s+="}>"##Components: {"
+####      for c in self.comp_list():
+####         s+="Handle:"+ str(c.handle)+","
+####         if c.handle==2:
+####            str+="Framing:"+str(c.framing)+","
+####         s+="Strands:["
+####         for st in self.strand_list(c):
+####            s+=str(st)+","
+####         s+="]"
+####         s+="}"
+####      s+=">"
+##      return(s)
+
    def __str__(self):
-   #prints PD
-      s="<Crossings: {"
+      l=[]
+      c=[]
+      for x in self.strands:
+         if(x.component not in c):
+            l.append(x)
+            c.append(x.component)
+      s="Components:\n"
+      n=1
+      for x in l:
+         n+=1
+         s+=" - ["+str(n)
+         x.name=n
+         y=x.succ
+         while(y!=x):
+            n+=1
+            s+=","+str(n)
+            y.name=n
+            y=y.succ
+         s+="] ("
+         if(x.component==2):
+            s+="2-handle;f="+str(x.component.framing)+")\n"
+         else:
+            s+=str(x.component.framing)+"-handle)\n"
+      s+="Crossings:\n"
       if(len(self.crossings)>=2):
          for i in range(len(self.crossings)-1):
             s+=str(self.crossings[i])+","
       if(len(self.crossings)>=1):
          s+=str(self.crossings[-1])
-      s+="}; Joins: {"
+      s+="\nJoins:\n"
       if(len(self.joins)>=2):
          for i in range(len(self.joins)-1):
             s+=str(self.joins[i])+","
       if(len(self.joins)>=1):
          s+=str(self.joins[-1])
-      s+="}>"##Components: {"
-##      for c in self.comp_list():
-##         s+="Handle:"+ str(c.handle)+","
-##         if c.handle==2:
-##            str+="Framing:"+str(c.framing)+","
-##         s+="Strands:["
-##         for st in self.strand_list(c):
-##            s+=str(st)+","
-##         s+="]"
-##         s+="}"
-##      s+=">"
-      return(s)
 
    def strand_lookup(self,strand):
    #returns list of crossings/joins that a specific strand shows up in
