@@ -229,6 +229,17 @@ class Kirby:
       y.set_pred_con(c)
       y.set_succ_con(c)
       z.set_pred_con(c)
+      
+   def remove_r1(self, x):  #x is the looped strand
+
+      c1 = x.succ.succ_con #crossing that we will redefine
+
+      for i in range(4):
+         if(c1[i].name == x.succ.name): c1[i].name = x.pred
+
+      x.pred.set_succ(x.succ.succ)
+      x.succ.succ.set_pred(x.pred)
+      self.crossings.remove(x.pred_con)
 
 
    def add_r2(self,s1,s2,o): #orientation is a boolean which is true if the strands are oriented the same way, and false otherwise
