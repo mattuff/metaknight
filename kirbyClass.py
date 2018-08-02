@@ -92,6 +92,13 @@ class Kirby:
          t=t.succ
       return l
 
+   def switch(self,c): #switches overcrossing strand
+      if(c[1]==c[3].pred):
+         f=lambda x:c.strands[(x+1)%4]
+      else:
+         f=lambda x:c.strands[(x-1)%4]
+      c.strands = list(map(f,range(4)))
+
    def rename(self,s,n): #s is named n, strand's name is predecessor's +1
       s.name=n
       t=s.succ
