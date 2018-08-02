@@ -258,7 +258,13 @@ class Kirby:
          s[i+1].pred_con=c
       
 
-   def remove_r1(self, x):  #x is the looped strand
+  def remove_r1(self, x):  #x is the looped strand
+
+      #framing
+      if(x.succ_con[3].component == x.name):
+         x.component.change_framing(x.component.framing - 1)  # subtracts 1 from framing
+      else:
+         x.component.change_framing(x.component.framing + 1)  # adds 1 to framing
 
       j1 = join(x.pred, x)
       j2 = join(x, x.succ)
@@ -269,10 +275,9 @@ class Kirby:
       x.set_succ_con(j2)
       x.set_pred_con(j1)
       x.succ.set_pred_con(j2)
-      
       self.joins.append(j1)
       self.joins.append(j2)
-      
+ 
 
    def add_r2(self,s1,s2,o): #orientation is a boolean which is true if the strands are oriented the same way, and false otherwise
       #s1 gets pulled under s2
