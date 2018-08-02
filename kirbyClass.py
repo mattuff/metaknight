@@ -258,7 +258,7 @@ class Kirby:
          s[i+1].pred_con=c
       
 
-  def remove_r1(self, x):  #x is the looped strand
+   def remove_r1(self, x):  #x is the looped strand
 
       #framing
 ##      if(x.succ_con[3].component == x.name):
@@ -816,6 +816,14 @@ class Kirby:
                
       self.connect_sum(h2,l[0])
       self.remove_joins()
+
+##      if (sign):
+##         #handle addition
+##         h2.component.framing=
+##
+##      else:
+##         #handle subtraction
+##         h2.component.framing=
 
       
 
