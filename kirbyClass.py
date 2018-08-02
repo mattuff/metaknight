@@ -237,29 +237,19 @@ class Kirby:
       
    def remove_r1(self, x):  #x is the looped strand
 
-##      c1 = x.succ.succ_con #crossing that we will redefine
-##
-##      for i in range(4):
-##         if(c1[i].name == x.succ.name): c1[i].name = x.pred
-##
-##      x.pred.set_succ(x.succ.succ)
-##      x.succ.succ.set_pred(x.pred)
-##      self.crossings.remove(x.pred_con)
-##      if ((x.succ_con[0]==x.succ_con[1] and x.succ_con[0]==x) or (x.succ_con[2]==x.succ_con[3] and x.succ_con[2]==x)):
-##         x.component.change_framing(x.component.framing+1)
-##      else:
-##         x.component.change_framing(x.component.framing-1)
+      j1 = join(x.pred, x)
+      j2 = join(x, x.succ)
 
-      if (x.succ_con[0]==x.succ_con[3]):
-         self.add_r1(x,1,True)
-      elif(x.succ_con[1]==x.succ_con[2]):
-         self.add_r1(x,1,False)
-      elif(x.succ_con[2]==x.succ_con[3]):
-         self.add_r1(x,0,True)
-      else:
-         self.add_r1(x,0,False)
-      self.remove_r2(x,x.succ.succ)
+      self.crossings.remove(x.succ_con)
 
+      x.pred.set_succ_con(j1)
+      x.set_succ_con(j2)
+      x.set_pred_con(j1)
+      x.succ.set_pred_con(j2)
+      
+      self.joins.append(j1)
+      self.joins.append(j2)
+      
 
    def add_r2(self,s1,s2,o): #orientation is a boolean which is true if the strands are oriented the same way, and false otherwise
       #s1 gets pulled under s2
