@@ -277,8 +277,7 @@ class Kirby:
       x.set_succ_con(j2)
       x.set_pred_con(j1)
       x.succ.set_pred_con(j2)
-      self.joins.append(j1)
-      self.joins.append(j2)
+      self.joins+=[j1,j2]
 
       if (((c[0]==c[1]) and c[0]==x.succ) or ((c[2]==c[3]) and c[2]==x.succ)):
          x.component.framing+=1
