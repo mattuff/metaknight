@@ -52,7 +52,7 @@ trefoil=Kirby([c1,c2,c3],[])
 
 #cancelling pair
 h1=component(1)
-h2=component(2,3)
+h2=component(2,0)
 f=strand(h1)
 g=strand(h1,f,f)
 f.set_pred(g)
@@ -68,6 +68,9 @@ f.set_succ_con(cx1)
 g.set_pred_con(cx1)
 g.set_succ_con(cx2)
 h.set_pred_con(cx1)
+h.set_succ_con(cx2)
+i.set_pred_con(cx2)
+i.set_succ_con(cx1)
 cnpair=Kirby([cx1,cx2],[])
 
 #unknot
