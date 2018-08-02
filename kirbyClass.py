@@ -726,6 +726,8 @@ class Kirby:
                c1=crossing(s1,l3,s2,l2)
                c2=crossing(s2,l1,s3,l2)
                self.crossings+=[c1,c2]
+               for j in joinlist:
+                  self.joins.remove(j)
                l1.set_succ_con(c2)
                l2.set_pred_con(c2)
                l2.set_succ_con(c1)
@@ -754,6 +756,8 @@ class Kirby:
                c1=crossing(l2,s1,l3,s2)
                c2=crossing(s2,l1,s3,l2)
                self.crossings+=[c1,c2]
+               for j in joinlist:
+                  self.joins.remove(j)
                l1.set_succ_con(c2)
                l2.set_pred_con(c2)
                l2.set_succ_con(c1)
