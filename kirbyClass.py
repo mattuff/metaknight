@@ -265,6 +265,8 @@ class Kirby:
 
       self.crossings.remove(x.succ_con)
 
+      c=x.succ_con
+
       x.pred.set_succ_con(j1)
       x.set_succ_con(j2)
       x.set_pred_con(j1)
@@ -272,7 +274,11 @@ class Kirby:
       
       self.joins.append(j1)
       self.joins.append(j2)
-      
+
+      if (((c[0]==c[1]) and c[0]==x.succ) or ((c[2]==c[3]) and c[2]==x.succ)):
+         x.component.framing+=1
+      else:
+         x.component.framing+=(-1)
 
    def add_r2(self,s1,s2,o): #orientation is a boolean which is true if the strands are oriented the same way, and false otherwise
       #s1 gets pulled under s2

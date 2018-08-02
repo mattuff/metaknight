@@ -7,7 +7,7 @@ from componentClass import *
 #fixed PD diagrams:
 
 #unknot w/ an R1:
-knot=component(2,1)
+knot=component(2,-1)
 y=strand(knot)
 z=strand(knot,y,y)
 y.set_pred(z)
@@ -136,3 +136,34 @@ trefoil_unknot=Kirby([c1,c2,c3],[j1])
 
 #disjoint unknot and cancelling pair
 unknot_cancelling_pair=Kirby([cx1,cx2],[jn1,jn2])
+
+#two disjoint trefoils
+trr=component(2,3)
+aa=strand(trr)
+bb=strand(trr,aa)
+cc=strand(trr,bb)
+dd=strand(trr,cc)
+ee=strand(trr,dd)
+ff=strand(trr,ee,aa)
+aa.set_pred(ff)
+aa.set_succ(bb)
+bb.set_succ(cc)
+cc.set_succ(dd)
+dd.set_succ(ee)
+ee.set_succ(ff)
+c4=crossing(aa,ee,bb,dd)
+c5=crossing(ee,cc,ff,bb)
+c6=crossing(cc,aa,dd,ff)
+aa.set_pred_con(c6)
+aa.set_succ_con(c4)
+bb.set_pred_con(c4)
+bb.set_succ_con(c5)
+cc.set_pred_con(c5)
+cc.set_succ_con(c6)
+dd.set_pred_con(c6)
+dd.set_succ_con(c4)
+ee.set_pred_con(c4)
+ee.set_succ_con(c5)
+ff.set_pred_con(c5)
+ff.set_succ_con(c6)
+two_trefoils=Kirby([c1,c2,c3,c4,c5,c6],[])
