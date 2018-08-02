@@ -400,13 +400,13 @@ class Kirby:
       c.set_succ(d)
       c1=crossing(a,c,b,d)
       c2=crossing(c,a,b,d)
-      self.crossings.append(c1)
-      self.crossings.append(c2)
+      self.crossings+=[c1,c2]
+      self.strands+=[a,b,c,d]
+      
 
    def handle_slide(self, h1, h2, sign): #h2 is being slid over h1; sign=True if same orientation
       #makes parallel copies of all strands in h1
       s=self.strand_list(h1) #list of strands in h1, in succ order
-      ls=len(s) #original # of strands in h1
       l=[]
       comp_crossings=self.comp_crossings(h1.component) #crossings with only strands in h1
       comp_intersections=self.comp_intersections(h1.component) #crossings w 2 strands in h1, and 2 in another strand
@@ -431,7 +431,6 @@ class Kirby:
 
       self.strands+=l
 
-      #look up index thing
       for j in self.comp_joins(h1.component): #duplicates joins
          a=s.index(j[0])
          if (sign):

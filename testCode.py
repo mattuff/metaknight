@@ -135,4 +135,4 @@ me=Kirby([md],[])
 trefoil_unknot=Kirby([c1,c2,c3],[j1])
 
 #disjoint unknot and cancelling pair
-unknot_cancelling_pair=Kirby([cx1,cx2],[j1])
+unknot_cancelling_pair=Kirby([cx1,cx2],[jn1,jn2])
