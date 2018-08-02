@@ -199,42 +199,62 @@ class Kirby:
          if(x[0]!=x[1]):
             self.remove_join(x)
 
-   def add_r1(self, x, sign,counterclockwise):
-   # strand=strand to twist, sign=clockwise or counterclockwise twist (True will add 1 to framing, False will subtract 1 from framing)
+#   def add_r1(self, x, sign,counterclockwise):
+#   # strand=strand to twist, sign=clockwise or counterclockwise twist (True will add 1 to framing, False will subtract 1 from framing)
+#
+#      f = x.component.framing
+#      w = x.succ
+#      y = strand(x.component, x)
+#      z = strand(x.component, y, w)
+#      z.set_succ_con = x.succ_con
+#      y.set_succ(z)
+#      w.set_pred(z)
+#      x.set_succ(y)
+#      s = x.succ_con
+#      s.strands[s.strands.index(x)] = z
+#
+#      # adds crossing
+#      if (sign):
+#         if counterclockwise:
+#            c = crossing(x, y, y, z)
+#         else:
+#            c = crossing(y, x, z, y)
+#         x.component.change_framing(f + 1)  # adds 1 to framing
+#      else:
+#         if counterclockwise:
+#            c = crossing(y, y, z, x)
+#         else:
+#            c = crossing(x, z, y, y)
+#         x.component.change_framing(f - 1)  # subtracts one from framing
+#      self.crossings.append(c)  # adds crossing to crossing list
+#
+#      # changes succ and pred crossings of strands involved
+#      z.succ_con = s
+#      x.set_succ_con(c)
+#      y.set_pred_con(c)
+#      y.set_succ_con(c)
+#      z.set_pred_con(c)
 
-      f = x.component.framing
-      w = x.succ
-      y = strand(x.component, x)
-      z = strand(x.component, y, w)
-      z.set_succ_con = x.succ_con
-      y.set_succ(z)
-      w.set_pred(z)
-      x.set_succ(y)
-      s = x.succ_con
-      s.strands[s.strands.index(x)] = z
-
-      # adds crossing
-      if (sign):
-         if counterclockwise:
-            c = crossing(x, y, y, z)
+   def add_r1(self, x, o, i):  # strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, 0 will subtract 1 from framing)
+      x.component.framing+=(-1)**(o!=i) #changes framing
+      self.add_join(x)
+      self.add_join(x)
+      s=[x,x.succ,x.succ.succ]
+      if(o): # computes crossing
+         if(i):
+            c=crossing(s[1],s[0],s[2],s[1])
          else:
-            c = crossing(y, x, z, y)
-         x.component.change_framing(f + 1)  # adds 1 to framing
+            c=crossing(s[1],s[1],s[0],s[2])
       else:
-         if counterclockwise:
-            c = crossing(y, y, z, x)
+         if(i):
+            c=crossing(s[1],s[1],s[2],s[0])
          else:
-            c = crossing(x, z, y, y)
-         x.component.change_framing(f - 1)  # subtracts one from framing
+            c=crossing(s[0],s[1],s[1],s[2])
       self.crossings.append(c)  # adds crossing to crossing list
+      for i in range(2): # changes succ and pred crossings of strands involved
+         s[i].succ_con=c
+         s[i+1].pred_con=c
 
-      # changes succ and pred crossings of strands involved
-      z.succ_con = s
-      x.set_succ_con(c)
-      y.set_pred_con(c)
-      y.set_succ_con(c)
-      z.set_pred_con(c)
-      
    def remove_r1(self, x):  #x is the looped strand
 
       j1 = join(x.pred, x)
