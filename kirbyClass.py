@@ -253,7 +253,7 @@ class Kirby:
          self.add_r1(x,0,True)
       else:
          self.add_r1(x,0,False)
-      self.remove_r2(x,x.succ.succ
+      self.remove_r2(x,x.succ.succ)
 
 
    def add_r2(self,s1,s2,o): #orientation is a boolean which is true if the strands are oriented the same way, and false otherwise
