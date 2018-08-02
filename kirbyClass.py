@@ -252,7 +252,7 @@ class Kirby:
       elif(x.succ_con[2]==x.succ_con[3]):
          self.add_r1(x,0,True)
       else:
-         self.add_r1(x,0,False))
+         self.add_r1(x,0,False)
       self.remove_r2(x,x.succ.succ
 
 
