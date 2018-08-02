@@ -238,7 +238,11 @@ class Kirby:
    def add_r1(self, x, o, i):  # strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, 0 will subtract 1 from framing)
       x.component.framing+=(-1)**(o!=i) #changes framing
       self.add_join(x)
+      j1=x.succ_con
       self.add_join(x)
+      j2=x.succ_con
+      self.joins.remove(j1)
+      self.joins.remove(j2)
       s=[x,x.succ,x.succ.succ]
       if(o): # computes crossing
          if(i):
@@ -254,6 +258,7 @@ class Kirby:
       for i in range(2): # changes succ and pred crossings of strands involved
          s[i].succ_con=c
          s[i+1].pred_con=c
+      
 
    def remove_r1(self, x):  #x is the looped strand
 
