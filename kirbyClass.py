@@ -198,11 +198,9 @@ class Kirby:
       for x in j:
          if(x[0]!=x[1]):
             self.remove_join(x)
-##      while(len(self.joins)):
-##         self.remove_join(self.joins[0])
 
-   def add_r1(self, x, sign,
-              counterclockwise):  # strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, 0 will subtract 1 from framing)
+   def add_r1(self, x, sign,counterclockwise):
+   # strand=strand to twist, sign=clockwise or counterclockwise twist (True will add 1 to framing, False will subtract 1 from framing)
 
       f = x.component.framing
       w = x.succ
@@ -216,7 +214,7 @@ class Kirby:
       s.strands[s.strands.index(x)] = z
 
       # adds crossing
-      if (sign % 2):
+      if (sign):
          if counterclockwise:
             c = crossing(x, y, y, z)
          else:
