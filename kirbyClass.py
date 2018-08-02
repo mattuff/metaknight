@@ -199,8 +199,8 @@ class Kirby:
 
       f = x.component.framing
       w = x.succ
-      y = strand(self.strand_name(), x.component, x)
-      z = strand(self.strand_name() + 1, x.component, y, w)
+      y = strand(x.component, x)
+      z = strand(x.component, y, w)
       z.set_succ_con = x.succ_con
       y.set_succ(z)
       w.set_pred(z)
