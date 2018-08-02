@@ -238,11 +238,9 @@ class Kirby:
    def add_r1(self, x, o, i):  # strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, 0 will subtract 1 from framing)
       x.component.framing+=(-1)**(o!=i) #changes framing
       self.add_join(x)
-      j1=x.succ_con
       self.add_join(x)
-      j2=x.succ_con
-      self.joins.remove(j1)
-      self.joins.remove(j2)
+      for j in [x.succ_con,x.succ.succ_con]:
+         self.joins.remove(j)
       s=[x,x.succ,x.succ.succ]
       if(o): # computes crossing
          if(i):
