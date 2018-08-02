@@ -239,8 +239,8 @@ class Kirby:
       x.component.framing+=(-1)**(o!=i) #changes framing
       self.add_join(x)
       self.add_join(x)
-      for j in [x.succ_con,x.succ.succ_con]:
-         self.joins.remove(j)
+      self.joins.remove(x.succ_con)
+      self.joins.remove(x.succ.succ_con)
       s=[x,x.succ,x.succ.succ]
       if(o): # computes crossing
          if(i):
