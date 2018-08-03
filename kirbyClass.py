@@ -165,6 +165,17 @@ class Kirby:
             w+=(1) #write hand turn
       return w
 
+   def linking_number(self,h1,h2):
+      l=0
+      for c in list(set(self.comp_intersections(h1) and self.comp_intersections(h2))):
+         if (c[0].component==h1):
+            if (c[1].succ==c[3]):
+               l+=(-1)
+            else:
+               l+=1
+      return l
+         
+
    def add_join(self, s0): #s0 is strand to be split, s0 will be the predecessor of the new s1
       c0=s0.pred_con
       c1=s0.succ_con
@@ -447,7 +458,7 @@ class Kirby:
 
       sf1=self.writhe(h1.component)+h1.component.framing #seifert framing of first handle
       sf2=self.writhe(h2.component)+h2.component.framing #seifert framing of second handle
-      lk=len(list(set(comp_intersections and self.comp_intersections(h2.component))))/2 #linking number --> sign????
+      lk=self.linking_number(h1.component,h2.component)
 
       #can considate, use ternary operator?
       for k in range (len(s)): #sets up parallel copy of h1
