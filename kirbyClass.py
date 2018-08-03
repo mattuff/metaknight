@@ -220,7 +220,7 @@ class Kirby:
          if(x[0]!=x[1]):
             self.remove_join(x)
 
-   def add_r1(self, x, o, i):  # strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, 0 will subtract 1 from framing)
+   def add_r1(self, x, o, i):  # strand=strand to twist, o determines orientation of twist (T=ccw,F=cw), i =T if incoming strand is over, =F if under
       x.component.framing+=(-1)**(o!=i) #changes framing
       self.add_join(x)
       self.add_join(x)
