@@ -154,6 +154,17 @@ class Kirby:
          s[i].succ=s[not i].succ
          s[i].succ.pred=s[i]
 
+   def writhe(self,comp):
+      w=0
+      for c in self.comp_crossings(comp):
+         b=c[1]
+         d=c[3]
+         if (b.succ==d):
+            w+=(-1) #left hand turn
+         else:
+            w+=(1) #write hand turn
+      return w
+
    def add_join(self, s0): #s0 is strand to be split, s0 will be the predecessor of the new s1
       c0=s0.pred_con
       c1=s0.succ_con
@@ -239,8 +250,8 @@ class Kirby:
       x.component.framing+=(-1)**(o!=i) #changes framing
       self.add_join(x)
       self.add_join(x)
-      self.joins.remove(x.succ_con)
-      self.joins.remove(x.succ.succ_con)
+      for j in [x.succ_con,x.succ.succ_con]:
+         self.joins.remove(j)
       s=[x,x.succ,x.succ.succ]
       if(o): # computes crossing
          if(i):
@@ -433,6 +444,10 @@ class Kirby:
       l=[]
       comp_crossings=self.comp_crossings(h1.component) #crossings with only strands in h1
       comp_intersections=self.comp_intersections(h1.component) #crossings w 2 strands in h1, and 2 in another strand
+
+      sf1=self.writhe(h1.component)+h1.component.framing #seifert framing of first handle
+      sf2=self.writhe(h2.component)+h2.component.framing #seifert framing of second handle
+      lk=len(list(set(comp_intersections and self.comp_intersections(h2.component))))/2 #linking number --> sign????
 
       #can considate, use ternary operator?
       for k in range (len(s)): #sets up parallel copy of h1
@@ -817,13 +832,16 @@ class Kirby:
       self.connect_sum(h2,l[0])
       self.remove_joins()
 
-##      if (sign):
-##         #handle addition
-##         h2.component.framing=
-##
-##      else:
-##         #handle subtraction
-##         h2.component.framing=
+      if (sign):
+         #handle addition
+         f=sf1+sf2+lk
+
+      else:
+         #handle subtraction
+         f=sf1+sf2-lk
+
+      #taking back to blackbaord
+      h2.component.framing=int(self.writhe(h2.component)+f)
 
       
 
@@ -837,4 +855,16 @@ class Kirby:
       #framing: for h1 framing n; add n counterclockwise twists of h2 about h1 (canonical framing)
       #compute differnce between blackboard and canonical framings
       #apply framing formula from pg 142
+
+      #claim: sf(K)-bb(K)=-writhe(K)
+      #def: let K be an oriented knot diagram. the writhe of K, writhe(K) is defined as so:
+      #writhe(K)=sum over crossings c of k of sign of crossing, where sign of crossing is defined as:
+      #1 if incoming undercrossing makes right hand crossing
+      #-1 if incoming undercrossing makes left hand crossing
+
+      #outline of proof:
+      #assume \Sigma is an oriented seifert surface (from seifert's algorithm)
+      #examine the crossings: left handed and right handed
+      #seifert framing defined by pushing off in direction of seifert surface (orientation of pushoff will match orientation of knot)
+      
 
