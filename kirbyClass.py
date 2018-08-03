@@ -423,8 +423,8 @@ class Kirby:
       comp_crossings=self.comp_crossings(h1.component) #crossings with only strands in h1
       comp_intersections=self.comp_intersections(h1.component) #crossings w 2 strands in h1, and 2 in another strand
 
-      sf1=self.writhe(h1.component)+h1.component.framing #seifert framing of first handle
-      sf2=self.writhe(h2.component)+h2.component.framing #seifert framing of second handle
+      sf1=self.writhe(h1.component)-h1.component.framing #seifert framing of first handle
+      sf2=self.writhe(h2.component)-h2.component.framing #seifert framing of second handle
       lk=self.linking_number(h1.component,h2.component) #linking number of two handles
 
       #can considate, use ternary operator?
