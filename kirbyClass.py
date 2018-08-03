@@ -154,16 +154,8 @@ class Kirby:
          s[i].succ=s[not i].succ
          s[i].succ.pred=s[i]
 
-   def writhe(self,comp):
-      w=0
-      for c in self.comp_crossings(comp):
-         b=c[1]
-         d=c[3]
-         if (b.succ==d):
-            w+=(-1) #left hand turn
-         else:
-            w+=(1) #write hand turn
-      return w
+   def writhe(self,c):
+      return(sum(list(map(lambda x:(-1)**(x[1]==x[3].pred),self.comp_crossings(c)))))
 
    def linking_number(self,h1,h2):
       l=0
@@ -220,8 +212,8 @@ class Kirby:
          if(x[0]!=x[1]):
             self.remove_join(x)
 
-   def add_r1(self, x, o, i):  # strand=strand to twist, o determines orientation of twist (T=ccw,F=cw), i =T if incoming strand is over, =F if under
-      x.component.framing+=(-1)**(o!=i) #changes framing
+   def add_r1(self, x, o, i):  # x=strand to twist, o determines orientation of twist (T=ccw,F=cw), i =T if incoming strand is over, =F if under
+      x.component.framing+=(-1)**(o==i) #changes framing
       self.add_join(x)
       self.add_join(x)
       for j in [x.succ_con,x.succ.succ_con]:
