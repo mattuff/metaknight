@@ -594,46 +594,61 @@ class Kirby:
             aa=l[s.index(a)]
             cc=l[s.index(c)]
             f=strand(b.component)
-            if (b.succ==d):
-               f.set_pred(b)
-               f.set_succ(d)
-               if (sign):
-                  c2=crossing(aa,b,cc,f)
-                  aa.set_succ_con(c2)
-                  cc.set_pred_con(c2)    
-               else:
-                  c2=crossing(cc,f,aa,b)
-                  aa.set_pred_con(c2)
-                  cc.set_succ_con(c2)  
-               c1=crossing(a,f,c,d)   
-               a.set_succ_con(c1)
-               c.set_pred_con(c1)   
-               b.set_succ_con(c2)
-               f.set_pred_con(c2)
-               f.set_succ_con(c1)
-               d.set_pred_con(c1)
-               
-            else:
-               f.set_succ(b)
-               f.set_pred(d)
-               if (sign):
-                  c2=crossing(aa,b,cc,f)
-                  aa.set_succ_con(c2)
-                  cc.set_pred_con(c2) 
-               else:
-                  c2=crossing(cc,f,aa,b)
-                  aa.set_pred_con(c2)
-                  cc.set_succ_con(c2)
-               c1=crossing(a,f,c,d)   
-               a.set_succ_con(c1)
-               c.set_pred_con(c1)   
-               b.set_pred_con(c2)
-               f.set_succ_con(c2)
-               f.set_pred_con(c1)
-               d.set_succ_con(c1)
-
             self.strands+=[f]
-               
+            if (b.succ==d):
+               if (sign):
+                  f.set_pred(b)
+                  f.set_succ(d)
+                  c1=crossing(a,f,c,d)
+                  c2=crossing(aa,b,cc,f)
+                  a.set_succ_con(c1)
+                  c.set_pred_con(c1)
+                  aa.set_succ_con(c2)
+                  cc.set_pred_con(c2)
+                  b.set_succ_con(c2)
+                  f.set_pred_con(c2)
+                  f.set_succ_con(c1)
+                  d.set_pred_con(c1)
+               else:
+                  f.set_pred(b)
+                  f.set_succ(d)
+                  c1=crossing(a,f,c,d)
+                  c2=crossing(cc,f,aa,b)
+                  a.set_succ_con(c1)
+                  c.set_pred_con(c1)
+                  cc.set_succ_con(c2)
+                  aa.set_pred_con(c2)
+                  b.set_succ_con(c2)
+                  f.set_pred_con(c2)
+                  f.set_succ_con(c1)
+                  d.set_pred_con(c1)
+            else:
+               if (sign):
+                  f.set_pred(d)
+                  f.set_succ(b)
+                  c1=crossing(a,f,c,d)
+                  c2=crossing(aa,b,cc,f)
+                  a.set_succ_con(c1)
+                  c.set_pred_con(c1)
+                  aa.set_succ_con(c2)
+                  cc.set_pred_con(c2)
+                  d.set_succ_con(c1)
+                  f.set_pred_con(c1)
+                  f.set_succ_con(c2)
+                  b.set_pred_con(c2)
+               else:
+                  f.set_pred(d)
+                  f.set_succ(b)
+                  c1=crossing(a,f,c,d)
+                  c2=crossing(cc,f,aa,b)
+                  a.set_succ_con(c1)
+                  c.set_pred_con(c1)
+                  cc.set_succ_con(c2)
+                  aa.set_pred_con(c2)
+                  d.set_succ_con(c1)
+                  f.set_pred_con(c1)
+                  f.set_succ_con(c2)
+                  b.set_pred_con(c2)
          else:
             a=cx[0]
             b=cx[1]
@@ -642,39 +657,55 @@ class Kirby:
             bb=l[s.index(b)]
             dd=l[s.index(d)]
             e=strand(a.component,a,c)
-            if (b.succ==d):
-               c1=crossing(a,b,e,d)
-               c2=crossing(e,bb,c,dd)
-               a.set_succ_con(c1)
-               e.set_pred_con(c1)
-               e.set_succ_con(c2)
-               c.set_pred_con(c2)
-               b.set_succ_con(c1)
-               d.set_pred_con(c1)
-               if (sign):
-                  bb.set_succ_con(c2)
-                  dd.set_pred_con(c2)
-               else:
-                  bb.set_pred_con(c2)
-                  dd.set_succ_con(c2)
-            else:
-               c1=crossing(a,bb,e,dd)
-               c2=crossing(e,b,c,d)
-               a.set_succ_con(c1)
-               e.set_pred_con(c1)
-               e.set_succ_con(c2)
-               c.set_succ_con(c2)
-               b.set_pred_con(c2)
-               d.set_succ_con(c2)
-               if (sign):
-                  bb.set_pred_con(c1)
-                  dd.set_succ_con(c1)
-               else:
-                  bb.set_succ_con(c2)
-                  dd.set_pred_con(c2)
-
+            a.set_succ(e)
+            c.set_pred(e)
             self.strands+=[e]
-               
+            if (b.succ==d):
+               if (sign):
+                  c1=crossing(a,b,e,d)
+                  c2=crossing(e,bb,c,dd)
+                  a.set_succ_con(c1)
+                  e.set_pred_con(c1)
+                  e.set_succ_con(c2)
+                  c.set_pred_con(c2)
+                  b.set_succ_con(c1)
+                  d.set_pred_con(c1)
+                  bb.set_succ_con(c2)
+                  dd.set_pred_con(c2)
+               else:
+                  c1=crossing(a,b,e,d)
+                  c2=crossing(e,bb,c,dd)
+                  a.set_succ_con(c1)
+                  e.set_pred_con(c1)
+                  e.set_succ_con(c2)
+                  c.set_pred_con(c2)
+                  b.set_succ_con(c1)
+                  d.set_pred_con(c1)
+                  dd.set_succ_con(c2)
+                  bb.set_pred_con(c2)
+            else:
+               if (sign):
+                  c1=crossing(a,bb,e,dd)
+                  c2=crossing(e,b,c,d)
+                  a.set_succ_con(c1)
+                  e.set_pred_con(c1)
+                  e.set_succ_con(c2)
+                  c.set_pred_con(c2)
+                  d.set_succ_con(c2)
+                  b.set_pred_con(c2)
+                  dd.set_succ_con(c1)
+                  bb.set_pred_con(c1)
+               else:
+                  c1=crossing(a,bb,e,dd)
+                  c2=crossing(e,b,c,d)
+                  a.set_succ_con(c1)
+                  e.set_pred_con(c1)
+                  e.set_succ_con(c2)
+                  c.set_pred_con(c2)
+                  d.set_succ_con(c2)
+                  b.set_pred_con(c2)
+                  bb.set_succ_con(c1)
+                  dd.set_pred_con(c1)             
          self.crossings+=[c1,c2]
 
 
