@@ -174,7 +174,6 @@ class Kirby:
             else:
                l+=1
       return l
-         
 
    def add_join(self, s0): #s0 is strand to be split, s0 will be the predecessor of the new s1
       c0=s0.pred_con
@@ -811,29 +810,3 @@ class Kirby:
 
       #taking back to blackbaord
       h2.component.framing=int(self.writhe(h2.component)+f)
-
-      
-
-## change in blackboard framing?????????????????????????????????
-##      if (sign):
-##         h2.component.framing+=h1.component.framing
-##      else:
-##         h2.component.framing+=(-h1.component.framing)
-
-      
-      #framing: for h1 framing n; add n counterclockwise twists of h2 about h1 (canonical framing)
-      #compute differnce between blackboard and canonical framings
-      #apply framing formula from pg 142
-
-      #claim: sf(K)-bb(K)=-writhe(K)
-      #def: let K be an oriented knot diagram. the writhe of K, writhe(K) is defined as so:
-      #writhe(K)=sum over crossings c of k of sign of crossing, where sign of crossing is defined as:
-      #1 if incoming undercrossing makes right hand crossing
-      #-1 if incoming undercrossing makes left hand crossing
-
-      #outline of proof:
-      #assume \Sigma is an oriented seifert surface (from seifert's algorithm)
-      #examine the crossings: left handed and right handed
-      #seifert framing defined by pushing off in direction of seifert surface (orientation of pushoff will match orientation of knot)
-      
-
