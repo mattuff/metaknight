@@ -223,7 +223,7 @@ class Kirby:
          if(i):
             c=crossing(s[1],s[0],s[2],s[1])
          else:
-            c=crossing(s[1],s[1],s[0],s[2])
+            c=crossing(s[0],s[2],s[1],s[1])
       else:
          if(i):
             c=crossing(s[1],s[1],s[2],s[0])
