@@ -221,42 +221,6 @@ class Kirby:
          if(x[0]!=x[1]):
             self.remove_join(x)
 
-#   def add_r1(self, x, sign,counterclockwise):
-#   # strand=strand to twist, sign=clockwise or counterclockwise twist (True will add 1 to framing, False will subtract 1 from framing)
-#
-#      f = x.component.framing
-#      w = x.succ
-#      y = strand(x.component, x)
-#      z = strand(x.component, y, w)
-#      z.set_succ_con = x.succ_con
-#      y.set_succ(z)
-#      w.set_pred(z)
-#      x.set_succ(y)
-#      s = x.succ_con
-#      s.strands[s.strands.index(x)] = z
-#
-#      # adds crossing
-#      if (sign):
-#         if counterclockwise:
-#            c = crossing(x, y, y, z)
-#         else:
-#            c = crossing(y, x, z, y)
-#         x.component.change_framing(f + 1)  # adds 1 to framing
-#      else:
-#         if counterclockwise:
-#            c = crossing(y, y, z, x)
-#         else:
-#            c = crossing(x, z, y, y)
-#         x.component.change_framing(f - 1)  # subtracts one from framing
-#      self.crossings.append(c)  # adds crossing to crossing list
-#
-#      # changes succ and pred crossings of strands involved
-#      z.succ_con = s
-#      x.set_succ_con(c)
-#      y.set_pred_con(c)
-#      y.set_succ_con(c)
-#      z.set_pred_con(c)
-
    def add_r1(self, x, o, i):  # strand=strand to twist, sign=clockwise or counterclockwise twist (1 will add 1 to framing, 0 will subtract 1 from framing)
       x.component.framing+=(-1)**(o!=i) #changes framing
       self.add_join(x)
@@ -281,12 +245,6 @@ class Kirby:
       
 
    def remove_r1(self, x):  #x is the looped strand
-
-      #framing
-##      if(x.succ_con[3].component == x.name):
-##         x.component.change_framing(x.component.framing - 1)  # subtracts 1 from framing
-##      else:
-##         x.component.change_framing(x.component.framing + 1)  # adds 1 to framing
 
       j1 = join(x.pred, x)
       j2 = join(x, x.succ)
@@ -458,7 +416,7 @@ class Kirby:
 
       sf1=self.writhe(h1.component)+h1.component.framing #seifert framing of first handle
       sf2=self.writhe(h2.component)+h2.component.framing #seifert framing of second handle
-      lk=self.linking_number(h1.component,h2.component)
+      lk=self.linking_number(h1.component,h2.component) #linking number of two handles
 
       #can considate, use ternary operator?
       for k in range (len(s)): #sets up parallel copy of h1
