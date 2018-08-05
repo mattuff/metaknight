@@ -734,8 +734,8 @@ class Kirby:
                s3.set_pred_con(c2)
 
       else:
-         if (h1.component.framing>0): #counterclockwise twists
-            for i in range(h1.component.framing):
+         if (h1.component.framing<0): #counterclockwise twists
+            for i in range(-h1.component.framing):
                l1=l[-1]
                s1=s[-1]
                self.add_join(l1)
@@ -765,7 +765,7 @@ class Kirby:
                s3.set_succ_con(c2)
 
          else: #clockwise twists
-            for i in range(-h1.component.framing):
+            for i in range(h1.component.framing):
                l1=l[-1]
                s1=s[-1]
                self.add_join(l1)
