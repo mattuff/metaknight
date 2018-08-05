@@ -380,21 +380,32 @@ class Kirby:
             self.joins.remove(h1.succ_con)
             self.strands.remove(h1)    
             
-   def handle_creation(self, f): #f=framing for 2-handle to have
-      h1=component(1)
-      h2=component(2,f)
-      a=strand(h1)
-      b=strand(h1, a,a)
-      a.set_pred(b)
-      a.set_succ(b)
-      c=strand(h2)
-      d=strand(h2,c,c)
-      c.set_pred(d)
-      c.set_succ(d)
-      c1=crossing(a,c,b,d)
-      c2=crossing(c,a,b,d)
-      self.crossings+=[c1,c2]
-      self.strands+=[a,b,c,d]
+   def handle_creation(self, f=None): #f=framing for 2-handle to have
+      if (f!=None):
+         h1=component(1)
+         h2=component(2,f)
+         a=strand(h1)
+         b=strand(h1, a,a)
+         a.set_pred(b)
+         a.set_succ(b)
+         c=strand(h2)
+         d=strand(h2,c,c)
+         c.set_pred(d)
+         c.set_succ(d)
+         c1=crossing(a,c,b,d)
+         c2=crossing(c,a,b,d)
+         self.crossings+=[c1,c2]
+         self.strands+=[a,b,c,d]
+      else:
+         h1=component(2,0)
+         a=strand(h1)
+         a.set_pred(a)
+         a.set_succ(a)
+         j=join(a,a)
+         a.set_succ_con(j)
+         a.set_pred_con(j)
+         self.joins.append(j)
+         self.strands.append(a)
       
 
    def handle_slide(self, h1, h2, sign): #h2 is being slid over h1; sign=True if same orientation
