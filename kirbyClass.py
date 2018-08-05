@@ -363,11 +363,11 @@ class Kirby:
                c2.set_strands(strandUnder, strandMiddle.succ.succ, strandUnder.succ, strandMiddle.succ)
          
 
-   def handle_annihilation(self,h1,h2=None):
+   def handle_annihilation(self,h1,h2=None): #h1,h2 strands
       self.remove_joins()
       #checks to make sure each handle only has 2 strands (all joins must be removed)
       if (len(self.strand_list(h1))==2 and len(self.strand_list(h2))==2): #checks that each handle only has two strands   
-         if (len(list(set(self.strand_lookup(self.strand_list(h1)[0]))&set(self.strand_lookup(self.strand_list(h2)[0]))))==2):
+         if (len(list(set(self.strand_lookup(h1))&set(self.strand_lookup(h2))))==2):
             for i in self.strand_list(h1):
                self.strands.remove(i)
             for j in self.strand_list(h2):
@@ -377,8 +377,8 @@ class Kirby:
       #cancels out an unknot w framing=0
       if (len(self.strand_list(h1))==1):
          if (h1.component.framing==0):
-            self.joins.remove(self.strand_list(h1)[0].succ_con)
-            self.strands.remove(self.strand_list(h1)[0])    
+            self.joins.remove(h1.succ_con)
+            self.strands.remove(h1)    
             
    def handle_creation(self, f): #f=framing for 2-handle to have
       h1=component(1)
