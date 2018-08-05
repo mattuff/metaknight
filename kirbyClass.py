@@ -297,16 +297,16 @@ class Kirby:
       #print('cross1: ' + str(cross1))
       c2 = strandUnder.succ_con
       #print('cross2: ' + str(cross2))
-      if(strandMiddle.pred_con != c1 and strandMiddle.pred_con != c2): c3 = strandMiddle.pred_con
+      if((strandMiddle.pred_con != c1) and (strandMiddle.pred_con != c2)): c3 = strandMiddle.pred_con
       else: c3 = strandMiddle.succ_con
 
 
       #orientation of strandMiddle
-      if (strandMiddle.pred not in c1 and strandMiddle.pred not in c2):
+      if ((strandMiddle.pred not in c1) and (strandMiddle.pred not in c2)):
          self.add_join(strandMiddle.pred)
 
          #orientation of strandOver
-         if (strandOver.pred not in c1 and strandOver.pred not in c2):
+         if ((strandOver.pred not in c1) and (strandOver.pred not in c2)):
             self.add_join(strandOver.pred)
 
             #orientation of strandUnder
@@ -319,7 +319,7 @@ class Kirby:
                c2.set_strands(strandUnder, strandMiddle.pred.pred, strandUnder.succ, strandMiddle.pred)
 
          #orientation of strandOver
-         elif (strandOver.succ not in cross1 and strandOver.succ not in c2):
+         elif ((strandOver.succ not in cross1) and (strandOver.succ not in c2)):
             self.add_join(strandOver.succ)
 
             #orientation of strandUnder
@@ -332,11 +332,11 @@ class Kirby:
                c2.set_strands(strandUnder, strandMiddle.pred.pred, strandUnder.succ, strandMiddle.pred)
 
       #orientation of strandMiddle
-      elif (strandMiddle.succ not in c1 and strandMiddle.succ not in c2):
+      elif ((strandMiddle.succ not in c1) and (strandMiddle.succ not in c2)):
          self.add_join(strandMiddle.succ)
 
          #orientation of strandOver
-         if (strandOver.pred not in c1 and strandOver.pred not in c2):
+         if ((strandOver.pred not in c1) and (strandOver.pred not in c2)):
             print('strandOver.pred not in cross1 and strandOver.pred not in cross2, adding join')
             self.add_join(strandOver.pred)
 
