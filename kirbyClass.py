@@ -236,14 +236,10 @@ class Kirby:
       
 
    def remove_r1(self, x):  #x is the looped strand
-
       j1 = join(x.pred, x)
       j2 = join(x, x.succ)
-
       self.crossings.remove(x.succ_con)
-
       c=x.succ_con
-
       x.pred.set_succ_con(j1)
       x.set_succ_con(j2)
       x.set_pred_con(j1)
@@ -256,17 +252,11 @@ class Kirby:
          x.component.framing+=(1)
 
    def add_r2(self,s1,s2,o): #orientation is a boolean which is true if the strands are oriented the same way, and false otherwise
-      #s1 gets pulled under s2
-      #find all places you can do r2?
-      #add two joins to each strand
-      #add two crossings
-      #remove joins
       self.add_join(s1)
       self.add_join(s1)
       self.add_join(s2)
       self.add_join(s2)
       l=[s1.succ_con,s1.succ.succ_con,s2.succ_con,s2.succ.succ_con]
-
       if(o):
          c1=crossing(s1,s2.succ,s1.succ,s2)
          c2=crossing(s1.succ,s2.succ,s1.succ.succ,s2.succ.succ)
@@ -391,7 +381,6 @@ class Kirby:
             self.strands.remove(self.strand_list(h1)[0])    
             
    def handle_creation(self, f): #f=framing for 2-handle to have
-   #THIS CODE WORKS!!!!!! :) :) :) :)
       h1=component(1)
       h2=component(2,f)
       a=strand(h1)
