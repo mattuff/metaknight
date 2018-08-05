@@ -376,7 +376,7 @@ class Kirby:
             self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0]) #deletes second crossing
       #cancels out an unknot w framing=0
       if (len(self.strand_list(h1))==1):
-         if (h1.framing==0):
+         if (h1.component.framing==0):
             self.joins.remove(self.strand_list(h1)[0].succ_con)
             self.strands.remove(self.strand_list(h1)[0])    
             
