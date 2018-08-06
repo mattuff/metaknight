@@ -388,6 +388,8 @@ class Kirby:
       if (f!=None):
          h1=component(1)
          h2=component(2,f)
+         h1.kirby=self
+         h2.kirby=self
          a=strand(h1)
          b=strand(h1, a,a)
          a.set_pred(b)
@@ -403,6 +405,7 @@ class Kirby:
          self.components+=[h1,h2]
       else:
          h1=component(2,0)
+         h1.kirby=self
          a=strand(h1)
          a.set_pred(a)
          a.set_succ(a)
