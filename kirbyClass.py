@@ -481,10 +481,10 @@ class Kirby:
             cc.set_pred_con(c3)
 
             if (var):
-               b.set_succ_con(c2)
-               f.set_pred_con(c2)
                f.set_succ_con(c1)
                d.set_pred_con(c1)
+               b.set_succ_con(c2)
+               f.set_pred_con(c2)
 
                bb.set_succ_con(c3)
                ff.set_pred_con(c3)
@@ -492,15 +492,15 @@ class Kirby:
                dd.set_pred_con(c4)
       
             else:
-               d.set_succ_con(c4)
-               f.set_pred_con(c4)
-               f.set_succ_con(c3)
-               b.set_pred_con(c3)
-
                dd.set_succ_con(c1)
                ff.set_pred_con(c1)
                ff.set_succ_con(c2)
                bb.set_pred_con(c2)
+               
+               f.set_succ_con(c3)
+               b.set_pred_con(c3)
+               d.set_succ_con(c4)
+               f.set_pred_con(c4)
             
          else:
             cc.set_succ_con(c3)
@@ -531,17 +531,17 @@ class Kirby:
             cc=l[s.index(c)]
             f=strand(b.component)
             self.strands+=[f]
+            c1=crossing(a,f,c,d)
+            a.set_succ_con(c1)
+            c.set_pred_con(c1)
             if (b.succ==d):
                f.set_pred(b)
                f.set_succ(d)
-               c1=crossing(a,f,c,d)
                f1 = lambda x : b if x else f
                f2 = lambda x : aa if x else cc
                c2=crossing(f2(sign),f1(sign),f2(not sign),f1(not sign))
                f2(sign).set_succ_con(c2)
                f2(not sign).set_pred_con(c2)
-               a.set_succ_con(c1)
-               c.set_pred_con(c1)
                b.set_succ_con(c2)
                f.set_pred_con(c2)
                f.set_succ_con(c1)
@@ -549,14 +549,11 @@ class Kirby:
             else:
                f.set_pred(d)
                f.set_succ(b)
-               c1=crossing(a,f,c,d)
                f1 = lambda x : aa if x else cc
                f2 = lambda x : b if x else f
                c2=crossing(f1(sign),f2(sign),f1(not sign),f2(not sign))
                f1(sign).set_succ_con(c2)
                f1(not sign).set_pred_con(c2)
-               a.set_succ_con(c1)
-               c.set_pred_con(c1)
                d.set_succ_con(c1)
                f.set_pred_con(c1)
                f.set_succ_con(c2)
