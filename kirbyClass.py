@@ -67,25 +67,14 @@ class Kirby:
    def __getitem__(self,key):
       return(self.comp_list()[key])
 
-   def strand_lookup(self,strand):
-   #returns list of crossings/joins that a specific strand shows up in
-      l=[]
-      for c in self.crossings:
-         if(strand in c):
-            l.append(c)
-      for j in self.joins:
-         if(strand in j):
-            l.append(j)
-      return l
-
-   def comp_list(self):
+   def comp_list(self): #returns list of components
       l=[]
       for x in self.strands:
          if(x.component not in l):
             l.append(x.component)
       return(l)
 
-   def strand_list(self, s): #returns an ordered list of strands given a component
+   def strand_list(self, s): #returns an ordered list of strands in a component given a starting strand
       l=[s]
       t=s.succ
       while(t!=s):
@@ -93,7 +82,7 @@ class Kirby:
          t=t.succ
       return l
 
-   def switch(self,c): #switches overcrossing strand
+   def switch(self,c): #switches overcrossing strand given a component
       if(c[1]==c[3].pred):
          f=lambda x:c.strands[(x+1)%4]
       else:
@@ -109,7 +98,7 @@ class Kirby:
          t=t.succ
       return(n)
 
-   def rename_all(self):
+   def rename_all(self): #renames every strand
       l=[]
       n=1
       for s in self.strands:
@@ -140,7 +129,7 @@ class Kirby:
             l.append(c)
       return l
 
-   def connect_sum(self,s0,s1):
+   def connect_sum(self,s0,s1): #connect sums two components given a strand from each
       s=[s0,s1]
       j=[]
       for i in range(2):
@@ -155,10 +144,10 @@ class Kirby:
          s[i].succ=s[not i].succ
          s[i].succ.pred=s[i]
 
-   def writhe(self,c):
+   def writhe(self,c): #given a component, returns writhe
       return(sum(list(map(lambda x:(-1)**(x[1]==x[3].pred),self.comp_crossings(c)))))
 
-   def linking_number(self,h1,h2):
+   def linking_number(self,h1,h2): #given two components, returns linking number
       l=0
       for c in list(set(self.comp_intersections(h1) and self.comp_intersections(h2))):
          if (c[0].component==h1):
