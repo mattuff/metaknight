@@ -61,6 +61,9 @@ class Kirby:
       if(len(self.joins)>=1):
          s+=str(self.joins[-1])
       return(s)
+   
+   def __getitem__(self,key):
+      return(self.comp_list()[key])
 
    def strand_lookup(self,strand):
    #returns list of crossings/joins that a specific strand shows up in
