@@ -19,6 +19,8 @@ class Kirby:
                strands.append(j[i])
       self.strands=strands
       self.components=self.comp_list() #makes list of components
+      for c in self.components:
+         c.kirby=self
 
    def __str__(self): #prints planar diagram
       l=[]
