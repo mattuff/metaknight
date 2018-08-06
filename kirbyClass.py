@@ -277,7 +277,8 @@ class Kirby:
       for x in c:
          self.crossings.remove(x)
 
-     def add_r3(self, strandUnder, strandMiddle, strandOver):
+
+   def add_r3(self, strandUnder, strandMiddle, strandOver):
       # strandUnder is the strand that goes under strandMiddle and strandOver, which we are going to move
       # strandMiddle goes over strandUnder and under strandOver
       # strandOver goes over strandUnder and strandMiddle
@@ -286,23 +287,34 @@ class Kirby:
       c1 = strandUnder.pred_con
       c2 = strandUnder.succ_con
 
-      if(strandMiddle.pred_con != c1 and strandMiddle.pred_con != c2): c3 = strandMiddle.pred_con
-      else: c3 = strandMiddle.succ_con
+      if(strandMiddle.pred_con != c1 and strandMiddle.pred_con != c2):
+         c3 = strandMiddle.pred_con
+      else:
+         c3 = strandMiddle.succ_con
 
       strandOrient = lambda s: s.pred if (s.pred in c3) else s.succ
 
-      
       self.add_join(strandOrient(strandMiddle))
       self.add_join(strandOrient(strandOver))
-      
-      
 
-      c1.set_strands(strandUnder.pred, ..., strandUnder, ...)
-      c2.set_strands(strandUnder, ..., strandUnder.succ, ...)
+      crTest = lambda strand1, cross1, strand2, cross2: True if(strand1 in cross1 and strand2 in cross2) else False
 
+      crossSet = lambda strand1, strand2, b: c1.set_strands(strandUnder.pred, strand1, strandUnder, strand2) if(b == 1) \
+         else c2.set_strands(strandUnder, strand1, strandUnder.succ, strand2)
+
+      #redefine c1
+      if (crTest(strandMiddle.pred, c3, strandOver, c1)): crossSet(strandMiddle.pred.pred,strandMiddle.pred, 1)
+      elif (crTest(strandOver.pred, c3, strandOver, c2)): crossSet(strandOver.pred, strandOver.pred.pred, 1)
+      elif (crTest(strandOver.succ, c3, strandOver, c2)): crossSet(strandOver.succ, strandOver.succ.succ, 1)
+      elif (crTest(strandMiddle.succ, c3, strandOver, c1)): crossSet(strandMiddle.succ.succ, strandMiddle.succ, 1)
       
-      #self.remove_joins()         
+      #redefine c2
+      if (crTest(strandMiddle.pred, c3, strandOver, c2)): crossSet(strandMiddle.pred, strandMiddle.pred.pred, 2)
+      elif (crTest(strandOver.pred, c3, strandOver, c1)): crossSet(strandOver.pred.pred, strandOver.pred, 2)
+      elif (crTest(strandMiddle.succ, c3, strandOver, c2)): crossSet(strandMiddle.succ, strandMiddle.succ.succ, 2)
+      elif (crTest(strandOver.succ, c3, strandOver, c1)): crossSet(strandOver.succ.succ, strandOver.succ, 2)
 
+         
    def handle_annihilation(self,h1,h2=None): #h1,h2 strands
       self.remove_joins()
       #checks to make sure each handle only has 2 strads (all joins must be removed)
