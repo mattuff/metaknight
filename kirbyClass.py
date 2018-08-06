@@ -18,6 +18,7 @@ class Kirby:
             if(j[i] not in strands):
                strands.append(j[i])
       self.strands=strands
+      self.components=self.comp_list()
 
    def __str__(self):
       l=[]
@@ -71,18 +72,13 @@ class Kirby:
          if(strand in j):
             l.append(j)
       return l
-  
+
    def comp_list(self):
       l=[]
-      for c in crossings:
-         for i in range (4):
-            if (c[i].component not in l):
-               l.append(c[i].component)
-      for j in joins:
-         for k in range (2):
-            if (k[j].component not in l):
-               l.append(k[j].component)
-      return l
+      for x in strands:
+         if(x.component not in l):
+            l.append(x.component)
+      return(l)
 
    def strand_list(self, s): #returns an ordered list of strands given a component
       l=[s]
