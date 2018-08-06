@@ -606,126 +606,76 @@ class Kirby:
 
 
       #adding extra twists for framing
+      pos=(h1.component.framing>0)
+         
       if (sign):
-         if (h1.component.framing<0): #counterclockwise twists
-            for i in range(-h1.component.framing):
-               l1=l[-1]
-               s1=s[-1]
-               self.add_join(l1)
-               self.add_join(l1)
-               l2=l1.succ
-               l3=l1.succ.succ
-               self.add_join(s1)
-               self.add_join(s1)
-               s2=s1.succ
-               s3=s1.succ
-               joinlist=[l1.succ_con, l2.succ_con, s1.succ_con, s2.succ_con]
-               l+=[l2,l3]
-               s+=[s2,s3]
-               c1=crossing(s1,l1,s2,l2)
-               c2=crossing(s2,l3,s3,l2)
-               self.crossings+=[c1,c2]
-               for j in joinlist:
-                  self.joins.remove(j)
-               l1.set_succ_con(c1)
-               l2.set_pred_con(c1)
-               l2.set_succ_con(c2)
-               l3.set_pred_con(c2)
-               s1.set_succ_con(c1)
-               s2.set_pred_con(c1)
-               s2.set_succ_con(c2)
-               s3.set_pred_con(c2)
-               
-         else: #clockwise twists
-            for i in range(h1.component.framing):
-               l1=l[-1]
-               s1=s[-1]
-               selef.add_join(l1)
-               self.add_join(l1)
-               l2=l1.succ
-               l3=l1.succ.succ
-               self.add_join(s1)
-               self.add_join(s1)
-               s2=s1.succ
-               s3.s1.succ
-               joinlist=[l1.succ_con, l2.succ_con, s1.succ_con, s2.succ_con]
-               l+=[l2,l3]
-               s+=[s2,s3]
+         for i in range(abs(h1.component.framing)):
+            l1=l[-1]
+            s1=s[-1]
+            self.add_join(l1)
+            self.add_join(l1)
+            l2=l1.succ
+            l3=l1.succ.succ
+            self.add_join(s1)
+            self.add_join(s1)
+            s2=s1.succ
+            s3=s1.succ
+            joinlist=[l1.succ_con, l2.succ_con, s1.succ_con, s2.succ_con]
+            l+=[l2,l3]
+            s+=[s2,s3]
+            if (pos): #clockwise twists
                c1=crossing(l1,s2,l2,s1)
                c2=crossing(s2,l3,s3,l2)
-               self.crossings+=[c1,c2]
-               for j in joinlist:
-                  self.joins.remove(j)
-               l1.set_succ_con(c1)
-               l2.set_pred_con(c1)
-               l2.set_succ_con(c2)
-               l3.set_pred_con(c2)
-               s1.set_succ_con(c1)
-               s2.set_pred_con(c1)
-               s2.set_succ_con(c2)
-               s3.set_pred_con(c2)
+            else: #counterclockwise twists
+               c1=crossing(s1,l1,s2,l2)
+               c2=crossing(s2,l3,s3,l2)
+            self.crossings+=[c1,c2]
+            for j in joinlist:
+               self.joins.remove(j)
+            l1.set_succ_con(c1)
+            l2.set_pred_con(c1)
+            l2.set_succ_con(c2)
+            l3.set_pred_con(c2)
+            s1.set_succ_con(c1)
+            s2.set_pred_con(c1)
+            s2.set_succ_con(c2)
+            s3.set_pred_con(c2)
 
       else:
-         if (h1.component.framing<0): #counterclockwise twists
-            for i in range(-h1.component.framing):
-               l1=l[-1]
-               s1=s[-1]
-               self.add_join(l1)
-               self.add_join(l1)
-               l2=l1.succ
-               l3=l2.succ
-               self.add_join(s1)
-               self.add_join(s1)
-               s2=s1.succ
-               s3=s2.succ
-               joinlist=[l1.succ_con, l2.succ_con, s1.succ_con, s2.succ_con]
-               s+=[s2,s3]
-               l.remove(l1)
-               l+=[l3,l2,l1]
-               c1=crossing(s1,l3,s2,l2)
-               c2=crossing(s2,l1,s3,l2)
-               self.crossings+=[c1,c2]
-               for j in joinlist:
-                  self.joins.remove(j)
-               l1.set_succ_con(c2)
-               l2.set_pred_con(c2)
-               l2.set_succ_con(c1)
-               l3.set_pred_con(c1)
-               s1.set_succ_con(c1)
-               s2.set_pred_con(c1)
-               s2.set_succ_con(c2)
-               s3.set_succ_con(c2)
-
-         else: #clockwise twists
-            for i in range(h1.component.framing):
-               l1=l[-1]
-               s1=s[-1]
-               self.add_join(l1)
-               self.add_join(l1)
-               l2=l1.succ
-               l3=l2.succ
-               self.add_join(s1)
-               self.add_join(s1)
-               s2=s1.succ
-               s3=s2.succ
-               joinlist=[l1.succ_con, l2.succ_con, s1.succ_con, s2.succ_con]
-               s+=[s2,s3]
-               l.remove(l1)
-               l+=[l3,l2,l1]
+         for i in range(abs(h1.component.framing)):
+            l1=l[-1]
+            s1=s[-1]
+            self.add_join(l1)
+            self.add_join(l1)
+            l2=l1.succ
+            l3=l2.succ
+            self.add_join(s1)
+            self.add_join(s1)
+            s2=s1.succ
+            s3=s2.succ
+            joinlist=[l1.succ_con, l2.succ_con, s1.succ_con, s2.succ_con]
+            s+=[s2,s3]
+            l.remove(l1)
+            l+=[l3,l2,l1]
+            if (pos): #counterclockwise twists
                c1=crossing(l2,s1,l3,s2)
                c2=crossing(s2,l1,s3,l2)
-               self.crossings+=[c1,c2]
-               for j in joinlist:
-                  self.joins.remove(j)
-               l1.set_succ_con(c2)
-               l2.set_pred_con(c2)
-               l2.set_succ_con(c1)
-               l3.set_pred_con(c1)
-               s1.set_succ_con(c1)
-               s2.set_pred_con(c1)
-               s2.set_succ_con(c2)
-               s3.set_succ_con(c2)
-               
+            else: #clockwise twists
+               c1=crossing(s1,l3,s2,l2)
+               c2=crossing(s2,l1,s3,l2)
+            self.crossings+=[c1,c2]
+            for j in joinlist:
+               self.joins.remove(j)
+            l1.set_succ_con(c2)
+            l2.set_pred_con(c2)
+            l2.set_succ_con(c1)
+            l3.set_pred_con(c1)
+            s1.set_succ_con(c1)
+            s2.set_pred_con(c1)
+            s2.set_succ_con(c2)
+            s3.set_succ_con(c2)
+
+    
       self.connect_sum(h2,l[0])
       self.remove_joins()
 
