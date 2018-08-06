@@ -596,14 +596,11 @@ class Kirby:
                f.set_pred(b)
                f.set_succ(d)
                c1=crossing(a,f,c,d)
-               if (sign):
-                  c2=crossing(aa,b,cc,f)
-                  aa.set_succ_con(c2)
-                  cc.set_pred_con(c2)
-               else:
-                  c2=crossing(cc,f,aa,b)
-                  cc.set_succ_con(c2)
-                  aa.set_pred_con(c2)
+               f1 = lambda x : b if x else f
+               f2 = lambda x : aa if x else cc
+               c2=crossing(f2(sign),f1(sign),f2(not sign),f1(not sign))
+               f2(sign).set_succ_con(c2)
+               f2(not sign).set_pred_con(c2)
                a.set_succ_con(c1)
                c.set_pred_con(c1)
                b.set_succ_con(c2)
@@ -614,14 +611,11 @@ class Kirby:
                f.set_pred(d)
                f.set_succ(b)
                c1=crossing(a,f,c,d)
-               if (sign):
-                  c2=crossing(aa,b,cc,f)
-                  aa.set_succ_con(c2)
-                  cc.set_pred_con(c2)
-               else:
-                  c2=crossing(cc,f,aa,b)
-                  cc.set_succ_con(c2)
-                  aa.set_pred_con(c2)
+               f1 = lambda x : aa if x else cc
+               f2 = lambda x : b if x else f
+               c2=crossing(f1(sign),f2(sign),f1(not sign),f2(not sign))
+               f1(sign).set_succ_con(c2)
+               f1(not sign).set_pred_con(c2)
                a.set_succ_con(c1)
                c.set_pred_con(c1)
                d.set_succ_con(c1)
@@ -639,29 +633,22 @@ class Kirby:
             a.set_succ(e)
             c.set_pred(e)
             self.strands+=[e]
-            
             if (b.succ==d):
                c1=crossing(a,b,e,d)
                c2=crossing(e,bb,c,dd)
                b.set_succ_con(c1)
                d.set_pred_con(c1)
-               if (sign):
-                  bb.set_succ_con(c2)
-                  dd.set_pred_con(c2)
-               else:
-                  dd.set_succ_con(c2)
-                  bb.set_pred_con(c2)
+               f1 = lambda x : bb if x else dd
+               f1(sign).set_succ_con(c2)
+               f1(not sign).set_pred_con(c2)
             else:
                c1=crossing(a,bb,e,dd)
                c2=crossing(e,b,c,d)
                d.set_succ_con(c2)
                b.set_pred_con(c2)
-               if (sign):
-                  dd.set_succ_con(c1)
-                  bb.set_pred_con(c1)
-               else:
-                  bb.set_succ_con(c1)
-                  dd.set_pred_con(c1)
+               f1 = lambda x : dd if x else bb
+               f1(sign).set_succ_con(c1)
+               f1 (not sign).set_pred_con(c1)
             a.set_succ_con(c1)
             e.set_pred_con(c1)
             e.set_succ_con(c2)
@@ -672,8 +659,8 @@ class Kirby:
 
       #adding extra twists for framing
       if (sign):
-         if (h1.component.framing>0): #counterclockwise twists
-            for i in range(h1.component.framing):
+         if (h1.component.framing<0): #counterclockwise twists
+            for i in range(-h1.component.framing):
                l1=l[-1]
                s1=s[-1]
                self.add_join(l1)
@@ -702,7 +689,7 @@ class Kirby:
                s3.set_pred_con(c2)
                
          else: #clockwise twists
-            for i in range(-h1.component.framing):
+            for i in range(h1.component.framing):
                l1=l[-1]
                s1=s[-1]
                selef.add_join(l1)
