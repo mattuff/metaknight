@@ -11,6 +11,10 @@ class component:
         
     def __str__(self): #prints out component in nice way
         return('handle: ' + str(self.handle) + ', framing: ' + str(self.framing))
+    
+    def __getitiem__(self,key):
+        return(list(filter(lambda x:x.component==s.component,k.strands))[key])
+
 
     def get_handle(self): #returns type of handle: one or two handle
         return self.handle
