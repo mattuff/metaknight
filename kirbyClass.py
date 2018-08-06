@@ -729,11 +729,6 @@ class Kirby:
       self.connect_sum(h2,l[0])
       self.remove_joins()
 
-      if (sign):
-         #handle addition
-         f=sf1+sf2+lk
-      else:
-         #handle subtraction
-         f=sf1+sf2-lk
-      #taking back to blackbaord
-      h2.component.framing=int(self.writhe(h2.component)+f)
+      fr=sf1+sf2+((-1)**(not sign))*lk #sets new seifert framing
+      
+      h2.component.framing=int(self.writhe(h2.component)+fr) #taking back to blackbaord
