@@ -69,7 +69,7 @@ g.set_pred_con(cx1)
 g.set_succ_con(cx2)
 h.set_succ_con(cx1)
 i.set_pred_con(cx1)
-i.set_succ_con(cx1)
+i.set_succ_con(cx2)
 h.set_pred_con(cx2)
 cnpair=Kirby([cx1,cx2],[])
 
@@ -135,7 +135,7 @@ me=Kirby([md],[])
 trefoil_unknot=Kirby([c1,c2,c3],[j1])
 
 #disjoint unknot and cancelling pair
-#unknot_cancelling_pair=Kirby([cx1,cx2],[j1,jx1])
+unknot_cancelling_pair=Kirby([cx1,cx2],[j1])
 
 #two disjoint trefoils
 trr=component(2,3)
