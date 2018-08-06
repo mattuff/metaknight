@@ -560,27 +560,18 @@ class Kirby:
             ee.set_succ_con(c2)
             aa.set_pred_con(c2)
 
-            if (var):
-               b.set_succ_con(c2)
-               f.set_pred_con(c2)
-               f.set_succ_con(c1)
-               d.set_pred_con(c1)
+            f1 = lambda x : b if x else bb
+            f2 = lambda x : f if x else ff
+            f3 = lambda x : d if x else dd
 
-               dd.set_succ_con(c4)
-               ff.set_pred_con(c4)
-               ff.set_succ_con(c3)
-               bb.set_pred_con(c3)
-
-            else:
-               d.set_succ_con(c4)
-               f.set_pred_con(c4)
-               f.set_succ_con(c3)
-               b.set_pred_con(c3)
-
-               bb.set_succ_con(c2)
-               ff.set_pred_con(c2)
-               ff.set_succ_con(c1)
-               dd.set_pred_con(c1)               
+            f1(var).set_succ_con(c2)
+            f2(var).set_pred_con(c2)
+            f2(var).set_succ_con(c2)
+            f3(var).set_pred_con(c1)
+            f3(not var).set_succ_con(c4)
+            f2(not var).set_pred_con(c4)
+            f2(not var).set_succ_con(c3)
+            f1(not var).set_pred_con(c3)
 
       for cx in comp_intersections: #turns crossings between h1 and another comp into 2 crossings
          if (cx[0].component==h1.component):
