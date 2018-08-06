@@ -421,8 +421,7 @@ class Kirby:
 
       #can considate, use ternary operator?
       for k in range (len(s)): #sets up parallel copy of h1
-         st=strand(h2.component)
-         l+=[st]
+         l.append(strand(h2.component))
       for i in range (len(l)-1): #sets up preds and succs
          if (sign):
             l[i].set_pred(l[i-1])
@@ -436,7 +435,6 @@ class Kirby:
                l[i].set_pred(l[i+1])
             else:
                l[i].set_pred(l[0])
-
       self.strands+=l
 
       for j in self.comp_joins(h1.component): #duplicates joins
@@ -457,7 +455,6 @@ class Kirby:
          cc=l[s.index(c)]
          dd=l[s.index(d)]
          var=(b.succ==d)
-
          e=strand(h1.component, a,c)
          a.set_succ(e)
          c.set_pred(e)
@@ -800,10 +797,8 @@ class Kirby:
       if (sign):
          #handle addition
          f=sf1+sf2+lk
-
       else:
          #handle subtraction
          f=sf1+sf2-lk
-
       #taking back to blackbaord
       h2.component.framing=int(self.writhe(h2.component)+f)
