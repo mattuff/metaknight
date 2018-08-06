@@ -370,11 +370,14 @@ class Kirby:
                self.strands.remove(j)
             self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0]) #deletes first crossing
             self.crossings.remove(self.strand_lookup(self.strand_list(h1)[0])[0]) #deletes second crossing
+            self.components.remove(h1.component)
+            self.componets.remove(h2.component)
       #cancels out an unknot w framing=0
       if (len(self.strand_list(h1))==1):
          if (h1.component.framing==0):
             self.joins.remove(h1.succ_con)
-            self.strands.remove(h1)    
+            self.strands.remove(h1)
+            self.components.remove(h1.component)
             
    def handle_creation(self, f=None): #f=framing for 2-handle to have
       if (f!=None):
@@ -392,6 +395,7 @@ class Kirby:
          c2=crossing(c,a,b,d)
          self.crossings+=[c1,c2]
          self.strands+=[a,b,c,d]
+         self.components+=[h1,h2]
       else:
          h1=component(2,0)
          a=strand(h1)
@@ -402,6 +406,7 @@ class Kirby:
          a.set_pred_con(j)
          self.joins.append(j)
          self.strands.append(a)
+         self.components.append(h1)
       
 
    def handle_slide(self, h1, h2, sign): #h2 is being slid over h1; sign=True if same orientation
