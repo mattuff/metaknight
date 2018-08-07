@@ -14,9 +14,9 @@ The building blocks of all Kirby diagrams are the 1-handles and 2-handles. The c
 
 2. Set up strands:
 
-Every component is made up of strands. The strand class, **strandClass.py**, initializes these strands. The attributes of the strand are the component it belongs to, and the strands directly before and after it. It's set up by ```strand(comp, pred, succ)```.
+Every component is made up of strands. The strand class, **strandClass.py**, initializes these strands. The attributes of the strand are the component it belongs to, the strands directly before and after it, and the connections directly before and after it. It's set up by ```strand(comp, pred, succ, pred_con, succ_con)```.
 
-Let's set up three strands going in a circle in the component *comp*:
+Let's set up three strands going in a circle in the component *comp* (without worrying about the connections):
 ```
 a=strand(comp)
 b=strand(comp,a)
@@ -27,3 +27,11 @@ b.set_succ(c)
 ```
 
 3. Set up crossings and joins:
+
+On each side of a strand is a crossing or a join, initaizted by **crossingClass.py** and **joinClass.py** respectively.
+
+Crossings are intiialized by the four strands they contain, listed counterclockwise with the incoming under strand first. For example, the crossing below would be set up by ```crossing(a,b,c,d)```.
+
+Joins are initialized by the two strands they contain, with the incoming strand first. For example, the join below would be set up by ```join(a,b)```.
+
+Crossings and joins can be indexed like lists.
