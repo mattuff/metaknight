@@ -90,13 +90,14 @@ class Kirby:
       c.strands = list(map(f,range(4)))
       
    def set_cons(self, cross):          
-      cons = lambda cross, strand: strand.set_succ_con(cross) if(strand.succ in cross) else strand.set_pred_con(cross)
-      
-      for i in range(4): cons(cross, cross[i])
-
-      #ensure that in r1 type twist, .pred_con gets set as well
-      for j in range(4):
-         if(cross[j] == cross[(j+1)%4]): cross[j].set_pred_con(cross)
+      cross[0].set_succ_con(cross)
+      cross[2].set_pred_con(cross)
+      if(cross[1].succ == cross[3]):
+         cross[1].set_succ_con(cross)
+         cross[3].set_pred_con(cross)
+      else:
+         cross[1].set_pred_con(cross)
+         cross[3].set_succ_con(cross)
 
 
    def rename(self,s,n): #s is named n, strand's name is predecessor's +1
@@ -251,28 +252,19 @@ class Kirby:
       else:
          x.component.framing+=(1)
 
-   def add_r2(self,s1,s2,o): #orientation is a boolean which is true if the strands are oriented the same way, and false otherwise
-      self.add_join(s1)
-      self.add_join(s1)
-      self.add_join(s2)
-      self.add_join(s2)
-      l=[s1.succ_con,s1.succ.succ_con,s2.succ_con,s2.succ.succ_con]
-      if(o):
-         c1=crossing(s1,s2.succ,s1.succ,s2)
-         c2=crossing(s1.succ,s2.succ,s1.succ.succ,s2.succ.succ)
-      else:
-         c1=crossing(s1,s2.succ,s1.succ,s2.succ.succ)
-         c2=crossing(s1.succ,s2.succ,s1.succ.succ,s2)
-      c = lambda x : c1 if x else c2
-      s = lambda x : s1 if x else s2
-      for b in [True,False]:
-         s(b).succ_con=c(o or b)
-         s(b).succ.pred_con=c(o or b)
-         s(b).succ.succ_con=c(not o and not b)
-         s(b).succ.succ.pred_con=c(not o and not b)
-      self.crossings+=[c1,c2]
+   def add_r2(self,s1,s2,o,d): #s1 is pulled over s2, o=True iff s2 is on the right of s1, d=True iff s1 and s2 face the same direction
+      l=[]
+      for s in [s1,s1,s2,s2]:
+         self.add_join(s)
+         l.append(s.succ_con)
+      l1=[s1,s1.succ,s1.succ.succ]
+      l2=[s2,s2.succ,s2.succ.succ]
+      c=[crossing(l2[0],l1[1+o-d],l2[1],l1[2-o-d]),crossing(l2[1],l1[1-o+d],l2[2],l1[o+d])]
+      self.crossings+=c
       for s in l:
          self.joins.remove(s)
+      for x in c:
+         self.set_cons(x)
 
    def remove_r2(self,s0,s1):
       s=[s0,s1]
