@@ -170,5 +170,8 @@ Crossings:
 Joins:
 None
 ```
+And... it worked!
+
+Now how do we manipulate these diagrams?
 
 ### Kirby Moves
