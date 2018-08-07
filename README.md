@@ -77,6 +77,9 @@ Sure, 0-framed unknots are great, but what if we want to make something more com
 
 First, let's set up the components:
 
-```trefoil = component(2,3)```
+```
+trefoil = component(2,3)
+one_handle = component(1)
+```
 
 ### Kirby Moves
