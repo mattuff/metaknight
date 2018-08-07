@@ -154,12 +154,21 @@ i.set_pred_con(c4)
 And putting it all together!
 
 ```
-trefoil_linked_thru_1-handle = Kirby([c1,c2,c3,c4,c5],[])
+tr1 = Kirby([c1,c2,c3,c4,c5],[])
 ```
 Let's check what we get when we print.
 
 ```
-print(trefoil_linked_thru_1-handle)
+print(tr1)
+```
+```
+Components:
+ - [1,2,3,4,5,6,7,8] (2-handle;f=3)
+ - [9,10] (1-handle)
+Crossings:
+[1,6,2,7],[7,3,8,2],[9,4,10,3],[4,9,5,10],[5,1,6,8]
+Joins:
+None
 ```
 
 ### Kirby Moves
