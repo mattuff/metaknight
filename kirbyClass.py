@@ -98,6 +98,15 @@ class Kirby:
       else:
          cross[1].set_pred_con(cross)
          cross[3].set_succ_con(cross)
+         
+   def set_cons_joins(self, join):
+      if(join[0].succ == join[1]):
+         join[0].set_succ_con(join[1])
+         join[1].set_pred_con(join[0])
+
+      else:
+         join[0].set_pred_con(join[1])
+         join[1].set_succ_con(join[0])
 
 
    def rename(self,s,n): #s is named n, strand's name is predecessor's +1
@@ -297,7 +306,10 @@ class Kirby:
       #add unofficial joins to list
       fixJoin = lambda s: join(s, s.succ) if s.succ not in c3 else join(s.pred, s)
       self.joins.append(fixJoin(strandMiddle))
-      self.joins.append(fixJoin(strandOver))
+      self.joins.append(fixJoin(strandOver
+                                
+      self.set_cons_joins(fixJoin(strandMiddle))
+      self.set_cons_joins(fixJoin(strandOver))
 
       #add real joins which will turn into crossings
       self.add_join(strandOrient(strandMiddle))
