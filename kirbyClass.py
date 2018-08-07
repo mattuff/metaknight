@@ -350,6 +350,8 @@ class Kirby:
 
       #setting succ_pred/succ_con
       for i in [c1,c2,c3]: self.set_cons(i)
+         
+      self.remove_joins()
 
 
          
