@@ -192,4 +192,12 @@ To cancel such a pair on a diagram *k*, where *a* is a strand from one component
 
 To add such a pair on *k*, where you want the unknot to have framing *f*: ```k.handle_creation(f)```.
 
+![unknot0](https://github.com/mattuff/KirbyCalculus/blob/master/Images/unknot.png)
+
+Additionally, an unknot 2-handle with framing 0 can be added to or cancelled from any diagram.
+
+To cancel an unknot on a diagram *k*, where *a* is a strand in the unknot : ```k.handle_annihilation(a)```.
+
+To add an unknot on *k* : ```k.handle_creation()```.
+
 #### Handle Slides
