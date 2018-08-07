@@ -80,7 +80,7 @@ Joins:
 [1,2],[2,3],[3,1]
 ```
 
-##### Another Example
+#### Another Example
 
 Sure, 0-framed unknots are great, but what if we want to make something more complicated– say, a trefoil linked through a 1-handle?
 
