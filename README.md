@@ -69,7 +69,7 @@ Let's put our circle into a Kirby diagram: ```circ=Kirby([],[j1,j2,j3])```.
 
 And that's it! Now we have a Kirby diagram to work with.
 
-####Another Example
+#### Another Example
 
 Sure, 0-framed unknots are great, but what if we want to make something more complicated– say, a trefoil linked through a 1-handle?
 
