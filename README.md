@@ -175,3 +175,15 @@ And... it worked!
 Now how do we manipulate these diagrams?
 
 ### Kirby Moves
+
+#### Reidemeister 1
+
+#### Reidemeister 2
+
+#### Reidemeister 3
+
+#### Handle Annihilation
+
+#### Handle Cancellation
+
+#### Handle Slides
