@@ -14,7 +14,7 @@ The attributes of the components are its handle type and framing:
   ```component(1) ```
 sets up a 1-handle, while
   ```component(2, f)```
-sets up a 2-handle with blackboard framing *f* .
+sets up a 2-handle with blackboard framing *f*.
 
 
 
