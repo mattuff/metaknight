@@ -88,6 +88,18 @@ class Kirby:
       else:
          f=lambda x:c.strands[(x-1)%4]
       c.strands = list(map(f,range(4)))
+      
+   def set_predSucc_con(self, cross):
+      cross[0].set_succ_con(cross)
+      cross[2].set_pred_con(cross)
+      if(c[1].succ == c[3]):
+         cross[1].set_succ_con(cross)
+         cross[3].set_pred_con(cross)
+      else:
+         cross[1].set_pred_con(cross)
+         cross[3].set_succ_con(cross)
+
+
 
    def rename(self,s,n): #s is named n, strand's name is predecessor's +1
       s.name=n
