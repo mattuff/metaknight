@@ -6,17 +6,23 @@ MetaKnight (Manifolds Encoded Through the Architecture of Knots and Numbers In t
 
 Kirby diagrams are a way of modeling 4-manifolds based off of their handlebody decomposition. The Kirby class takes planar diagrams as inputs, and can perform all the Kirby moves on the diagram: Reidemeister moves, handle annihilation, handle creation, and handle slides.
 
-### Setting up a Kirby Diagram
+### Setting up a Planar Diagram
 
 1. Set up components:  
 
 The building blocks of all Kirby diagrams are the 1-handles and 2-handles. The component class, **componentClass.py** initializes these handles. The attributes of the components are its handle type and framing: ```component(1) ``` sets up a 1-handle, while ```component(2, f)``` sets up a 2-handle with blackboard framing *f*.
 
+Let's set up the planar diagram for this unknot with framing 0.
+
+![threestrandunknot](https://github.com/mattuff/KirbyCalculus/blob/master/circleexample.png)
+
+We start with ```comp=component(2,0)```.
+
 2. Set up strands:
 
 Every component is made up of strands. The strand class, **strandClass.py**, initializes these strands. The attributes of the strand are the component it belongs to, the strands directly before and after it, and the connections directly before and after it. It's set up by ```strand(comp, pred, succ, pred_con, succ_con)```.
 
-Let's set up three strands going in a circle in the component *comp* (without worrying about the connections):
+Let's set up three strands for the unknot above (without worrying about the connections):
 ```
 a=strand(comp)
 b=strand(comp,a)
