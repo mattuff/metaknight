@@ -6,7 +6,7 @@ MetaKnight (Manifolds Encoded Through the Architecture of Knots and Numbers In t
 
 Kirby diagrams are a way of modeling 4-manifolds based off of their handlebody decomposition. The Kirby class takes planar diagrams as inputs, and can perform all the Kirby moves on the diagram: Reidemeister moves, handle annihilation, handle creation, and handle slides.
 
-### Inputting a PD
+### Setting up a Kirby Diagram
 
 1. Set up components:  
 
@@ -51,3 +51,10 @@ j3=join(c,a)
 c.set_succ_con(j3)
 a.set_pred_con(j3)
 ```
+4. Compile everything into a Kirby object:
+
+The Kirby class, **kirbyClass.py**, is where everything comes together. It's initialized with just lists of crossings and joins, but also stores lists of components and strands. Kirby diagrams are set up with ```Kirby([c1,c2,...,c_n],[])```
+
+Let's put our circle into a Kirby diagram: ```circ=Kirby([],[j1,j2,j3])```.
+
+And that's it! Now we have a Kirby diagram to work with.
