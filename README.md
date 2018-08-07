@@ -73,5 +73,6 @@ And that's it! Now we have a Kirby diagram to work with.
 
 Sure, 0-framed unknots are great, but what if we want to make something more complicated– say, a trefoil linked through a 1-handle?
 
+![trefoil_thru_one-handle](https://github.com/mattuff/KirbyCalculus/blob/master/Images/trefoil_1-handle.png)
 
 ### Kirby Moves
