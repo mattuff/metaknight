@@ -259,12 +259,18 @@ class Kirby:
       x.succ.set_pred_con(j2)
       self.joins+=[j1,j2]
 
-      if (((c[0]==c[1]) and c[0]==x.succ) or ((c[2]==c[3]) and c[2]==x.succ)):
+      if (((c[0]==c[1]) and (c[0]==x.succ)) or ((c[2]==c[3]) and (c[2]==x.succ))):
          x.component.framing+=(-1)
       else:
          x.component.framing+=(1)
 
    def add_r2(self,s1,s2,o,d): #s1 is pulled over s2, o=True iff s2 is on the right of s1, d=True iff s1 and s2 face the same direction
+      if(s1==s2):
+          self.add_join(s1)
+          j=s1.succ_con
+          self.add_r2(s1,s1.succ,o,d)
+          self.remove_join(j)
+          return
       l=[]
       for s in [s1,s1,s2,s2]:
          self.add_join(s)
