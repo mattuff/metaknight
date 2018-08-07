@@ -34,4 +34,20 @@ Crossings are intiialized by the four strands they contain, listed counterclockw
 
 Joins are initialized by the two strands they contain, with the incoming strand first. For example, the join below would be set up by ```join(a,b)```.
 
-Crossings and joins can be indexed like lists.
+Note: crossings and joins can be indexed like lists.
+
+Now that we have crossings and joins, time to add them as attributes in our strands!
+
+For our three-stranded circle above, let's put in some joins.
+
+```
+j1=join(a,b)
+a.set_succ_con(j1)
+b.set_pred_con(j1)
+j2=join(b,c)
+b.set_succ_con(j2)
+c.set_pred_con(j2)
+j3=join(c,a)
+c.set_succ_con(j3)
+a.set_pred_con(j3)
+```
