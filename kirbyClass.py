@@ -90,9 +90,9 @@ class Kirby:
       c.strands = list(map(f,range(4)))
       
    def set_cons(self, cross):          
-      set_cons = lambda cross, strand: strand.set_succ_con(cross) if(strand.succ in cross) else strand.set_pred_con(cross)
+      cons = lambda cross, strand: strand.set_succ_con(cross) if(strand.succ in cross) else strand.set_pred_con(cross)
       
-      for i in range(4): set_cons(cross, cross[i])
+      for i in range(4): cons(cross, cross[i])
 
       #ensure that in r1 type twist, .pred_con gets set as well
       for j in range(4):
