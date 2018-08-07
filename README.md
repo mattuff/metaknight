@@ -9,12 +9,9 @@ Kirby diagrams are a way of modeling 4-manifolds based off of their handlebody d
 ### Inputting a PD
 
 1. Set up components:
-The building blocks of all Kirby diagrams are the 1-handles and 2-handles. The component class, **componentClass.py** initializes these handles.
-The attributes of the components are its handle type and framing:
-  ```component(1) ```
-sets up a 1-handle, while
-  ```component(2, f)```
-sets up a 2-handle with blackboard framing *f*.
+  * The building blocks of all Kirby diagrams are the 1-handles and 2-handles. 
+  * The component class, **componentClass.py** initializes these handles.
+  * The attributes of the components are its handle type and framing: ```component(1) ``` sets up a 1-handle, while ```component(2, f)``` sets up a 2-handle with blackboard framing *f*.
 
 
 
