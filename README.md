@@ -115,5 +115,29 @@ c3 = crossing(i, d, j, c)
 c4 = crossing(d, i, e, j)
 c5 = crossing(e, a, f, h)
 ```
+Setting up the preceeding and succeeding connections in strands:
+```
+a.set_succ_con(c1)
+b.set_pred_con(c1)
+b.set_succ_con(c2)
+c.set_pred_con(c2)
+c.set_succ_con(c3)
+d.set_pred_con(c3)
+d.set_succ_con(c4)
+e.set_pred_con(c4)
+e.set_succ_con(c5)
+f.set_pred_con(c5)
+f.set_succ_con(c1)
+g.set_pred_con(c1)
+g.set_succ_con(c2)
+h.set_pred_con(c2)
+h.set_succ_con(c5)
+a.set_pred_con(c5)
+
+i.set_succ_con(c3)
+j.set_pred_con(c3)
+j.set_succ_con(c4)
+i.set_pred_con(c4)
+```
 
 ### Kirby Moves
