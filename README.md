@@ -14,7 +14,7 @@ The building blocks of all Kirby diagrams are the 1-handles and 2-handles. The c
 
 Let's set up the planar diagram for this unknot with framing 0.
 
-![threestrandunknot](https://github.com/mattuff/KirbyCalculus/blob/master/circleexample.png)
+![threestrandunknot](https://github.com/mattuff/KirbyCalculus/blob/master/Images/circleexample.png)
 
 We start with ```comp=component(2,0)```.
 
@@ -40,7 +40,7 @@ On each side of a strand is a crossing or a join, initaizted by **crossingClass.
 
 Crossings are intiialized by the four strands they contain, listed counterclockwise with the incoming under strand first. For example, the crossing below would be set up by ```crossing(a,b,c,d)```.
 
-![crossingex](https://github.com/mattuff/KirbyCalculus/blob/master/crossingexample.png)
+![crossingex](https://github.com/mattuff/KirbyCalculus/blob/master/Images/crossingexample.png)
 
 Joins are initialized by the two strands they contain, with the incoming strand first. For example, the join below would be set up by ```join(a,b)```.
 
