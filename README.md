@@ -82,4 +82,30 @@ trefoil = component(2,3)
 one_handle = component(1)
 ```
 
+Now the strands!
+
+```
+a = strand(trefoil)
+b = strand(trefoil, a)
+a.set_succ(b)
+c = strand(trefoil, b)
+b.set_succ(c)
+d = strand(trefoil, c)
+c.set_succ(d)
+e = strand(trefoil, d)
+d.set_succ(e)
+f = strand(trefoil, e)
+e.set_succ(f)
+g = strand(trefoil, f)
+f.set_succ(g)
+h = strand(trefoil, g, a)
+g.set_succ(h)
+a.set_pred(h)
+
+i = strand(one_handle)
+j = strand(one_handle, i, i)
+i.set_pred(j)
+i.set_succ(j)
+```
+
 ### Kirby Moves
