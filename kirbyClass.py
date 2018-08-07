@@ -675,7 +675,6 @@ class Kirby:
             s2.set_succ_con(c2)
             s3.set_succ_con(c2)
 
-    
       self.connect_sum(h2,l[0])
       self.remove_joins()
 
