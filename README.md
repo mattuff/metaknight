@@ -70,7 +70,8 @@ Let's put our circle into a Kirby diagram: ```circ=Kirby([],[j1,j2,j3])```.
 And that's it! Now we have a Kirby diagram to work with. Let's print *circ* and see if it works:
 ```
 print(circ)
-
+```
+```
 Components:
  - [1,2,3] (2-handle; f=0)
 Crossings:
