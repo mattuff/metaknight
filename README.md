@@ -182,8 +182,12 @@ Now how do we manipulate these diagrams?
 
 #### Reidemeister 3
 
-#### Handle Annihilation
+#### Handle Annihilation and Creation
 
-#### Handle Cancellation
+A 1-handle and unknot 2-handle of any framing can be cancelled without changing the manifold. Similarly, they can be added without changing anything.
+
+To cancel such a pair on a diagram *k*, where *a* is a strand from one component and *b* is a strand from the other: ```k.handle_annihilation(a,b)```.
+
+To add such a pair on *k*, where you want the unknot to have framing *f*: ```k.handle_creation(f)```.
 
 #### Handle Slides
