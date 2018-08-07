@@ -89,16 +89,14 @@ class Kirby:
          f=lambda x:c.strands[(x-1)%4]
       c.strands = list(map(f,range(4)))
       
-   def set_cons(self, cross):        
+   def set_cons(self, cross):          
       set_cons = lambda cross, strand: strand.set_succ_con(cross) if(strand.succ in cross) else strand.set_pred_con(cross)
       
       for i in range(4): set_cons(cross, cross[i])
-      
-      #set exception case for r1
-      if(cross[0] == cross[3]): cross[0].set_pred_con(cross)
-      for j in range(3):
-         if(cross[j] == cross[j+1]): cross[j].set_pred_con(cross)
 
+      #ensure that in r1 type twist, .pred_con gets set as well
+      for j in range(4):
+         if(cross[j] == cross[(j+1)%4]): cross[j].set_pred_con(cross)
 
 
    def rename(self,s,n): #s is named n, strand's name is predecessor's +1
