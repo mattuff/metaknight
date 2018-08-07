@@ -8,14 +8,6 @@ class crossing:
     def __init__(self,s0,s1,s2,s3):
         self.strands=[s0,s1,s2,s3]
         self.len=4
-        s0.set_succ_con(self)
-        s2.set_pred_con(self)
-        if (s1.succ==s3):
-           s1.set_succ_con(self)
-           s3.set_pred_con(self)
-        else:
-           s1.set_pred_con(self)
-           s3.set_succ_con(self)
 
     def __getitem__(self,key): #key is 0-3 (int), returns strand
         return(self.strands[key])
