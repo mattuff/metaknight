@@ -180,6 +180,8 @@ Now how do we manipulate these diagrams?
 
 ![r1](https://github.com/mattuff/KirbyCalculus/blob/master/Images/r1.png)
 
+Applying a Reidemeister 1 to the strand on the left– let's call it *a*– can produce any of the four loops on the right. The loops on the right depend on two things: whether the incoming strand goes over or under, and whether the strand goes clockwise or counterclockwise inside of the loop.
+
 #### Reidemeister 2
 
 #### Reidemeister 3
