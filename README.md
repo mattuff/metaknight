@@ -58,3 +58,6 @@ The Kirby class, **kirbyClass.py**, is where everything comes together. It's ini
 Let's put our circle into a Kirby diagram: ```circ=Kirby([],[j1,j2,j3])```.
 
 And that's it! Now we have a Kirby diagram to work with.
+
+
+###Kirby Moves
