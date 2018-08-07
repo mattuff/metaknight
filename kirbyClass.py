@@ -233,7 +233,7 @@ class Kirby:
          if(i):
             c=crossing(s[1],s[0],s[2],s[1])
          else:
-            c=crossing(s[1],s[1],s[0],s[2])
+            c=crossing(s[0],s[2],s[1],s[1])
       else:
          if(i):
             c=crossing(s[1],s[1],s[2],s[0])
@@ -289,7 +289,7 @@ class Kirby:
          self.crossings.remove(x)
 
 
-     def add_r3(self, strandUnder, strandMiddle, strandOver):
+   def add_r3(self, strandUnder, strandMiddle, strandOver):
       # strandUnder is the strand that goes under strandMiddle and strandOver, which we are going to move
       # strandMiddle goes over strandUnder and under strandOver
       # strandOver goes over strandUnder and strandMiddle
@@ -306,10 +306,7 @@ class Kirby:
       #add unofficial joins to list
       fixJoin = lambda s: join(s, s.succ) if s.succ not in c3 else join(s.pred, s)
       self.joins.append(fixJoin(strandMiddle))
-      self.joins.append(fixJoin(strandOver
-                                
-      self.set_cons_joins(fixJoin(strandMiddle))
-      self.set_cons_joins(fixJoin(strandOver))
+      self.joins.append(fixJoin(strandOver))
 
       #add real joins which will turn into crossings
       self.add_join(strandOrient(strandMiddle))
