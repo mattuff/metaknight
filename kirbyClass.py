@@ -278,7 +278,7 @@ class Kirby:
          self.crossings.remove(x)
 
 
-   def add_r3(self, strandUnder, strandMiddle, strandOver):
+     def add_r3(self, strandUnder, strandMiddle, strandOver):
       # strandUnder is the strand that goes under strandMiddle and strandOver, which we are going to move
       # strandMiddle goes over strandUnder and under strandOver
       # strandOver goes over strandUnder and strandMiddle
@@ -287,32 +287,74 @@ class Kirby:
       c1 = strandUnder.pred_con
       c2 = strandUnder.succ_con
 
-      if(strandMiddle.pred_con != c1 and strandMiddle.pred_con != c2):
-         c3 = strandMiddle.pred_con
-      else:
-         c3 = strandMiddle.succ_con
+      if(strandMiddle.pred_con != c1 and strandMiddle.pred_con != c2): c3 = strandMiddle.pred_con
+      else: c3 = strandMiddle.succ_con
+
 
       strandOrient = lambda s: s.pred if (s.pred in c3) else s.succ
 
+      #add unofficial joins to list
+      fixJoin = lambda s: join(s, s.succ) if s.succ not in c3 else join(s.pred, s)
+      self.joins.append(fixJoin(strandMiddle))
+      self.joins.append(fixJoin(strandOver))
+
+      #add real joins which will turn into crossings
       self.add_join(strandOrient(strandMiddle))
       self.add_join(strandOrient(strandOver))
 
+      oldC1 = crossing(c1[0],c1[1],c1[2],c1[3])#for some reason plain old c1 is changing instead of remainging constant
+
+      #python is being annoying and not letting me consolidate even to one 'for' statement (won't produce correct results)
+      for j in self.joins:
+         if(strandOrient(strandMiddle) in j): self.joins.remove(j)
+
+      for j in self.joins:
+         if(strandOrient(strandOver) in j): self.joins.remove(j)
+
+
       crTest = lambda strand1, cross1, strand2, cross2: True if(strand1 in cross1 and strand2 in cross2) else False
 
-      crossSet = lambda strand1, strand2, b: c1.set_strands(strandUnder.pred, strand1, strandUnder, strand2) if(b == 1) \
+      crossSet = lambda strand1, strand2, b: c1.set_strands(strandUnder.pred, strand1, strandUnder, strand2) if(b == True) \
          else c2.set_strands(strandUnder, strand1, strandUnder.succ, strand2)
 
       #redefine c1
       if (crTest(strandMiddle.pred, c3, strandOver, c1)): crossSet(strandMiddle.pred.pred,strandMiddle.pred, 1)
       elif (crTest(strandOver.pred, c3, strandOver, c2)): crossSet(strandOver.pred, strandOver.pred.pred, 1)
-      elif (crTest(strandOver.succ, c3, strandOver, c2)): crossSet(strandOver.succ, strandOver.succ.succ, 1)
       elif (crTest(strandMiddle.succ, c3, strandOver, c1)): crossSet(strandMiddle.succ.succ, strandMiddle.succ, 1)
-      
-      #redefine c2
+      elif (crTest(strandOver.succ, c3, strandOver, c2)): crossSet(strandOver.succ, strandOver.succ.succ, 1)
+
+      #redefine c2 - use oldC1 since c1 gets redefined above
       if (crTest(strandMiddle.pred, c3, strandOver, c2)): crossSet(strandMiddle.pred, strandMiddle.pred.pred, 2)
-      elif (crTest(strandOver.pred, c3, strandOver, c1)): crossSet(strandOver.pred.pred, strandOver.pred, 2)
+      elif (crTest(strandOver.pred, c3, strandOver, oldC1)): crossSet(strandOver.pred.pred, strandOver.pred, 2)
       elif (crTest(strandMiddle.succ, c3, strandOver, c2)): crossSet(strandMiddle.succ, strandMiddle.succ.succ, 2)
-      elif (crTest(strandOver.succ, c3, strandOver, c1)): crossSet(strandOver.succ.succ, strandOver.succ, 2)
+      elif (crTest(strandOver.succ, c3, strandOver, oldC1)): crossSet(strandOver.succ.succ, strandOver.succ, 2)
+
+      #reset pred_con/succ_con
+      c1[0].set_succ_con(c1)
+      c1[2].set_pred_con(c1)
+      c2[0].set_succ_con(c2)
+      c2[2].set_pred_con(c2)
+
+      #maybe theres a way to consolidate this
+      if(c1[1] in c3 and c1[1].pred in c1):
+         c1[1].set_pred_con(c1)
+         c1[1].set_succ_con(c3)
+         c1[3].set_succ_con(c1)
+
+      if(c1[1] in c3 and c1[1].pred not in c1):
+         c1[1].set_pred_con(c3)
+         c1[1].set_succ_con(c1)
+         c1[3].set_pred_con(c1)
+
+      if(c2[1] in c3 and c2[1].pred in c2):
+         c2[1].set_pred_con(c2)
+         c2[1].set_succ_con(c3)
+         c2[3].set_succ_con(c2)
+
+      if(c2[1] in c3 and c2[1].pred not in c2):
+         c2[1].set_pred_con(c3)
+         c2[1].set_succ_con(c2)
+         c2[3].set_pred_con(c2)
 
          
    def handle_annihilation(self,h1,h2=None): #h1,h2 strands
