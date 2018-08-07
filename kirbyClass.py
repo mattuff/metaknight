@@ -89,7 +89,7 @@ class Kirby:
          f=lambda x:c.strands[(x-1)%4]
       c.strands = list(map(f,range(4)))
       
-   def set_predSucc_con(self, cross):
+   def set_cons(self, cross):
       cross[0].set_succ_con(cross)
       cross[2].set_pred_con(cross)
       if(cross[1].succ == cross[3]):
