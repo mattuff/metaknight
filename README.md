@@ -178,6 +178,8 @@ Now how do we manipulate these diagrams?
 
 #### Reidemeister 1
 
+![r1](https://github.com/mattuff/KirbyCalculus/blob/master/Images/r1.png)
+
 #### Reidemeister 2
 
 #### Reidemeister 3
