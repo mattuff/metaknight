@@ -65,7 +65,10 @@ class Kirby:
       return(s)
    
    def __getitem__(self,key):
-      return(self.comp_list()[key])
+      self.rename_all()
+      for s in self.strands:
+         if(s.name==key):
+            return(s)
 
    def comp_list(self): #returns list of components
       l=[]
