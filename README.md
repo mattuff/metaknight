@@ -184,7 +184,9 @@ Now how do we manipulate these diagrams?
 
 #### Handle Annihilation and Creation
 
-A 1-handle and unknot 2-handle of any framing can be cancelled without changing the manifold. Similarly, they can be added without changing anything.
+![cancellingpair](https://github.com/mattuff/KirbyCalculus/blob/master/Images/cancellingpair.png)
+
+A linked 1-handle and unknot 2-handle of any framing can be cancelled without changing the manifold. Similarly, they can be added without changing anything.
 
 To cancel such a pair on a diagram *k*, where *a* is a strand from one component and *b* is a strand from the other: ```k.handle_annihilation(a,b)```.
 
