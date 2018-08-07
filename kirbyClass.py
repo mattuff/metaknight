@@ -331,16 +331,8 @@ class Kirby:
       elif (crTest(strandOver.succ, strandOver, oldC1)): crossSet(strandOver.succ.succ, strandOver.succ, 2)
 
       #setting succ_pred/succ_con
-      spcon = lambda s, c, dir: s.set_succ_con(c) if dir else s.set_pred_con(c)
+      for i in [c1,c2,c3]: self.set_cons(i)
 
-      #calls spcon
-      tester = lambda s, cr, b: spcon(s, cr, b) if(s.pred in cr) else spcon(s, c3, b)
-
-      for cr in [c1,c2]:
-         if(cr[1] in c3): tester(cr[1], cr, (cr[1].pred not in cr)), tester(cr[1], c3, (cr[1].pred in cr)), tester(cr[3], cr, (cr[1].pred in cr))
-
-         spcon(cr[0], cr, True)
-         spcon(cr[2], cr, False)
 
          
    def handle_annihilation(self,h1,h2=None): #h1,h2 strands
