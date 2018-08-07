@@ -15,11 +15,13 @@ The building blocks of all Kirby diagrams are the 1-handles and 2-handles. The c
 Every component is made up of strands. The strand class, **strandClass.py**, initializes these strands. The attributes of the strand are the component it belongs to, and the strands directly before and after it. It's set up by ```strand(comp, pred, succ)```.
 
 Let's set up three strands going in a circle in the component *comp*:
-```a=strand(comp)
+```
+a=strand(comp)
 b=strand(comp,a)
 c=strand(comp,b,a)
 a.set_pred(c)
 a.set_succ(b)
-b.set_succ(c)```
+b.set_succ(c)
+```
 
 3. Set up crossings and joins:
