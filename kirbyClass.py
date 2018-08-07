@@ -97,7 +97,7 @@ class Kirby:
       #set exception case for r1
       if(cross[0] == cross[3]): cross[0].set_pred_con(cross)
       for j in range(3):
-         if(cross[i] == cross[i+1]): cross[i].set_pred_con(cross)
+         if(cross[j] == cross[j+1]): cross[j].set_pred_con(cross)
 
 
 
