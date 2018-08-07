@@ -75,4 +75,8 @@ Sure, 0-framed unknots are great, but what if we want to make something more com
 
 ![trefoil_thru_one-handle](https://github.com/mattuff/KirbyCalculus/blob/master/Images/trefoil_1-handle.png)
 
+First, let's set up the components:
+
+```trefoil = component(2,3)```
+
 ### Kirby Moves
