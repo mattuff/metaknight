@@ -368,7 +368,7 @@ class Kirby:
                self.crossings.remove(h1.succ_con)
                self.crossings.remove(h1.pred_con)
                self.components.remove(h1.component)
-               self.componets.remove(h2.component)
+               self.components.remove(h2.component)
       #cancels out an unknot w framing=0
       else:
          if (len(self.strand_list(h1))==1):
@@ -393,6 +393,14 @@ class Kirby:
          c.set_succ(d)
          c1=crossing(a,c,b,d)
          c2=crossing(c,a,b,d)
+         a.set_succ_con(c1)
+         b.set_pred_con(c1)
+         b.set_succ_con(c2)
+         a.set_pred_con(c2)
+         c.set_succ_con(c2)
+         d.set_pred_con(c2)
+         d.set_succ_con(c1)
+         c.set_pred_con(c1)
          self.crossings+=[c1,c2]
          self.strands+=[a,b,c,d]
          self.components+=[h1,h2]
