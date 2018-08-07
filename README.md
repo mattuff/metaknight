@@ -6,7 +6,7 @@ MetaKnight (Manifolds Encoded Through the Architecture of Knots and Numbers In t
 
 Kirby diagrams are a way of modeling 4-manifolds based off of their handlebody decomposition. The Kirby class takes planar diagrams as inputs, and can perform all the Kirby moves on the diagram: Reidemeister moves, handle annihilation, handle creation, and handle slides.
 
-### Setting up a Planar Diagram
+## Setting up a Planar Diagram
 
 1. Set up components:  
 
@@ -174,4 +174,4 @@ And... it worked!
 
 Now how do we manipulate these diagrams?
 
-### Kirby Moves
+## Kirby Moves
