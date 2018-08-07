@@ -92,7 +92,7 @@ class Kirby:
    def set_predSucc_con(self, cross):
       cross[0].set_succ_con(cross)
       cross[2].set_pred_con(cross)
-      if(c[1].succ == c[3]):
+      if(cross[1].succ == cross[3]):
          cross[1].set_succ_con(cross)
          cross[3].set_pred_con(cross)
       else:
