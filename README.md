@@ -1,4 +1,4 @@
-# MetaKnight
+# MetaKnight :watermelon:
 
 developed by: Yael Eisenberg, Laura Stordy, and Matt Uffenheimer
 
