@@ -89,15 +89,15 @@ class Kirby:
          f=lambda x:c.strands[(x-1)%4]
       c.strands = list(map(f,range(4)))
       
-   def set_cons(self, cross):
-      cross[0].set_succ_con(cross)
-      cross[2].set_pred_con(cross)
-      if(cross[1].succ == cross[3]):
-         cross[1].set_succ_con(cross)
-         cross[3].set_pred_con(cross)
-      else:
-         cross[1].set_pred_con(cross)
-         cross[3].set_succ_con(cross)
+   def set_cons(self, cross):        
+      set_cons = lambda cross, strand: strand.set_succ_con(cross) if(strand.succ in cross) else strand.set_pred_con(cross)
+      
+      for i in range(4): set_cons(cross, cross[i])
+      
+      #set exception case for r1
+      if(cross[0] == cross[3]): cross[0].set_pred_con(cross)
+      for j in range(3):
+         if(cross[i] == cross[i+1]): cross[i].set_pred_con(cross)
 
 
 
