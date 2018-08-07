@@ -107,5 +107,13 @@ j = strand(one_handle, i, i)
 i.set_pred(j)
 i.set_succ(j)
 ```
+Onto the crossings:
+```
+c1 = crossing(a, f, b, g)
+c2 = crossing(g, c, h, b)
+c3 = crossing(i, d, j, c)
+c4 = crossing(d, i, e, j)
+c5 = crossing(e, a, f, h)
+```
 
 ### Kirby Moves
