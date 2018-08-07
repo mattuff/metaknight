@@ -151,4 +151,15 @@ j.set_succ_con(c4)
 i.set_pred_con(c4)
 ```
 
+And putting it all together!
+
+```
+trefoil_linked_thru_1-handle = Kirby([c1,c2,c3,c4,c5],[])
+```
+Let's check what we get when we print.
+
+```
+print(trefoil_linked_thru_1-handle)
+```
+
 ### Kirby Moves
