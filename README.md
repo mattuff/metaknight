@@ -200,6 +200,8 @@ Then, to remove it would just be ```k.remove_r1(x)```!
 
 #### Reidemeister 2
 
+##### Adding a Reidemeister 2: ```k.add_r2(s1,s2,o,d)```
+
 ![r2](https://github.com/mattuff/KirbyCalculus/blob/master/Images/r2.png)
 
 Let the black strand be *a*, and the red strand be *b* in a Kirby diagram *k*. 
@@ -209,6 +211,8 @@ In all four cases of a Reidemeister 2 shown above, *a* is being pulled above *b*
 Similarly to Reidemeister 1, these are determined by two booleans: *o* and *s*: *o* is ```True``` if the strands are oriented the same way, ```False``` if they have opposite orientations; and *s* is ```True``` if *b* is to the right of *a*, ```False``` otherwise.
 
 In the above image, the top left corresponds to ```k.add_r2(a,b,True,True)```, the top right ```k.add_r2(a,b,True,False)```, the bottom left ```k.add_r2(a,b,False,True)```, and the bottom right ```k.add_r2(a,b,False,False)```.
+
+##### Removing a Reidemeister 2: ```k.remove_r2(s0,s1)```
 
 ![r2again](https://github.com/mattuff/KirbyCalculus/blob/master/Images/coloredr2.png)
 
