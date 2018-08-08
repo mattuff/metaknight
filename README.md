@@ -212,3 +212,4 @@ To cancel an unknot on a diagram *k*, where *a* is a strand in the unknot : ```k
 To add an unknot on *k* : ```k.handle_creation()```.
 
 #### Handle Slides
+![handleslides](https://github.com/mattuff/KirbyCalculus/blob/master/Images/handleslide.png)
