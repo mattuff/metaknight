@@ -1,0 +1,47 @@
+#fixed PD diagrams for unknot, figure 8, treifoil, pretzel knot, unknot linked through treifoil
+
+  # unknot with one join
+unknt = component(2, 0)
+x = strand(unknt)
+j = join(x, x)
+x.set_pred(x)
+x.set_succ(x)
+unknot = Kirby([], [j])
+unknot.rename_all()
+unknot.set_all_cons()
+#print('unknot: \n' + str(unknot) + '\n')
+
+
+   # figure 8 (unknot with an r1 twist):
+knot = component(2, -1)
+y = strand(knot)
+z = strand(knot, y, y)
+y.set_pred(z)
+y.set_succ(z)
+x = crossing(y, y, z, z)
+figure8 = Kirby([x], [])
+figure8.rename_all()
+figure8.set_all_cons()
+#print('figure8: \n' + str(figure8) + '\n')
+
+   # trefoil
+tr = component(2, 3)
+a = strand(tr)
+b = strand(tr, a)
+c = strand(tr, b)
+d = strand(tr, c)
+e = strand(tr, d)
+f = strand(tr, e, a)
+a.set_pred(f)
+a.set_succ(b)
+b.set_succ(c)
+c.set_succ(d)
+d.set_succ(e)
+e.set_succ(f)
+c1 = crossing(a, e, b, d)
+c2 = crossing(e, c, f, b)
+c3 = crossing(c, a, d, f)
+trefoil = Kirby([c1, c2, c3], [])
+trefoil.rename_all()
+trefoil.set_all_cons()
+#print('trefoil: \n' + str(trefoil) + '\n')
