@@ -184,16 +184,26 @@ Applying a Reidemeister 1 to the strand on the left– let's call it *a*, in a K
 
 The loops on the right depend on two things: whether the incoming strand goes over or under, and whether the strand goes clockwise or counterclockwise inside of the loop. 
 
-These are determined by two booleans, *o* and *i*: *o* is *True* if the loop goes counterclockwise, *False* if the loop goes clockwise; and *i* is *True* if the incoming strand goes over, *False* if the incoming strand goes under.
+These are determined by two booleans, *o* and *i*: *o* is ```True``` if the loop goes counterclockwise, ```False``` if the loop goes clockwise; and *i* is ```True``` if the incoming strand goes over, ```False``` if the incoming strand goes under.
 
-
-So in the above image, the top left corresponds to ```k.add_r1(a, True, False)```, top right ```k.add_r1(a, False, False)```, bottom left ```k.add_r1(a, True, False)```, and bottom right ```k.add_r1(a, False, True)```.
+In the above image, the top left corresponds to ```k.add_r1(a, True, False)```, top right ```k.add_r1(a, False, False)```, bottom left ```k.add_r1(a, True, False)```, and bottom right ```k.add_r1(a, False, True)```.
 
 #### Reidemeister 2
 
 ![r2](https://github.com/mattuff/KirbyCalculus/blob/master/Images/r2.png)
 
+Let the black strand be *a*, and the purple strand be *b* in a Kirby diagram *k*. 
+
+In all four cases of a Reidemeister 2 shown above, *a* is being pulled above *b*. The cases differ by orientations of *a* and *b*, and if *b* is to the right or left of *a*. 
+
+Like in a Reidemeister 1, these are determined by two booleans: *o* and *s*: *o* is ```True``` if the strands are oriented the same way, ```False``` if they have opposite orientations; and *s* is ```True``` if *b* is to the right of *a*, ```False``` otherwise.
+
+In the above image, the top left corresponds to ```k.add_r2(a,b,True,True)```, the top right ```k.add_r2(a,b,True,False)```, the bottom left ```k.add_r2(a,b,False,True)```, and the bottom right ```k.add_r2(a,b,False,False)```.
+
+
 #### Reidemeister 3
+
+![r3](https://github.com/mattuff/KirbyCalculus/blob/master/Images/r3.png)
 
 #### Handle Annihilation and Creation
 
