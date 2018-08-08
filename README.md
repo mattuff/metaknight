@@ -200,14 +200,11 @@ Similarly to Reidemeister 1, these are determined by two booleans: *o* and *s*: 
 
 In the above image, the top left corresponds to ```k.add_r2(a,b,True,True)```, the top right ```k.add_r2(a,b,True,False)```, the bottom left ```k.add_r2(a,b,False,True)```, and the bottom right ```k.add_r2(a,b,False,False)```.
 
-
-
-
 #### Reidemeister 3
 
 ![r3](https://github.com/mattuff/KirbyCalculus/blob/master/Images/r3.png)
 
-A Reidemiester 3 moves a strand *a* to the other side of a crossing (where *a* is the under strand in the crossing, *b* is the middle strand, and *c* the over strand). On a Kirby diagram *k*, this is done by ```k.add_r3(a,b,c)```.
+A Reidemiester 3 moves a strand *a* to the other side of a crossing (where *a* is the under strand in the crossing, shown in green above, *b* is the strand going across, shown in black above, and *c* the over strand in the crossing, shown in purple above). On a Kirby diagram *k*, this is done by ```k.add_r3(a,b,c)```.
 
 Doing and undoing a Reidemeister 3 are equivalent.
 
