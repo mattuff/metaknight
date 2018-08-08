@@ -196,7 +196,7 @@ Let the black strand be *a*, and the purple strand be *b* in a Kirby diagram *k*
 
 In all four cases of a Reidemeister 2 shown above, *a* is being pulled above *b*. The cases differ by orientations of *a* and *b*, and if *b* is to the right or left of *a*. 
 
-Like in a Reidemeister 1, these are determined by two booleans: *o* and *s*: *o* is ```True``` if the strands are oriented the same way, ```False``` if they have opposite orientations; and *s* is ```True``` if *b* is to the right of *a*, ```False``` otherwise.
+Similarly to Reidemeister 1, these are determined by two booleans: *o* and *s*: *o* is ```True``` if the strands are oriented the same way, ```False``` if they have opposite orientations; and *s* is ```True``` if *b* is to the right of *a*, ```False``` otherwise.
 
 In the above image, the top left corresponds to ```k.add_r2(a,b,True,True)```, the top right ```k.add_r2(a,b,True,False)```, the bottom left ```k.add_r2(a,b,False,True)```, and the bottom right ```k.add_r2(a,b,False,False)```.
 
@@ -207,9 +207,9 @@ In the above image, the top left corresponds to ```k.add_r2(a,b,True,True)```, t
 
 ![r3](https://github.com/mattuff/KirbyCalculus/blob/master/Images/r3.png)
 
-A Reidemiester 3 moves a strand *a* to the other side of a crossing (where *b* is the under strand in the crossing, and *c* the over strand). On a Kirby diagram *k*, this is done by ```k.add_r3(b,a,c)```.
+A Reidemiester 3 moves a strand *a* to the other side of a crossing (where *a* is the under strand in the crossing, *b* is the middle strand, and *c* the over strand). On a Kirby diagram *k*, this is done by ```k.add_r3(a,b,c)```.
 
-Undoing a Reidemeister 3 is exactly the same as doing one.
+Doing and undoing a Reidemeister 3 are equivalent.
 
 #### Handle Annihilation and Creation
 
