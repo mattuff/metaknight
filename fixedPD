@@ -1,1 +1,13 @@
 #fixed PD diagrams for unknot, figure 8, treifoil, pretzel knot, unknot linked through treifoil
+
+#unknot
+unknt = component(2, 0)
+x = strand(unknt)
+j = join(x, x)
+x.set_pred(x)
+x.set_succ(x)
+unknot = Kirby([], [j])
+unknot.rename_all()
+unknot.set_all_cons()
+#print('unknot: \n' + str(unknot) + '\n')
+
