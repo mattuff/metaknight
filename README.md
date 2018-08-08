@@ -225,3 +225,14 @@ To add an unknot on *k* : ```k.handle_creation()```.
 
 #### Handle Slides
 ![handleslides](https://github.com/mattuff/KirbyCalculus/blob/master/Images/handleslide.png)
+
+A handle slide quite literally slides one handle– let's call it *A* over another– *B*, in a Kirby diagram *k*.
+
+This is done by making a parallel copy to the right of all the strands in *A*, adjusting crossings (each crossing in *A* turns into four!), and attaching the parallel copy of *A* onto *B*. The framing of *B* is changed as well.
+
+Handle slides can either be handle addition (where the parallel copy of *A* is oriented the same as *A*), or handle subtraction (where *A* and its parallel copy have opposite orientations).
+
+Let *a* be a strand in *A* and *b* be a strand in *B*.
+
+Handle addition is done by ```k.handle_slide(a,b,True)``` and handle subtraction by ```k.handle_slide(a,b,False)```.
+
