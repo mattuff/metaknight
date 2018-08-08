@@ -190,6 +190,10 @@ In the above image, the top left corresponds to ```k.add_r1(a, True, False)```, 
 
 ![r1again](https://github.com/mattuff/KirbyCalculus/blob/master/Images/coloredr1.png)
 
+Removing a Reidemeister 1 is easy! Let's call the blue strand above *a* on a Kirby diagram *k*.
+
+Then, to remove it would just be ```k.remove_r1(a)```!
+
 #### Reidemeister 2
 
 ![r2](https://github.com/mattuff/KirbyCalculus/blob/master/Images/r2.png)
@@ -203,6 +207,10 @@ Similarly to Reidemeister 1, these are determined by two booleans: *o* and *s*: 
 In the above image, the top left corresponds to ```k.add_r2(a,b,True,True)```, the top right ```k.add_r2(a,b,True,False)```, the bottom left ```k.add_r2(a,b,False,True)```, and the bottom right ```k.add_r2(a,b,False,False)```.
 
 ![r2again](https://github.com/mattuff/KirbyCalculus/blob/master/Images/coloredr2.png)
+
+Removing a Reidemeister 2 is easy as well! Let's call the blue strand above *a* and the red strand *b* (again, on a Kirby diagram *k*).
+
+To remove the Reidemeister 2 is ```k.remove_r2(a,b)```.
 
 #### Reidemeister 3
 
