@@ -70,6 +70,11 @@ class Kirby:
          if(s.name==key):
             return(s)
 
+   def disjoint_union(self,k):
+      self.crossings+=k.crossings
+      self.joins+=k.joins
+      self=Kirby(self.crossings,self.joins)
+
    def comp_list(self): #returns list of components
       l=[]
       for x in self.strands:
