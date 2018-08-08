@@ -201,6 +201,8 @@ Like in a Reidemeister 1, these are determined by two booleans: *o* and *s*: *o*
 In the above image, the top left corresponds to ```k.add_r2(a,b,True,True)```, the top right ```k.add_r2(a,b,True,False)```, the bottom left ```k.add_r2(a,b,False,True)```, and the bottom right ```k.add_r2(a,b,False,False)```.
 
 
+
+
 #### Reidemeister 3
 
 ![r3](https://github.com/mattuff/KirbyCalculus/blob/master/Images/r3.png)
