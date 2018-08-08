@@ -205,6 +205,10 @@ In the above image, the top left corresponds to ```k.add_r2(a,b,True,True)```, t
 
 ![r3](https://github.com/mattuff/KirbyCalculus/blob/master/Images/r3.png)
 
+A Reidemiester 3 moves a strand *a* to the other side of a crossing (where *b* is the under strand in the crossing, and *c* the over strand). On a Kirby diagram *k*, this is done by ```k.add_r3(b,a,c)```.
+
+Undoing a Reidemeister 3 is exactly the same as doing one.
+
 #### Handle Annihilation and Creation
 
 ![cancellingpair](https://github.com/mattuff/KirbyCalculus/blob/master/Images/cancellingpair.png)
