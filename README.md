@@ -1,6 +1,6 @@
 # MetaKnight :watermelon:
 
-developed by: Yael Eisenberg, Laura Stordy, and Matt Uffenheimer
+Developed by: Yael Eisenberg, Laura Stordy, and Matt Uffenheimer
 
 MetaKnight (Manifolds Encoded Through the Architecture of Knots and Numbers In the Geometry of Handlebody Theory) is a Python Package for Kirby Calculus!
 
