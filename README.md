@@ -270,36 +270,47 @@ Handle addition is done by ```k.handle_slide(a,b,True)``` and handle subtraction
 
 ### Other Methods
 
-```k.switch(c)```
+```k.switch(c)```:
+
    Given a crossing *c*, switches its over and under strands.
  
-```k.set_cons(c)```
+```k.set_cons(c)```:
+
   Given a crossing *c*, sets *pred_con* and *succ_con* of strands within *c*.
   
-```k.set_all_cons()```
+```k.set_all_cons()```:
+
    Applies *set_cons* to every crossing in the Kirby class.
  
-```k.comp_crossings(h1)```
+```k.comp_crossings(h1)```:
+
    Given a component *h1*, returns list of all crossings fully contained in *h1*.
   
-```k.comp_joins(h1)```
+```k.comp_joins(h1)```:
+
    Given a component *h1*, returns a list of all joins contained in *h1*.
   
-```k.comp_intersection(h1)```
+```k.comp_intersection(h1)```:
+
    Given a component *h1*, returns a list of crossings between *h1* and another component.
    
-```k.writhe(c)```
+```k.writhe(c)```:
+
    Given a component *c*, returns its writhe.
    
-```k.linking_number(h1,h2)```
+```k.linking_number(h1,h2)```:
+
    Given two components *h1* and *h2*, returns their linking number.
    
-```k.add_join(s0)```
+```k.add_join(s0)```:
+
    Adds a join onto a strand *s0*.
    
-```k.remove_join(j)```
+```k.remove_join(j)```:
+
    Removes a join *j* from diagram.
    
-```k.remove_joins()```
+```k.remove_joins()```:
+
    Removes all joins from diagram.
    
