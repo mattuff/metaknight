@@ -102,14 +102,8 @@ class Kirby:
          cross[1].set_pred_con(cross)
          cross[3].set_succ_con(cross)
          
-   def set_cons_joins(self, join):
-      if(join[0].succ == join[1]):
-         join[0].set_succ_con(join[1])
-         join[1].set_pred_con(join[0])
-
-      else:
-         join[0].set_pred_con(join[1])
-         join[1].set_succ_con(join[0])
+   def set_all_cons(self):
+      for x in self.crossings: self.set_cons(x)
 
 
    def rename(self,s,n): #s is named n, strand's name is predecessor's +1
