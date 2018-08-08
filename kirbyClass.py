@@ -411,7 +411,7 @@ class Kirby:
       
 
    def handle_slide(self, h1, h2, sign): #h2 is being slid over h1; sign=True if same orientation
-      #makes parallel copies of all strands in h1
+      
       s=self.strand_list(h1) #list of strands in h1, in succ order
       l=[]
       comp_crossings=self.comp_crossings(h1.component) #crossings with only strands in h1
@@ -421,7 +421,6 @@ class Kirby:
       sf2=self.writhe(h2.component)-h2.component.framing #seifert framing of second handle
       lk=self.linking_number(h1.component,h2.component) #linking number of two handles
 
-      #can considate, use ternary operator?
       for k in range (len(s)): #sets up parallel copy of h1
          l.append(strand(h2.component))
       for i in range (len(l)-1): #sets up preds and succs
@@ -443,8 +442,12 @@ class Kirby:
          a=s.index(j[0])
          if (sign):
             jn=join(l[a],l[a+1])
+            l[a].set_succ_con(jn)
+            l[a+1].set_pred_con(jn)
          else:
             jn=join(l[a+1],l[a])
+            l[a+1].set_succ_con(jn)
+            l[a].set_pred_con(jn)
          self.joins.append(jn)
 
       for cx in comp_crossings: #takes crossing, makes into four
