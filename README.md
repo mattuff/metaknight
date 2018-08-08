@@ -195,6 +195,8 @@ So in the above image, the top left corresponds to ```k.add_r1(a, True, False)``
 
 #### Reidemeister 3
 
+![r3](https://github.com/mattuff/KirbyCalculus/blob/master/Images/r3.png)
+
 #### Handle Annihilation and Creation
 
 ![cancellingpair](https://github.com/mattuff/KirbyCalculus/blob/master/Images/cancellingpair.png)
