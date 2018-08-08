@@ -220,7 +220,7 @@ Removing a Reidemeister 2 is easy as well! Let's call the blue strand above *a* 
 
 To remove the Reidemeister 2 is ```k.remove_r2(a,b)```.
 
-#### Reidemeister 3
+#### Reidemeister 3: ```k.add_r3(strandUnder,strandMiddle,strandOver)```
 
 ![r3](https://github.com/mattuff/KirbyCalculus/blob/master/Images/r3.png)
 
@@ -230,6 +230,10 @@ Implementing and removing a Reidemeister 3 are equivalent.
 
 #### Handle Annihilation and Creation
 
+##### Cancel a cancelling pair: ```k.handle_annihilation(h1,h2)```
+
+##### Adding a cancelling pair: ```k.handle_creation(f)```
+
 ![cancellingpair](https://github.com/mattuff/KirbyCalculus/blob/master/Images/cancellingpair.png)
 
 A linked 1-handle and unknot 2-handle of any framing can be cancelled without changing the manifold. Similarly, they can be added without changing anything.
@@ -237,6 +241,10 @@ A linked 1-handle and unknot 2-handle of any framing can be cancelled without ch
 To cancel such a pair on a diagram *k*, where *a* is a strand from one component and *b* is a strand from the other: ```k.handle_annihilation(a,b)```.
 
 To add such a pair on *k*, where you want the unknot to have framing *f*: ```k.handle_creation(f)```.
+
+##### Cancelling an unknot: ```k.handle_annihilation(h1)```
+
+##### Adding an unknot: ```k.handle_creation()```
 
 ![unknot0](https://github.com/mattuff/KirbyCalculus/blob/master/Images/unknot.png)
 
@@ -246,7 +254,8 @@ To cancel an unknot on a diagram *k*, where *a* is a strand in the unknot : ```k
 
 To add an unknot on *k* : ```k.handle_creation()```.
 
-#### Handle Slides
+#### Handle Slides: ```k.handle_slide(h1,h2,sign)```
+
 ![handleslides](https://github.com/mattuff/KirbyCalculus/blob/master/Images/handleslide.png)
 
 A handle slide quite literally slides one handle– let's call it *B*, in red above, over another– *A*, in black above, in a Kirby diagram *k*.
@@ -258,8 +267,4 @@ Handle slides can either be handle addition (where the parallel copy of *A* is o
 Let *a* be a strand in *A* and *b* be a strand in *B*.
 
 Handle addition is done by ```k.handle_slide(a,b,True)``` and handle subtraction by ```k.handle_slide(a,b,False)```.
-
-### Additional Methods
-
-#### set_cons and set_all_cons
 
