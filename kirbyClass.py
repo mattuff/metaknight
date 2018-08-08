@@ -92,31 +92,25 @@ class Kirby:
          f=lambda x:c.strands[(x-1)%4]
       c.strands = list(map(f,range(4)))
       
-   def set_cons(self, cross):          
-      cross[0].set_succ_con(cross)
-      cross[2].set_pred_con(cross)
-      if(cross[1].succ == cross[3]):
-         cross[1].set_succ_con(cross)
-         cross[3].set_pred_con(cross)
+   def set_cons(self, c):          
+      if (c.len==4):
+         c[0].set_succ_con(c)
+         c[2].set_pred_con(c)
+         if(c[1].succ == c[3]):
+            c[1].set_succ_con(c)
+            c[3].set_pred_con(c)
+         else:
+            c[1].set_pred_con(c)
+            c[3].set_succ_con(c)
       else:
-         cross[1].set_pred_con(cross)
-         cross[3].set_succ_con(cross)
-         
-   def set_cons_joins(self, j):
-      if (j[0].succ == j[1]):
-         j[0].set_succ_con(j[1])
-         j[1].set_pred_con(j[0])
-
-      else:
-         j[0].set_pred_con(j[1])
-         j[1].set_succ_con(j[0])
-
+         c[0].set_succ_con(c)
+         c[1].set_pred_con(c)
          
    def set_all_cons(self):
-      for x in self.crossings: self.set_cons(x)
-      for y in self.joins: self.set_cons_joins(y)
-
-
+      for x in self.crossings:
+         self.set_cons(x)
+      for y in self.joins:
+         self.set_cons(y)
 
    def rename(self,s,n): #s is named n, strand's name is predecessor's +1
       s.name=n
