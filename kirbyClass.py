@@ -390,7 +390,7 @@ class Kirby:
          c.set_pred(d)
          c.set_succ(d)
          c1=crossing(a,c,b,d)
-         c2=crossing(c,a,b,d)
+         c2=crossing(c,a,d,b)
          for i in [c1,c2]:
             self.set_cons(i)
          self.crossings+=[c1,c2]
@@ -421,7 +421,8 @@ class Kirby:
       lk=self.linking_number(h1.component,h2.component) #linking number of two handles
 
       for k in range (len(s)): #sets up parallel copy of h1
-         l.append(strand(h2.component))
+         st=strand(h2.component)
+         l.append(st)
       for i in range (len(l)-1): #sets up preds and succs
          if (sign):
             l[i].set_pred(l[i-1])
@@ -497,7 +498,7 @@ class Kirby:
                ff=strand(h2.component, bb, dd)
                bb.set_succ(ff)
                dd.set_pred(ff)
-            l.insert(s.index(d)+1, ff)
+            l.insert(l.index(d)+1, ff)
          self.strands+=[e,ee,f,ff]
          self.crossings.remove(cx)
 
@@ -524,13 +525,13 @@ class Kirby:
 
          for i in [c1,c2,c3,c4]:
             self.set_cons(i)
-
+      
       for cx in comp_intersections: #turns crossings between h1 and another comp into 2 crossings
          if (cx[0].component==h1.component):
             a=cx[0]
             b=cx[1]
             c=cx[2]
-            d=cx[3]
+            d=cx[3] 
             aa=l[s.index(a)]
             cc=l[s.index(c)]
             f=strand(b.component)
@@ -538,20 +539,20 @@ class Kirby:
             c1=crossing(a,f,c,d)
             if (b.succ==d):
                f.set_pred(b)
+               b.set_succ(f)
                f.set_succ(d)
+               d.set_pred(f)
                f1 = lambda x : b if x else f
                f2 = lambda x : aa if x else cc
                c2=crossing(f2(sign),f1(sign),f2(not sign),f1(not sign))
             else:
                f.set_pred(d)
+               d.set_succ(f)
                f.set_succ(b)
+               b.set_pred(f)
                f1 = lambda x : aa if x else cc
                f2 = lambda x : b if x else f
                c2=crossing(f1(sign),f2(sign),f1(not sign),f2(not sign))
-               f1(sign).set_succ_con(c2)
-               f1(not sign).set_pred_con(c2)
-            for i in [c1,c2]:
-               self.set_cons(i)
          else:
             a=cx[0]
             b=cx[1]
@@ -571,7 +572,7 @@ class Kirby:
                c2=crossing(e,b,c,d)
          for i in [c1,c2]:
             self.set_cons(i)
-               
+         self.crossings.remove(cx)      
          self.crossings+=[c1,c2]
 
 
