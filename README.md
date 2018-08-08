@@ -314,3 +314,6 @@ Handle addition is done by ```k.handle_slide(a,b,True)``` and handle subtraction
 
    Removes all joins from diagram.
    
+```k.disjoint_union(k2)```:
+
+   Replaces Kirby diagram *k* with the disjoint union of *k* and another diagram, *k2*.
