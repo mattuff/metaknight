@@ -391,14 +391,8 @@ class Kirby:
          c.set_succ(d)
          c1=crossing(a,c,b,d)
          c2=crossing(c,a,b,d)
-         a.set_succ_con(c1)
-         b.set_pred_con(c1)
-         b.set_succ_con(c2)
-         a.set_pred_con(c2)
-         c.set_succ_con(c2)
-         d.set_pred_con(c2)
-         d.set_succ_con(c1)
-         c.set_pred_con(c1)
+         for i in [c1,c2]:
+            self.set_cons(i)
          self.crossings+=[c1,c2]
          self.strands+=[a,b,c,d]
          self.components+=[h1,h2]
@@ -409,8 +403,7 @@ class Kirby:
          a.set_pred(a)
          a.set_succ(a)
          j=join(a,a)
-         a.set_succ_con(j)
-         a.set_pred_con(j)
+         self.set_cons(j)
          self.joins.append(j)
          self.strands.append(a)
          self.components.append(h1)
@@ -448,12 +441,9 @@ class Kirby:
          a=s.index(j[0])
          if (sign):
             jn=join(l[a],l[a+1])
-            l[a].set_succ_con(jn)
-            l[a+1].set_pred_con(jn)
          else:
             jn=join(l[a+1],l[a])
-            l[a+1].set_succ_con(jn)
-            l[a].set_pred_con(jn)
+         self.set_cons(jn)
          self.joins.append(jn)
 
       for cx in comp_crossings: #takes crossing, makes into four
@@ -532,57 +522,8 @@ class Kirby:
          
          self.crossings+=[c1,c2,c3,c4]
 
-         a.set_succ_con(c1)
-         e.set_pred_con(c1)
-         e.set_succ_con(c4)
-         c.set_pred_con(c4)
-
-         if (sign):
-            aa.set_succ_con(c2)
-            ee.set_pred_con(c2)
-            ee.set_succ_con(c3)
-            cc.set_pred_con(c3)
-
-            if (var):
-               f.set_succ_con(c1)
-               d.set_pred_con(c1)
-               b.set_succ_con(c2)
-               f.set_pred_con(c2)
-
-               bb.set_succ_con(c3)
-               ff.set_pred_con(c3)
-               ff.set_succ_con(c4)
-               dd.set_pred_con(c4)
-      
-            else:
-               dd.set_succ_con(c1)
-               ff.set_pred_con(c1)
-               ff.set_succ_con(c2)
-               bb.set_pred_con(c2)
-               
-               f.set_succ_con(c3)
-               b.set_pred_con(c3)
-               d.set_succ_con(c4)
-               f.set_pred_con(c4)
-            
-         else:
-            cc.set_succ_con(c3)
-            ee.set_pred_con(c3)
-            ee.set_succ_con(c2)
-            aa.set_pred_con(c2)
-
-            f1 = lambda x : b if x else bb
-            f2 = lambda x : f if x else ff
-            f3 = lambda x : d if x else dd
-
-            f1(var).set_succ_con(c2)
-            f2(var).set_pred_con(c2)
-            f2(var).set_succ_con(c2)
-            f3(var).set_pred_con(c1)
-            f3(not var).set_succ_con(c4)
-            f2(not var).set_pred_con(c4)
-            f2(not var).set_succ_con(c3)
-            f1(not var).set_pred_con(c3)
+         for i in [c1,c2,c3,c4]:
+            self.set_cons(i)
 
       for cx in comp_intersections: #turns crossings between h1 and another comp into 2 crossings
          if (cx[0].component==h1.component):
@@ -595,20 +536,12 @@ class Kirby:
             f=strand(b.component)
             self.strands+=[f]
             c1=crossing(a,f,c,d)
-            a.set_succ_con(c1)
-            c.set_pred_con(c1)
             if (b.succ==d):
                f.set_pred(b)
                f.set_succ(d)
                f1 = lambda x : b if x else f
                f2 = lambda x : aa if x else cc
                c2=crossing(f2(sign),f1(sign),f2(not sign),f1(not sign))
-               f2(sign).set_succ_con(c2)
-               f2(not sign).set_pred_con(c2)
-               b.set_succ_con(c2)
-               f.set_pred_con(c2)
-               f.set_succ_con(c1)
-               d.set_pred_con(c1)
             else:
                f.set_pred(d)
                f.set_succ(b)
@@ -617,10 +550,8 @@ class Kirby:
                c2=crossing(f1(sign),f2(sign),f1(not sign),f2(not sign))
                f1(sign).set_succ_con(c2)
                f1(not sign).set_pred_con(c2)
-               d.set_succ_con(c1)
-               f.set_pred_con(c1)
-               f.set_succ_con(c2)
-               b.set_pred_con(c2)
+            for i in [c1,c2]:
+               self.set_cons(i)
          else:
             a=cx[0]
             b=cx[1]
@@ -635,23 +566,11 @@ class Kirby:
             if (b.succ==d):
                c1=crossing(a,b,e,d)
                c2=crossing(e,bb,c,dd)
-               b.set_succ_con(c1)
-               d.set_pred_con(c1)
-               f1 = lambda x : bb if x else dd
-               f1(sign).set_succ_con(c2)
-               f1(not sign).set_pred_con(c2)
             else:
                c1=crossing(a,bb,e,dd)
                c2=crossing(e,b,c,d)
-               d.set_succ_con(c2)
-               b.set_pred_con(c2)
-               f1 = lambda x : dd if x else bb
-               f1(sign).set_succ_con(c1)
-               f1 (not sign).set_pred_con(c1)
-            a.set_succ_con(c1)
-            e.set_pred_con(c1)
-            e.set_succ_con(c2)
-            c.set_pred_con(c2)
+         for i in [c1,c2]:
+            self.set_cons(i)
                
          self.crossings+=[c1,c2]
 
@@ -683,15 +602,8 @@ class Kirby:
             self.crossings+=[c1,c2]
             for j in joinlist:
                self.joins.remove(j)
-            l1.set_succ_con(c1)
-            l2.set_pred_con(c1)
-            l2.set_succ_con(c2)
-            l3.set_pred_con(c2)
-            s1.set_succ_con(c1)
-            s2.set_pred_con(c1)
-            s2.set_succ_con(c2)
-            s3.set_pred_con(c2)
-
+            for i in [c1,c2]:
+               self.set_cons(i)
       else:
          for i in range(abs(h1.component.framing)):
             l1=l[-1]
@@ -717,14 +629,8 @@ class Kirby:
             self.crossings+=[c1,c2]
             for j in joinlist:
                self.joins.remove(j)
-            l1.set_succ_con(c2)
-            l2.set_pred_con(c2)
-            l2.set_succ_con(c1)
-            l3.set_pred_con(c1)
-            s1.set_succ_con(c1)
-            s2.set_pred_con(c1)
-            s2.set_succ_con(c2)
-            s3.set_succ_con(c2)
+            for i in [c1,c2]:
+               self.set_cons(i)
 
       self.connect_sum(h2,l[0])
       self.remove_joins()
