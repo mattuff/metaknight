@@ -4,7 +4,7 @@ Developed by: Yael Eisenberg, Laura Stordy, and Matt Uffenheimer
 
 MetaKnight (Manifolds Encoded Through the Architecture of Knots and Numbers In the Geometry of Handlebody Theory) is a Python Package for Kirby Calculus!
 
-Kirby diagrams are a way of modeling 4-manifolds based off of their handlebody decomposition. The Kirby class takes planar diagrams of Kirby diagrams in circle-dot notation as inputs, and can perform all the Kirby moves on the diagram: Reidemeister moves, handle annihilation, handle creation, and handle slides.
+Kirby diagrams are a method of modeling 4-manifolds based off of their handlebody decomposition. The Kirby class inputs planar diagrams of Kirby diagrams in circle-dot notation, and can perform all the Kirby moves on the diagram: Reidemeister moves, handle annihilation, handle creation, and handle slides.
 
 ### Setting up a Planar Diagram
 
@@ -20,7 +20,7 @@ We start with ```comp=component(2,0)```.
 
 2. Set up strands:
 
-Every component is made up of strands. The strand class, **strandClass.py**, initializes these strands. The attributes of the strand are the component it belongs to, the strands directly before and after it, and the connections directly before and after it. It's set up by ```strand(comp, pred, succ, pred_con, succ_con)```.
+Every component is composed of strands. The strand class, **strandClass.py**, initializes these strands. The attributes of the strand are the component it belongs to, the strands directly before and after it, and the crossings directly before and after it. It's initialized by ```strand(comp, pred, succ, pred_con, succ_con)```.
 
 Let's set up three strands for the unknot above (without worrying about the connections):
 ```
@@ -34,9 +34,9 @@ b.set_succ(c)
 
 3. Set up crossings and joins:
 
-Crossings are intersections of four strands, and joins are intersections of two.
+Crossings are intersections of four strands, and joins are intersections of two strands.
 
-On each side of a strand is a crossing or a join, initaizted by **crossingClass.py** and **joinClass.py**.
+On both sides of a strand there is a crossing or a join, initailized by **crossingClass.py** and **joinClass.py**.
 
 Crossings are intiialized by the four strands they contain, listed counterclockwise with the incoming under strand first. For example, the crossing below would be set up by ```crossing(a,b,c,d)```.
 
@@ -48,7 +48,7 @@ Note: crossings and joins can be indexed like lists.
 
 Now that we have crossings and joins, time to add them as attributes in our strands!
 
-For our three-stranded circle above, let's put in some joins.
+For our three-stranded circle above, let's insert some joins.
 
 ```
 j1=join(a,b)
@@ -63,9 +63,9 @@ a.set_pred_con(j3)
 ```
 4. Compile everything into a Kirby object:
 
-The Kirby class, **kirbyClass.py**, is where everything comes together. It's initialized with just lists of crossings and joins, but also stores lists of components and strands. Kirby diagrams are set up with ```Kirby([c_1,c_2,...,c_n],[j_1,j_2,...,j_n])``` where *c_i* and *j_i* are crossings and joins respectively.
+The Kirby class, **kirbyClass.py**, is where everything comes together. It's initialized with lists of crossings and joins, but also stores lists of components and strands. Kirby diagrams are set up with ```Kirby([c_1,c_2,...,c_n],[j_1,j_2,...,j_n])``` where *c_i* and *j_i* are crossings and joins respectively.
 
-Let's put our circle into a Kirby diagram: ```circ=Kirby([],[j1,j2,j3])```.
+Let's turn our circle into a Kirby diagram: ```circ=Kirby([],[j1,j2,j3])```.
 
 And that's it! Now we have a Kirby diagram to work with. Let's print *circ* and see if it works:
 ```
@@ -126,7 +126,7 @@ c3 = crossing(i, d, j, c)
 c4 = crossing(d, i, e, j)
 c5 = crossing(e, a, f, h)
 ```
-Setting up the preceeding and succeeding connections in strands:
+Setting up the strands' preceeding and succeeding connections:
 ```
 a.set_succ_con(c1)
 b.set_pred_con(c1)
@@ -156,7 +156,7 @@ And putting it all together!
 ```
 tr1 = Kirby([c1,c2,c3,c4,c5],[])
 ```
-Let's check what we get when we print.
+Let's print tr1:
 
 ```
 print(tr1)
@@ -216,9 +216,9 @@ To remove the Reidemeister 2 is ```k.remove_r2(a,b)```.
 
 ![r3](https://github.com/mattuff/KirbyCalculus/blob/master/Images/r3.png)
 
-A Reidemiester 3 moves a strand *a* to the other side of a crossing (where *a* is the under strand in the crossing, shown in green above, *b* is the strand going across, shown in black above, and *c* the over strand in the crossing, shown in purple above). On a Kirby diagram *k*, this is done by ```k.add_r3(a,b,c)```.
+A Reidemiester 3 moves a strand *a* to the other side of a crossing (where *a* is the under strand in the crossing, shown in green above, *b* is the 'middle' strand going over the understrand and over another strand, shown in black above, and *c* the over strand in the crossing, shown in purple above). On a Kirby diagram *k*, we perform a Reidememiester 3 by ```k.add_r3(a,b,c)```.
 
-Doing and undoing a Reidemeister 3 are equivalent.
+Implementing and removing a Reidemeister 3 are equivalent.
 
 #### Handle Annihilation and Creation
 
