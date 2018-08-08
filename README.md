@@ -198,7 +198,7 @@ Then, to remove it would just be ```k.remove_r1(a)```!
 
 ![r2](https://github.com/mattuff/KirbyCalculus/blob/master/Images/r2.png)
 
-Let the black strand be *a*, and the purple strand be *b* in a Kirby diagram *k*. 
+Let the black strand be *a*, and the red strand be *b* in a Kirby diagram *k*. 
 
 In all four cases of a Reidemeister 2 shown above, *a* is being pulled above *b*. The cases differ by orientations of *a* and *b*, and if *b* is to the right or left of *a*. 
 
@@ -250,4 +250,8 @@ Handle slides can either be handle addition (where the parallel copy of *A* is o
 Let *a* be a strand in *A* and *b* be a strand in *B*.
 
 Handle addition is done by ```k.handle_slide(a,b,True)``` and handle subtraction by ```k.handle_slide(a,b,False)```.
+
+### Additional Methods
+
+#### set_cons and set_all_cons
 
