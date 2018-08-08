@@ -178,9 +178,9 @@ Now how do we manipulate these diagrams?
 
 #### Reidemeister 1
 
-![r1](https://github.com/mattuff/KirbyCalculus/blob/master/Images/r1.png)
+##### Adding a Reidemeister 1: ```k.add_r1(x,o,i)```
 
-```k.add_r1(x,o,i)```
+![r1](https://github.com/mattuff/KirbyCalculus/blob/master/Images/r1.png)
 
 Applying a Reidemeister 1 to the strand on the left– let's call it *x*, in a Kirby diagram *k*– can produce any of the four loops on the right. 
 
@@ -189,6 +189,8 @@ The loops on the right depend on two things: whether the incoming strand goes ov
 These are determined by two booleans, *o* and *i*: *o* is ```True``` if the loop goes counterclockwise, ```False``` if the loop goes clockwise; and *i* is ```True``` if the incoming strand goes over, ```False``` if the incoming strand goes under.
 
 In the above image, the top left corresponds to ```k.add_r1(a, True, False)```, top right ```k.add_r1(a, False, False)```, bottom left ```k.add_r1(a, True, False)```, and bottom right ```k.add_r1(a, False, True)```.
+
+##### Removing a Reidemiester 1: ```k.remove_r1(x)```
 
 ![r1again](https://github.com/mattuff/KirbyCalculus/blob/master/Images/coloredr1.png)
 
