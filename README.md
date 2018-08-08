@@ -188,6 +188,8 @@ These are determined by two booleans, *o* and *i*: *o* is ```True``` if the loop
 
 In the above image, the top left corresponds to ```k.add_r1(a, True, False)```, top right ```k.add_r1(a, False, False)```, bottom left ```k.add_r1(a, True, False)```, and bottom right ```k.add_r1(a, False, True)```.
 
+![r1again](https://github.com/mattuff/KirbyCalculus/blob/master/Images/coloredr1.png)
+
 #### Reidemeister 2
 
 ![r2](https://github.com/mattuff/KirbyCalculus/blob/master/Images/r2.png)
@@ -199,6 +201,8 @@ In all four cases of a Reidemeister 2 shown above, *a* is being pulled above *b*
 Similarly to Reidemeister 1, these are determined by two booleans: *o* and *s*: *o* is ```True``` if the strands are oriented the same way, ```False``` if they have opposite orientations; and *s* is ```True``` if *b* is to the right of *a*, ```False``` otherwise.
 
 In the above image, the top left corresponds to ```k.add_r2(a,b,True,True)```, the top right ```k.add_r2(a,b,True,False)```, the bottom left ```k.add_r2(a,b,False,True)```, and the bottom right ```k.add_r2(a,b,False,False)```.
+
+![r2again](https://github.com/mattuff/KirbyCalculus/blob/master/Images/coloredr2.png)
 
 #### Reidemeister 3
 
