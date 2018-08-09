@@ -319,8 +319,12 @@ class Kirby:
 
       #add unofficial joins to list
       fixJoin = lambda s: join(s, s.succ) if s.succ not in c3 else join(s.pred, s)
-      self.joins.append(fixJoin(strandMiddle))
-      self.joins.append(fixJoin(strandOver))
+      
+      j1 = fixJoin(strandMiddle)
+      j2 = fixJoin(strandOver)
+
+      self.joins.append(j1)
+      self.joins.append(j2)
 
       #add real joins which will turn into crossings
       self.add_join(strandOrient(strandMiddle))
@@ -356,8 +360,10 @@ class Kirby:
       #setting succ_pred/succ_con
       for i in [c1,c2,c3]: self.set_cons(i)
          
-      self.remove_joins()
 
+      for i in self.joins:
+         if((i[0] == j1[0]) and (i[1] == j1[1])): self.remove_join(i)
+         if((i[0] == j2[0]) and (i[1] == j2[1])): self.remove_join(i)
 
          
    def handle_annihilation(self,h1,h2=None): #h1,h2 strands
