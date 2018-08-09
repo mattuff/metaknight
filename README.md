@@ -258,7 +258,7 @@ To add an unknot on *k* : ```k.handle_creation()```.
 
 #### Handle Slides: ```k.handle_slide(h1,h2,sign)```
 
-![handleslides](https://github.com/mattuff/KirbyCalculus/blob/master/Images/handleslide.png)
+![handleslides](https://github.com/mattuff/KirbyCalculus/blob/master/Images/handleslides.png)
 
 A handle slide quite literally slides one handle– let's call it *B*, in red above, over another– *A*, in black above, in a Kirby diagram *k*.
 
