@@ -70,6 +70,22 @@ class Kirby:
          if(s.name==key):
             return(s)
 
+   def reverse(self,c):
+      s=c[0]
+      s.pred,s.succ = s.succ,s.pred
+      t=s.pred
+      while(s!=t):
+         t.pred,t.succ = t.succ,t.pred
+         t=t.pred
+      for x in self.crossings:
+         if(x[0].component==c):
+            x.strands=[x[2],x[3],x[0],x[1]]
+            self.set_cons(x)
+      for x in self.joins:
+         if(x[0].component==c):
+            x.strands=[x[1],x[0]]
+            self.set_cons(x)
+
    def disjoint_union(self,k):
       self.crossings+=k.crossings
       self.joins+=k.joins
