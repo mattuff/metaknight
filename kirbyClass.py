@@ -363,6 +363,7 @@ class Kirby:
 
       for i in self.joins:
          if((i[0] == j1[0]) and (i[1] == j1[1])): self.remove_join(i)
+      for i in self.joins:
          if((i[0] == j2[0]) and (i[1] == j2[1])): self.remove_join(i)
 
          
