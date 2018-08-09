@@ -149,6 +149,10 @@ i.set_succ_con(c3)
 j.set_pred_con(c3)
 j.set_succ_con(c4)
 i.set_pred_con(c4)
+
+#or, after we initialize tr1 (the Kirby diagram) we can automatically set all the pre_con/succ_con:
+tr1.set_all_cons()
+
 ```
 
 And putting it all together!
