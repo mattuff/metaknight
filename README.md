@@ -182,7 +182,7 @@ Now how do we manipulate these diagrams?
 
 ##### Adding a Reidemeister 1: ```k.add_r1(x,o,i)```
 
-![r1](https://github.com/mattuff/KirbyCalculus/blob/master/Images/r1.png)
+![r1](https://github.com/mattuff/KirbyCalculus/blob/master/Images/r1.png){width = 30%}
 
 Applying a Reidemeister 1 to the strand on the left– let's call it *x*, in a Kirby diagram *k*– can produce any of the four loops on the right. 
 
