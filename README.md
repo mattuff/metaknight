@@ -150,10 +150,9 @@ j.set_pred_con(c3)
 j.set_succ_con(c4)
 i.set_pred_con(c4)
 
-#or, after we initialize tr1 (the Kirby diagram) we can automatically set all the pre_con/succ_con:
-tr1.set_all_cons()
-
 ```
+
+Setting *pred_con*s and *succ_con*s seems like a lot right now, but don't worry! Once you put everything together into a Kirby diagram *k*, ```k.set_all_cons()``` will take care of it for you.
 
 And putting it all together!
 
