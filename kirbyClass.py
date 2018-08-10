@@ -374,7 +374,7 @@ class Kirby:
       if (crTest(strandMiddle.pred, strandOver, c2)): crossSet(strandMiddle.pred.pred, strandMiddle.pred, 2)
       elif (crTest(strandOver.pred, strandOver, oldC1)): crossSet(strandOver.pred, strandOver.pred.pred, 2)
       elif (crTest(strandMiddle.succ, strandOver, c2)): crossSet(strandMiddle.succ, strandMiddle.succ.succ, 2)
-      elif (crTest(strandOver.succ, strandOver, oldC1)): crossSet(strandOver.succ.succ, strandOver.succ, 2)
+      elif (crTest(strandOver.succ, strandOver, oldC1)): crossSet(strandOver.succ, strandOver.succ.succ, 2)
 
       #setting succ_pred/succ_con
       for i in [c1,c2,c3]: self.set_cons(i)
