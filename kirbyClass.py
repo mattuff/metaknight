@@ -84,7 +84,10 @@ class Kirby:
       for x in self.joins:
          if(x[0].component==c):
             x.strands=[x[1],x[0]]
-            self.set_cons(x)
+            #self.set_cons(x)
+            
+      self.set_all_cons()
+
 
    def disjoint_union(self,k):
       self.crossings+=k.crossings
@@ -363,12 +366,12 @@ class Kirby:
 
       #redefine c1
       if (crTest(strandMiddle.pred, strandOver, c1)): crossSet(strandMiddle.pred.pred,strandMiddle.pred, 1)
-      elif (crTest(strandOver.pred, strandOver, c2)): crossSet(strandOver.pred, strandOver.pred.pred, 1)
+      elif (crTest(strandOver.pred, strandOver, c2)): crossSet(strandOver.pred.pred, strandOver.pred, 1)
       elif (crTest(strandMiddle.succ, strandOver, c1)): crossSet(strandMiddle.succ, strandMiddle.succ.succ, 1)
       elif (crTest(strandOver.succ, strandOver, c2)): crossSet(strandOver.succ, strandOver.succ.succ, 1)
 
       #redefine c2 - use oldC1 since c1 gets redefined above
-      if (crTest(strandMiddle.pred, strandOver, c2)): crossSet(strandMiddle.pred, strandMiddle.pred.pred, 2)
+      if (crTest(strandMiddle.pred, strandOver, c2)): crossSet(strandMiddle.pred.pred, strandMiddle.pred, 2)
       elif (crTest(strandOver.pred, strandOver, oldC1)): crossSet(strandOver.pred, strandOver.pred.pred, 2)
       elif (crTest(strandMiddle.succ, strandOver, c2)): crossSet(strandMiddle.succ, strandMiddle.succ.succ, 2)
       elif (crTest(strandOver.succ, strandOver, oldC1)): crossSet(strandOver.succ.succ, strandOver.succ, 2)
