@@ -374,7 +374,7 @@ class Kirby:
       if (crTest(strandMiddle.pred, strandOver, c2)): crossSet(strandMiddle.pred.pred, strandMiddle.pred, 2)
       elif (crTest(strandOver.pred, strandOver, oldC1)): crossSet(strandOver.pred, strandOver.pred.pred, 2)
       elif (crTest(strandMiddle.succ, strandOver, c2)): crossSet(strandMiddle.succ, strandMiddle.succ.succ, 2)
-      elif (crTest(strandOver.succ, strandOver, oldC1)): crossSet(strandOver.succ.succ, strandOver.succ, 2)
+      elif (crTest(strandOver.succ, strandOver, oldC1)): crossSet(strandOver.succ, strandOver.succ.succ, 2)
 
       #setting succ_pred/succ_con
       for i in [c1,c2,c3]: self.set_cons(i)
@@ -438,12 +438,12 @@ class Kirby:
          self.joins.append(j)
          self.strands.append(a)
          self.components.append(h1)
-      
 
    def handle_slide(self, h1, h2, sign): #h2 is being slid over h1; sign=True if same orientation
       
       s=self.strand_list(h1) #list of strands in h1, in succ order
       l=[]
+      h3=component(2)
       comp_crossings=self.comp_crossings(h1.component) #crossings with only strands in h1
       comp_intersections=self.comp_intersections(h1.component) #crossings w 2 strands in h1, and 2 in another strand
 
@@ -452,29 +452,29 @@ class Kirby:
       lk=self.linking_number(h1.component,h2.component) #linking number of two handles
 
       for k in range (len(s)): #sets up parallel copy of h1
-         st=strand(h2.component)
+         st=strand(h3)
          l.append(st)
       for i in range (len(l)-1): #sets up preds and succs
-         if (sign):
-            l[i].set_pred(l[i-1])
-            if (i < (len(l)-1)):
-               l[i].set_succ(l[i+1])
-            else:
-               l[i].set_succ(l[0])
+##         if (sign):
+         l[i].set_pred(l[i-1])
+         if (i < (len(l)-1)):
+            l[i].set_succ(l[i+1])
          else:
-            l[i].set_succ(l[i-1])
-            if (i < (len(l)-1)):
-               l[i].set_pred(l[i+1])
-            else:
-               l[i].set_pred(l[0])
+            l[i].set_succ(l[0])
+##         else:
+##            l[i].set_succ(l[i-1])
+##            if (i < (len(l)-1)):
+##               l[i].set_pred(l[i+1])
+##            else:
+##               l[i].set_pred(l[0])
       self.strands+=l
 
       for j in self.comp_joins(h1.component): #duplicates joins
          a=s.index(j[0])
-         if (sign):
-            jn=join(l[a],l[a+1])
-         else:
-            jn=join(l[a+1],l[a])
+##         if (sign):
+         jn=join(l[a],l[a+1])
+##         else:
+##            jn=join(l[a+1],l[a])
          self.set_cons(jn)
          self.joins.append(jn)
 
@@ -492,14 +492,14 @@ class Kirby:
          a.set_succ(e)
          c.set_pred(e)
          s.insert(s.index(a)+1, e)
-         if (sign):
-            ee=strand(h2.component, aa, cc)
-            aa.set_succ(ee)
-            cc.set_pred(ee)
-         else:
-            ee=strand(h2.component, cc, aa)
-            cc.set_succ(ee)
-            aa.set_pred(ee)
+##         if (sign):
+         ee=strand(h2.component, aa, cc)
+         aa.set_succ(ee)
+         cc.set_pred(ee)
+##         else:
+##            ee=strand(h2.component, cc, aa)
+##            cc.set_succ(ee)
+##            aa.set_pred(ee)
          l.insert(l.index(aa)+1, ee)
          
          if (var):
@@ -507,29 +507,29 @@ class Kirby:
             s.insert(s.index(b)+1, f)
             b.set_succ(f)
             d.set_pred(f)
-            if (sign):
-               ff=strand(h2.component, bb, dd)
-               bb.set_succ(ff)
-               dd.set_pred(ff)
-            else:
-               ff=strand(h2.component, dd, bb)
-               dd.set_succ(ff)
-               bb.set_pred(ff)
-            l.insert(l.index(bb)+1, ff)
+##            if (sign):
+            ff=strand(h2.component, bb, dd)
+            bb.set_succ(ff)
+            dd.set_pred(ff)
+##            else:
+##               ff=strand(h2.component, dd, bb)
+##               dd.set_succ(ff)
+##               bb.set_pred(ff)
+##            l.insert(l.index(bb)+1, ff)
          else:
             f=strand(h1.component, d, b)
             d.set_succ(f)
             b.set_pred(f)
-            s.insert(s.index(d)+1, f)
-            if (sign):
-               ff=strand(h2.component, dd, bb)
-               dd.set_succ(ff)
-               bb.set_pred(ff)
-            else:
-               ff=strand(h2.component, bb, dd)
-               bb.set_succ(ff)
-               dd.set_pred(ff)
-            l.insert(l.index(d)+1, ff)
+##            s.insert(s.index(d)+1, f)
+##            if (sign):
+            ff=strand(h2.component, dd, bb)
+            dd.set_succ(ff)
+            bb.set_pred(ff)
+##            else:
+##               ff=strand(h2.component, bb, dd)
+##               bb.set_succ(ff)
+##               dd.set_pred(ff)
+            l.insert(l.index(dd)+1, ff)
          self.strands+=[e,ee,f,ff]
          self.crossings.remove(cx)
 
@@ -545,12 +545,12 @@ class Kirby:
          else:
             c1=crossing(a,ff,e,dd)
             c4=crossing(e,f,c,d)
-            if (sign):
-               c2=crossing(aa,bb,ee,ff)
-               c3=crossing(ee,b,cc,f)
-            else:
-               c2=crossing(ee,ff,aa,bb)
-               c3=crossing(cc,f,ee,b)
+##            if (sign):
+            c2=crossing(aa,bb,ee,ff)
+            c3=crossing(ee,b,cc,f)
+##            else:
+##               c2=crossing(ee,ff,aa,bb)
+##               c3=crossing(cc,f,ee,b)
          
          self.crossings+=[c1,c2,c3,c4]
 
@@ -610,60 +610,64 @@ class Kirby:
       #adding extra twists for framing
       pos=(h1.component.framing>0)
          
-      if (sign):
-         for i in range(abs(h1.component.framing)):
-            l1=l[-1]
-            s1=s[-1]
-            self.add_join(l1)
-            self.add_join(l1)
-            l2=l1.succ
-            l3=l1.succ.succ
-            self.add_join(s1)
-            self.add_join(s1)
-            s2=s1.succ
-            s3=s1.succ
-            joinlist=[l1.succ_con, l2.succ_con, s1.succ_con, s2.succ_con]
-            l+=[l2,l3]
-            s+=[s2,s3]
-            if (pos): #clockwise twists
-               c1=crossing(l1,s2,l2,s1)
-               c2=crossing(s2,l3,s3,l2)
-            else: #counterclockwise twists
-               c1=crossing(s1,l1,s2,l2)
-               c2=crossing(s2,l3,s3,l2)
-            self.crossings+=[c1,c2]
-            for j in joinlist:
-               self.joins.remove(j)
-            for i in [c1,c2]:
-               self.set_cons(i)
-      else:
-         for i in range(abs(h1.component.framing)):
-            l1=l[-1]
-            s1=s[-1]
-            self.add_join(l1)
-            self.add_join(l1)
-            l2=l1.succ
-            l3=l2.succ
-            self.add_join(s1)
-            self.add_join(s1)
-            s2=s1.succ
-            s3=s2.succ
-            joinlist=[l1.succ_con, l2.succ_con, s1.succ_con, s2.succ_con]
-            s+=[s2,s3]
-            l.remove(l1)
-            l+=[l3,l2,l1]
-            if (pos): #counterclockwise twists
-               c1=crossing(l2,s1,l3,s2)
-               c2=crossing(s2,l1,s3,l2)
-            else: #clockwise twists
-               c1=crossing(s1,l3,s2,l2)
-               c2=crossing(s2,l1,s3,l2)
-            self.crossings+=[c1,c2]
-            for j in joinlist:
-               self.joins.remove(j)
-            for i in [c1,c2]:
-               self.set_cons(i)
-
+##      if (sign):
+      for i in range(abs(h1.component.framing)):
+         l1=l[-1]
+         s1=s[-1]
+         self.add_join(l1)
+         self.add_join(l1)
+         l2=l1.succ
+         l3=l1.succ.succ
+         self.add_join(s1)
+         self.add_join(s1)
+         s2=s1.succ
+         s3=s1.succ
+         joinlist=[l1.succ_con, l2.succ_con, s1.succ_con, s2.succ_con]
+         l+=[l2,l3]
+         s+=[s2,s3]
+         if (pos): #clockwise twists
+            c1=crossing(l1,s2,l2,s1)
+            c2=crossing(s2,l3,s3,l2)
+         else: #counterclockwise twists
+            c1=crossing(s1,l1,s2,l2)
+            c2=crossing(s2,l3,s3,l2)
+         self.crossings+=[c1,c2]
+         for j in joinlist:
+            self.joins.remove(j)
+         for i in [c1,c2]:
+            self.set_cons(i)
+##      else:
+##         for i in range(abs(h1.component.framing)):
+##            l1=l[-1]
+##            s1=s[-1]
+##            self.add_join(l1)
+##            self.add_join(l1)
+##            l2=l1.succ
+##            l3=l2.succ
+##            self.add_join(s1)
+##            self.add_join(s1)
+##            s2=s1.succ
+##            s3=s2.succ
+##            joinlist=[l1.succ_con, l2.succ_con, s1.succ_con, s2.succ_con]
+##            s+=[s2,s3]
+##            l.remove(l1)
+##            l+=[l3,l2,l1]
+##            if (pos): #counterclockwise twists
+##               c1=crossing(l2,s1,l3,s2)
+##               c2=crossing(s2,l1,s3,l2)
+##            else: #clockwise twists
+##               c1=crossing(s1,l3,s2,l2)
+##               c2=crossing(s2,l1,s3,l2)
+##            self.crossings+=[c1,c2]
+##            for j in joinlist:
+##               self.joins.remove(j)
+##            for i in [c1,c2]:
+##               self.set_cons(i)
+      if (not sign):
+         self.reverse(h3)
+      
+      for i in l:
+         i.set_component(h2.component)
       self.connect_sum(h2,l[0])
       self.remove_joins()
 
