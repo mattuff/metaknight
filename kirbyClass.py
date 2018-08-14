@@ -457,10 +457,9 @@ class Kirby:
       for i in range (len(l)-1): #sets up preds and succs
 ##         if (sign):
          l[i].set_pred(l[i-1])
-         if (i < (len(l)-1)):
+         if (i < (len(l)-2)):
             l[i].set_succ(l[i+1])
-         else:
-            l[i].set_succ(l[0])
+         l[-1].set_succ(l[0])
 ##         else:
 ##            l[i].set_succ(l[i-1])
 ##            if (i < (len(l)-1)):
@@ -551,11 +550,11 @@ class Kirby:
 ##            else:
 ##               c2=crossing(ee,ff,aa,bb)
 ##               c3=crossing(cc,f,ee,b)
-         
          self.crossings+=[c1,c2,c3,c4]
-
-         for i in [c1,c2,c3,c4]:
-            self.set_cons(i)
+         self.set_cons(c1)
+         self.set_cons(c2)
+         self.set_cons(c3)
+         self.set_cons(c4)
       
       for cx in comp_intersections: #turns crossings between h1 and another comp into 2 crossings
          if (cx[0].component==h1.component):
