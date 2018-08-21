@@ -46,15 +46,17 @@ trefoil.set_all_cons()
 #unknot
 unknt = component(2, 0)
 x = strand(unknt)
-y = strand(unknt, x)
-j1 = join(x, y)
-j2 = join(y, x)
-x.set_pred(y)
-x.set_succ(y)
-y.set_succ(x)
-unknot = Kirby([], [j1, j2])
-unknot.rename_all()
-unknot.set_all_cons()
+#y = strand(unknt, x, x)
+j1 = join(x, x)
+#j2 = join(y, x)
+x.set_pred(x)
+x.set_succ(x)
+x.set_pred_con(j1)
+x.set_succ_con(j1)
+#y.set_pred_con(j1)
+#y.set_succ_con(j2)
+unknot = Kirby([], [j1])
+#unknot.set_all_cons()
 
 #print('unknot: \n' + str(unknot) + '\n')
 
@@ -107,7 +109,7 @@ me=Kirby([md],[])
 
 
 #disjoint trefoil and unknot
-trefoil_unknot=Kirby([c1,c2,c3],[j1])
+tr_u=Kirby([c1,c2,c3],[j1])
 
 #two disjoint trefoils
 trr=component(2,3)
