@@ -55,7 +55,7 @@ from componentClass import *
 ##s0=strand(c0)
 ##s0.pred=s0
 ##s0.succ=s0
-##j0=join(s0,s0)
+##j0=join(s0,s0)4
 ##s0.pred_con=j0
 ##s0.succ_con=j0
 ##c1=component(2,0)
@@ -92,7 +92,9 @@ k=Kirby([],j)
 k.add_r2(k[1],k[2],False,False)
 k.add_r2(k[3],k[7],False,False)
 k.add_r2(k[6],k[11],False,False)
-k.add_r3(k[13],k[8],k[3])
-k.reverse(c[0])
-k.add_r3(k[13],k[8],k[4])
-print(k)
+k.add_r3(k[13],k[8],k[3]) #b
+print(str(k)+"\n")
+k.add_r3(k[13],k[8],k[3]) #f #@Yael, this gives [12,3,13,4] but I think it should be [12,4,13,3]
+print(str(k)+"\n")
+k.add_r3(k[13],k[8],k[3]) #b
+print(str(k)+"\n")
