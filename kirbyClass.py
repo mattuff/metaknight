@@ -368,7 +368,7 @@ class Kirby:
       if (crTest(strandMiddle.pred, strandOver, c1)): crossSet(strandMiddle.pred.pred,strandMiddle.pred, 1)
       elif (crTest(strandOver.pred, strandOver, c2)): crossSet(strandOver.pred.pred, strandOver.pred, 1)
       elif (crTest(strandMiddle.succ, strandOver, c1)): crossSet(strandMiddle.succ, strandMiddle.succ.succ, 1)
-      elif (crTest(strandOver.succ, strandOver, c2)): crossSet(strandOver.succ, strandOver.succ.succ, 1)
+      elif (crTest(strandOver.succ, strandOver, c2)): crossSet(strandOver.succ.succ, strandOver.succ, 1)
 
       #redefine c2 - use oldC1 since c1 gets redefined above
       if (crTest(strandMiddle.pred, strandOver, c2)): crossSet(strandMiddle.pred.pred, strandMiddle.pred, 2)
