@@ -92,9 +92,26 @@ k=Kirby([],j)
 k.add_r2(k[1],k[2],False,False)
 k.add_r2(k[3],k[7],False,False)
 k.add_r2(k[6],k[11],False,False)
-k.add_r3(k[13],k[8],k[3]) #b
-print(str(k)+"\n")
-k.add_r3(k[13],k[8],k[3]) #f #@Yael, this gives [12,3,13,4] but I think it should be [12,4,13,3]
-print(str(k)+"\n")
-k.add_r3(k[13],k[8],k[3]) #b
-print(str(k)+"\n")
+k.add_r3(k[13],k[8],k[3])
+
+
+
+##k.reverse(c[2]) #a
+##s=str(k)
+##print(s+"\n")
+##k.add_r3(k[14],k[8],k[3]) #h #@Yael, this gives [13,7,14,8] but I think it should be [13,8,14,7]
+##print(str(k)+"\n")
+##k.add_r3(k[14],k[8],k[3]) #a
+##print(str(k)==s)
+##print(k)
+
+
+
+##k.reverse(c[1]) #d
+##s=str(k)
+##print(s+"\n")
+##k.add_r3(k[13],k[9],k[3]) #e #@Yael, this gives [13,9,14,10] but I think it should be [13,10,14,9]
+##print(str(k)+"\n")
+##k.add_r3(k[13],k[9],k[3]) #d
+##print(str(k)==s)
+##print(k)
